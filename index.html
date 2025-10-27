@@ -36,8 +36,8 @@
                     }
                   </style>
                   <script>
-                const width = window.innerWidth
-                const height = window.innerHeight
+                const width = window.innerWidth > 768 ? 1920 : window.innerWidth
+const height = window.innerHeight > 768 ? 1080 : window.innerHeight
                 const resolutionRatio = width && height ? width / height : 1
                 const pageNameMap = {
                   'home': 'الصفحة الرئيسية',

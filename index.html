@@ -36,8 +36,8 @@
                     }
                   </style>
                   <script>
-                const width = 1920
-                const height = 1080
+                const width = window.innerWidth
+                const height = window.innerHeight
                 const resolutionRatio = width && height ? width / height : 1
                 const pageNameMap = {
                   'home': 'الصفحة الرئيسية',
@@ -70,7 +70,7 @@
                   const { width, height, zoom } = setIframeSize(window.innerWidth, window.innerHeight)
                   iframeWrapper.style.height = height
                   iframeWrapper.style.width = width
-                  iframeWrapper.style.transform = 'scale(' + zoom + ')'
+                  iframeWrapper.style.transform = window.innerWidth < 768 ? 'scale(1)' : 'scale(' + zoom + ')'
                 }
                 function sanitizeFilename(name) {
                   return name.replace(/[\/:*?"<>|]/g, '_')

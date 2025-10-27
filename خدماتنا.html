@@ -1,0 +1,1072 @@
+
+                <!DOCTYPE html>
+                <html lang="zh">
+                <head>
+                  <meta charset="UTF-8">
+                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                  <title>خدماتنا</title>
+                  <style>
+                    *,
+                    *::before,
+                    *::after {
+                      box-sizing: border-box;
+                      margin: 0;
+                    }
+                    .iframe-outer {
+                      position: fixed;
+                      top: 0;
+                      left: 0;
+                      bottom: 0;
+                      right: 0;
+                      display: flex;
+                      justify-content: center;
+                      background-color: #E0E0E0;
+                    }
+                    .iframe-wrapper {
+                      width: 100%;
+                      height: 100%;
+                      margin: 0 auto;
+                      transform-origin: center top;
+                      flex-shrink: 0;
+                    }
+                    #dynamicIframe {
+                      border: none;
+                      width: 100%;
+                      height: 100%;
+                    }
+                  </style>
+                  <script>
+                const width = 1920
+                const height = 1080
+                const resolutionRatio = width && height ? width / height : 1
+                const pageNameMap = {
+                  'home': 'الصفحة الرئيسية',
+    'achievements_history': 'إنجازاتنا وتاريخنا',
+    'services': 'خدماتنا',
+    'projects': 'مشاريعنا',
+    'contact_us': 'اتصل بنا'
+                }
+                function setIframeSize(w, h) {
+                  const currentContainerRadio = w / h
+                  let widthValue = w
+                  let heightValue = h
+                  let zoom = 1
+                  if (currentContainerRadio > resolutionRatio) {
+                    widthValue = h * resolutionRatio
+                    heightValue = h
+                  } else {
+                    widthValue = w
+                    heightValue = w / resolutionRatio
+                  }
+                  zoom = width ? widthValue / width : 1
+                  return {
+                    width: widthValue / zoom + 'px',
+                    height: heightValue / zoom + 'px',
+                    zoom,
+                  }
+                }
+                function adjustIframeSize() {
+                  const iframeWrapper = document.querySelector(".iframe-wrapper")
+                  const { width, height, zoom } = setIframeSize(window.innerWidth, window.innerHeight)
+                  iframeWrapper.style.height = height
+                  iframeWrapper.style.width = width
+                  iframeWrapper.style.transform = 'scale(' + zoom + ')'
+                }
+                function sanitizeFilename(name) {
+                  return name.replace(/[\/:*?"<>|]/g, '_')
+                }
+                function handlePostMessage(event) {
+                  if (!event.data) {
+                    return
+                  }
+                  const { type, targetPageId } = event.data
+                  const targetPageName = pageNameMap[targetPageId]
+                  if (type === "iframeNavigation" && targetPageId && targetPageName) {
+                    window.location.href = targetPageName + '.html'
+                  }
+                }
+                window.addEventListener('message', handlePostMessage)
+                window.onload = adjustIframeSize
+                window.onresize = adjustIframeSize
+                window.onunload = () => {
+                  window.removeEventListener('message', handlePostMessage)
+                }
+              </script>
+                </head>
+                <body>
+                  <div class="iframe-outer">
+                    <div class="iframe-wrapper">
+                      <iframe id="dynamicIframe" srcdoc='<html lang="ar" data-theme="corporate" dir="rtl"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خدماتنا - المكتب الاستشاري الهندسي</title>
+    <link href="./assets/11514579/npm/daisyui@5.css" rel="stylesheet" type="text/css">
+    <script src="./assets/81557572/npm/@tailwindcss/browser@4.js"></script>
+    <link href="./assets/npm/daisyui@5/themes.css" rel="stylesheet" type="text/css">
+    <script src="./assets/3/3.1.1/iconify.min.js"></script>
+    <style>
+/* CSS code for common usage*/
+/* daisyUI Theme Variables Customization
+* Based on the selected daisyUI theme and UI guidance requirements,
+* customize only the CSS variables that need to be different from the theme defaults.
+* Available theme variables for customization:
+*/
+/* Only modify if different from chosen theme defaults */
+:root {
+/* Customize brand colors for engineering consultancy office */
+--color-primary: rgba(44, 62, 80, 1); /* Deep navy #2C3E50 */
+--color-primary-content: rgba(255, 255, 255, 1);
+--color-secondary: rgba(52, 73, 94, 1); /* Charcoal #34495E */
+--color-secondary-content: rgba(255, 255, 255, 1);
+--color-accent: rgba(74, 74, 74, 1); /* Medium charcoal #4A4A4A */
+--color-accent-content: rgba(255, 255, 255, 1);
+--color-base-100: rgba(253, 253, 253, 1); /* Soft ivory #FDFDFD */
+--color-base-200: rgba(249, 249, 249, 1); /* Light gray #F9F9F9 */
+--color-base-300: rgba(240, 240, 240, 1); /* Border gray */
+--color-base-content: rgba(51, 51, 51, 1); /* Primary text charcoal #333333 */
+--color-neutral: rgba(102, 102, 102, 1); /* Secondary text #666666 */
+--color-neutral-content: rgba(255, 255, 255, 1);
+--color-success: rgba(76, 175, 80, 1); /* Muted green #4CAF50 */
+--color-warning: rgba(255, 193, 7, 1); /* Soft amber #FFC107 */
+--color-error: rgba(244, 67, 54, 1); /* Deep red #F44336 */
+--color-info: rgba(33, 150, 243, 1); /* Calm blue #2196F3 */
+--radius-box: 0.5rem; /* 8px for modern feel */
+--radius-field: 0.375rem; /* 6px for input fields */
+--radius-selector: 0.25rem; /* 4px for small elements */
+}
+
+/* Additional custom styles for common usage */
+.header-height {
+height: 64px;
+}
+.mega-menu-transition {
+transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+.breadcrumb-separator::after {
+content: "›";
+margin: 0 0.5rem;
+color: var(--color-base-content);
+opacity: 0.5;
+}
+.breadcrumb-separator:last-child::after {
+display: none;
+}
+
+/* Subtle shadows for corporate feel */
+.card-shadow {
+box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+}
+.hover-shadow {
+transition: box-shadow 0.2s ease-in-out;
+}
+.hover-shadow:hover {
+box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Typography enhancements */
+.text-secondary {
+color: var(--color-neutral);
+}
+.text-light {
+color: rgba(170, 170, 170, 1); /* Light gray #AAAAAA */
+}
+</style> <style>
+/* Custom styles for services page */
+.hover-shadow {
+    transition: all 0.3s ease;
+}
+
+.hover-shadow:hover {
+    transform: translateY(-4px);
+    box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* Hero section gradient overlay enhancement */
+.hero-overlay {
+    background: linear-gradient(135deg, rgba(44, 62, 80, 0.3) 0%, rgba(52, 73, 94, 0.2) 100%);
+}
+
+/* Service card hover effects */
+.card.group:hover .iconify {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+
+.card.group .iconify {
+    transition: transform 0.3s ease;
+}
+
+/* Subtle texture for card backgrounds */
+.card {
+    background: linear-gradient(145deg, var(--color-base-100) 0%, rgba(249, 249, 249, 0.8) 100%);
+    backdrop-filter: blur(10px);
+}
+
+/* Enhanced button hover states */
+.btn:hover {
+    transform: translateY(-1px);
+    transition: all 0.2s ease;
+}
+
+/* Decorative elements animation */
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(5deg); }
+}
+
+.hero .iconify {
+    animation: float 6s ease-in-out infinite;
+}
+
+.hero .iconify:nth-child(2) {
+    animation-delay: -2s;
+}
+
+.hero .iconify:nth-child(3) {
+    animation-delay: -4s;
+}
+
+/* RTL specific adjustments */
+[dir="rtl"] .card-actions {
+    justify-content: flex-start;
+}
+
+[dir="rtl"] .iconify[data-icon*="arrow-left"] {
+    transform: scaleX(-1);
+}
+
+/* Responsive enhancements */
+@media (max-width: 768px) {
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-content p {
+        font-size: 1.125rem;
+    }
+    
+    .card-body {
+        padding: 1.5rem;
+    }
+}
+
+/* Micro-texture for sophisticated feel */
+.bg-base-200 {
+    background-image: 
+        radial-gradient(circle at 1px 1px, rgba(44, 62, 80, 0.02) 1px, transparent 0);
+    background-size: 20px 20px;
+}
+
+/* Enhanced focus states for accessibility */
+.btn:focus-visible,
+.card:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+</style>
+  </head>
+  <body class="min-h-screen flex flex-col bg-base-100">
+    <div data-section-id="common_header" data-section-type="common_header" class="navbar bg-base-100 border-b border-base-300 sticky top-0 z-50 header-height px-4 lg:px-8">
+<!-- Logo Section -->
+<div class="navbar-start">
+<button data-type="button" onclick="HeaderNavigation.toggleMobileMenu()" class="btn btn-ghost lg:hidden">
+<span id="hamburger-icon" class="iconify" data-icon="heroicons:bars-3" data-width="24"></span>
+<span id="close-icon" class="iconify hidden" data-icon="heroicons:x-mark" data-width="24"></span>
+</button>
+<button data-type="button" onclick="navigateTo(&#39;home&#39;)" class="btn btn-ghost normal-case text-xl font-bold text-primary">
+<span class="iconify" data-icon="heroicons:building-office-2-solid" data-width="32"></span>
+<span data-type="text">مكتب التزامن للاستشارات الهندسية</span>
+</button>
+</div>
+
+<!-- Desktop Navigation -->
+<div class="navbar-center hidden lg:flex">
+<ul class="menu menu-horizontal px-1 gap-2">
+<li>
+<button data-type="button" data-nav-item="home" onclick="navigateTo(&#39;home&#39;)" class="btn btn-ghost">
+<span data-type="text">الرئيسية</span>
+</button>
+</li>
+<li class="relative">
+<button data-type="button" data-nav-item="about_us" onmouseover="HeaderNavigation.showServicesMenu()" onmouseleave="HeaderNavigation.hideServicesMenu()" class="btn btn-ghost">
+<span data-type="text">عن المكتب</span>
+<span class="iconify" data-icon="heroicons:chevron-down" data-width="16"></span>
+</button>
+<!-- About Us Mega Menu -->
+<div id="services-mega-menu" onmouseover="HeaderNavigation.showServicesMenu()" onmouseleave="HeaderNavigation.hideServicesMenu()" class="absolute top-full left-0 w-96 bg-base-100 shadow-xl rounded-box p-6 opacity-0 invisible mega-menu-transition">
+<div data-type="container" class="grid grid-cols-1 gap-4">
+<button data-type="button" onclick="navigateTo(&#39;about_us&#39;)" class="card compact bg-base-200 hover:bg-primary/10 transition-colors duration-200">
+<div class="card-body">
+<h3 data-type="text" class="card-title text-sm">نبذة عن المكتب</h3>
+<p data-type="text" class="text-xs text-base-content/70">تعرف على رؤيتنا ورسالتنا وقيمنا الأساسية</p>
+</div>
+</button>
+<button data-type="button" onclick="navigateTo(&#39;team&#39;)" class="card compact bg-base-200 hover:bg-primary/10 transition-colors duration-200">
+<div class="card-body">
+<h3 data-type="text" class="card-title text-sm">فريق العمل</h3>
+<p data-type="text" class="text-xs text-base-content/70">تعرف على خبراء المكتب والكوادر المتخصصة</p>
+</div>
+</button>
+<button data-type="button" onclick="navigateTo(&#39;achievements_history&#39;)" class="card compact bg-base-200 hover:bg-primary/10 transition-colors duration-200">
+<div class="card-body">
+<h3 data-type="text" class="card-title text-sm">إنجازاتنا وتاريخنا</h3>
+<p data-type="text" class="text-xs text-base-content/70">اطلع على مسيرتنا وأبرز إنجازاتنا</p>
+</div>
+</button>
+</div>
+</div>
+</li>
+<li>
+<button data-type="button" data-nav-item="services" onclick="navigateTo(&#39;services&#39;)" class="btn btn-ghost">
+<span data-type="text">خدماتنا</span>
+</button>
+</li>
+<li>
+<button data-type="button" data-nav-item="projects" onclick="navigateTo(&#39;projects&#39;)" class="btn btn-ghost">
+<span data-type="text">مشاريعنا</span>
+</button>
+</li>
+<li>
+<button data-type="button" data-nav-item="careers" onclick="navigateTo(&#39;careers&#39;)" class="btn btn-ghost">
+<span data-type="text">وظائف</span>
+</button>
+</li>
+<li>
+<button data-type="button" data-nav-item="contact_us" onclick="navigateTo(&#39;contact_us&#39;)" class="btn btn-ghost">
+<span data-type="text">اتصل بنا</span>
+</button>
+</li>
+</ul>
+</div>
+
+<!-- Action Buttons -->
+<div class="navbar-end gap-2">
+<button data-type="button" onclick="navigateTo(&#39;contact_us&#39;)" class="btn btn-primary">
+<span class="iconify" data-icon="heroicons:phone" data-width="20"></span>
+<span data-type="text" class="hidden sm:inline">تواصل معنا</span>
+</button>
+<div data-type="container" class="dropdown dropdown-end">
+<label tabindex="0" class="btn btn-ghost">
+<span class="iconify" data-icon="heroicons:language" data-width="20"></span>
+<span data-type="text" class="hidden md:inline">AR</span>
+</label>
+<ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-32">
+<li><a data-type="text" href="#">العربية</a></li>
+<li><a data-type="text" href="#">English</a></li>
+</ul>
+</div>
+<button data-type="button" class="btn btn-ghost btn-circle">
+<span class="iconify" data-icon="heroicons:envelope" data-width="20"></span>
+</button>
+</div>
+
+<!-- Mobile Navigation Menu -->
+<div id="mobile-nav-menu" class="absolute top-full left-0 right-0 bg-base-100 border-b border-base-300 hidden lg:hidden">
+<ul class="menu menu-vertical p-4 gap-2">
+<li>
+<button data-type="button" data-nav-item="home" onclick="navigateTo(&#39;home&#39;); HeaderNavigation.toggleMobileMenu()" class="btn btn-ghost justify-start">
+<span data-type="text">الرئيسية</span>
+</button>
+</li>
+<li>
+<button data-type="button" data-nav-item="about_us" onclick="navigateTo(&#39;about_us&#39;); HeaderNavigation.toggleMobileMenu()" class="btn btn-ghost justify-start">
+<span data-type="text">عن المكتب</span>
+</button>
+</li>
+<li>
+<button data-type="button" data-nav-item="services" onclick="navigateTo(&#39;services&#39;); HeaderNavigation.toggleMobileMenu()" class="btn btn-ghost justify-start">
+<span data-type="text">خدماتنا</span>
+</button>
+</li>
+<li>
+<button data-type="button" data-nav-item="projects" onclick="navigateTo(&#39;projects&#39;); HeaderNavigation.toggleMobileMenu()" class="btn btn-ghost justify-start">
+<span data-type="text">مشاريعنا</span>
+</button>
+</li>
+<li>
+<button data-type="button" data-nav-item="careers" onclick="navigateTo(&#39;careers&#39;); HeaderNavigation.toggleMobileMenu()" class="btn btn-ghost justify-start">
+<span data-type="text">وظائف</span>
+</button>
+</li>
+<li>
+<button data-type="button" data-nav-item="contact_us" onclick="navigateTo(&#39;contact_us&#39;); HeaderNavigation.toggleMobileMenu()" class="btn btn-ghost justify-start">
+<span data-type="text">اتصل بنا</span>
+</button>
+</li>
+</ul>
+</div>
+</div>
+<style>
+[data-section-id="common_header"] .navbar {
+min-height: 64px;
+}
+[data-section-id="common_header"] .mega-menu-transition {
+transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+[data-section-id="common_header"] .dropdown:hover .dropdown-content {
+display: block;
+}
+[data-section-id="common_header"] .btn:hover {
+background-color: var(--color-primary);
+background-color: rgba(44, 62, 80, 0.1);
+}
+</style>
+<script>
+(function() {
+// Initialize header on page load
+document.addEventListener(&#39;DOMContentLoaded&#39;, function() {
+// Close mobile menu when clicking outside
+document.addEventListener(&#39;click&#39;, function(e) {
+const mobileMenu = document.getElementById(&#39;mobile-nav-menu&#39;);
+const hamburgerBtn = e.target.closest(&#39;.btn&#39;);
+if (mobileMenu &amp;&amp; !mobileMenu.classList.contains(&#39;hidden&#39;) &amp;&amp; !mobileMenu.contains(e.target) &amp;&amp; !hamburgerBtn) {
+HeaderNavigation.toggleMobileMenu();
+}
+});
+});
+})();
+</script><!-- Breadcrumb --><div data-section-id="common_breadcrumb" data-section-type="common_section" class="bg-base-200 py-4 px-4 lg:px-8">
+<div data-type="container" class="max-w-7xl mx-auto">
+<div class="text-sm breadcrumbs">
+<ul>
+<li class="breadcrumb-separator">
+<a data-type="text" href="#" onclick="navigateTo(&#39;home&#39;)" class="flex items-center gap-1 text-primary hover:text-primary/80">
+<span class="iconify" data-icon="heroicons:home-solid" data-width="16"></span>
+<span>الرئيسية</span>
+</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<style>
+[data-section-id="common_breadcrumb"] .breadcrumb-separator::after {
+content: "›";
+margin: 0 0.5rem;
+color: var(--color-base-content);
+opacity: 0.5;
+}
+[data-section-id="common_breadcrumb"] .breadcrumb-separator:last-child::after {
+display: none;
+}
+[data-section-id="common_breadcrumb"] a {
+transition: color 0.2s ease-in-out;
+}
+</style>
+<script>
+(function() {
+// Breadcrumb component is managed through the global BreadcrumbNavigation object
+// Usage example:
+// BreadcrumbNavigation.updateBreadcrumb([
+//   { name: &#39;الرئيسية&#39;, pageId: &#39;home&#39; },
+//   { name: &#39;خدماتنا&#39;, pageId: &#39;services&#39; },
+//   { name: &#39;الاستشارات الهندسية&#39;, pageId: &#39;service_detail&#39; }
+// ]);
+})();
+</script><!-- Main Content -->
+    <main class="flex-1">
+      <!-- Hero Section -->
+      <section data-section-id="HeroSection" id="ikhc4a" class="hero min-h-96 relative overflow-hidden" style="background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);">
+        <div class="hero-overlay bg-black/20"></div>
+        <div class="hero-content text-center text-white relative z-10">
+          <div class="max-w-4xl">
+            <!-- Decorative Engineering Icons -->
+            <div class="absolute inset-0 opacity-10 pointer-events-none">
+              <div class="absolute top-8 right-16">
+                <span class="iconify text-6xl" data-icon="heroicons:cog-6-tooth" data-width="96"></span>
+              </div>
+              <div class="absolute bottom-12 left-20">
+                <span class="iconify text-5xl" data-icon="heroicons:building-office-2" data-width="80"></span>
+              </div>
+              <div class="absolute top-20 left-1/4">
+                <span class="iconify text-4xl" data-icon="heroicons:calculator" data-width="64"></span>
+              </div>
+            </div>
+            <h1 data-type="text" class="mb-8 text-5xl lg:text-6xl font-bold leading-tight">
+              خدماتنا الاستشارية الهندسية
+            </h1>
+            <p data-type="text" class="mb-8 text-xl lg:text-2xl leading-relaxed max-w-3xl mx-auto opacity-90">
+              نقدم حلولاً هندسية متكاملة ومبتكرة تلبي احتياجات مشاريعكم بأعلى
+              معايير الجودة والاحترافية، مع فريق من الخبراء المتخصصين في مختلف
+              المجالات الهندسية
+            </p>
+          </div>
+        </div>
+      </section>
+      <!-- Featured Services Section -->
+      <section data-section-id="FeaturedServicesSection" id="iw2m4g" class="py-24 bg-base-100 iw2m4g spark-custom-iw2m4g iw2m4g">
+        <div class="max-w-7xl mx-auto px-4 lg:px-8">
+          <div class="text-center mb-16">
+            <h2 data-type="text" class="text-4xl lg:text-5xl font-bold text-base-content mb-6">
+              نطاق خدماتنا المتخصص
+            </h2>
+            <p data-type="text" class="text-xl text-neutral max-w-3xl mx-auto leading-relaxed">
+              نبرز هنا أهم الخدمات الاستشارية التي نقدمها بخبرة عالية ومعايير
+              دولية
+            </p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Featured Service 1: Architectural Consulting -->
+            <div data-type="container" data-repeatable="true" class="card bg-base-100 shadow-lg hover-shadow border border-base-300 group">
+              <div id="ittt5p" class="card-body p-8 text-center ittt5p spark-custom-ittt5p">
+                <div class="flex justify-center mb-6">
+                  <div class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <span class="iconify text-primary" data-icon="heroicons:map" data-width="40"></span>
+                  </div>
+                </div>
+                <h3 data-type="text" class="card-title text-2xl font-bold text-base-content mb-4 justify-center">
+                  هندسة المساحة
+                </h3>
+                <p data-type="text" class="text-neutral leading-relaxed mb-6">
+                  خدمات المساحة الأرضية والجوية وإعداد الخرائط الطبوغرافية
+                  والتخطيط العمراني باستخدام أحدث التقنيات والأجهزة المتطورة
+                </p>
+                <div class="card-actions justify-center">
+                  <button data-type="button" class="btn btn-primary btn-lg" onclick="navigateTo(&#39;service_detail&#39;)">
+                    <span data-type="text">عرض التفاصيل</span><span class="iconify mr-2" data-icon="heroicons:arrow-left" data-width="20"></span>
+                  </button>
+                </div>
+              </div>
+              <div id="ittt5p-2" class="card-body p-8 text-center ittt5p">
+                <div class="flex justify-center mb-6">
+                  <div class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <span class="iconify text-primary ivuhpt spark-custom-ivuhpt ivuhpt" data-icon="heroicons:home-modern" data-width="40" id="ivuhpt"></span>
+                  </div>
+                </div>
+                <h3 data-type="text" class="card-title text-2xl font-bold text-base-content mb-4 justify-center">
+                  الهندسة المعمارية
+                </h3>
+                <p data-type="text" class="text-neutral leading-relaxed mb-6">
+                  تصميم وتخطيط المباني والمنشآت المعمارية بأحدث المعايير
+                  العالمية والتقنيات المتطورة مع مراعاة الجوانب الجمالية
+                  والوظيفية
+                </p>
+                <div class="card-actions justify-center">
+                  <button data-type="button" class="btn btn-primary btn-lg" onclick="navigateTo(&#39;service_detail&#39;)">
+                    <span data-type="text">عرض التفاصيل</span><span class="iconify mr-2" data-icon="heroicons:arrow-left" data-width="20"></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- Featured Service 2: Civil Engineering -->
+            <div data-type="container" data-repeatable="true" class="card bg-base-100 shadow-lg hover-shadow border border-base-300 group">
+              <div id="i3nnmw" class="card-body p-8 text-center i3nnmw spark-custom-i3nnmw">
+                <div id="ifb0ko" class="flex justify-center mb-6 ifb0ko spark-custom-ifb0ko">
+                  <div class="w-20 h-20 bg-secondary/10 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <span class="iconify text-secondary" data-icon="heroicons:wrench-screwdriver" data-width="40"></span>
+                  </div>
+                </div>
+                <h3 data-type="text" class="card-title text-2xl font-bold text-base-content mb-4 justify-center">
+                  الهندسة المدنية
+                </h3>
+                <p data-type="text" class="text-neutral leading-relaxed mb-6">
+                  تصميم الهياكل الإنشائية والطرق والجسور وأنظمة البنية التحتية
+                  مع ضمان السلامة والاستدامة
+                </p>
+                <div class="card-actions justify-center">
+                  <button data-type="button" class="btn btn-secondary btn-lg" onclick="navigateTo(&#39;service_detail&#39;)">
+                    <span data-type="text">عرض التفاصيل</span><span class="iconify mr-2" data-icon="heroicons:arrow-left" data-width="20"></span>
+                  </button>
+                </div>
+              </div>
+              <div id="i2z13g" class="card-body p-8 text-center i3nnmw">
+                <div id="i2bbxh" class="flex justify-center mb-6 ifb0ko">
+                  <div class="w-20 h-20 bg-secondary/10 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <span class="iconify text-secondary" data-icon="heroicons:cog-6-tooth" data-width="40"></span>
+                  </div>
+                </div>
+                <h3 data-type="text" id="i9o0v1" class="card-title text-2xl font-bold text-base-content mb-4 justify-center i9o0v1 spark-custom-i9o0v1">
+                  الهندسة الميكانيكية
+                </h3>
+                <p data-type="text" id="ik174d" class="text-neutral leading-relaxed mb-6 ik174d spark-custom-ik174d">
+                  تصميم وتطوير الأنظمة الميكانيكية المتطورة وأنظمة التكييف
+                  والتهوية والتبريد والمعدات الصناعية والآلات الدقيقة مع ضمان
+                  أعلى معايير الكفاءة والأداء الأمثل والاستدامة البيئية
+                </p>
+                <div class="card-actions justify-center">
+                  <button data-type="button" class="btn btn-secondary btn-lg" onclick="navigateTo(&#39;service_detail&#39;)">
+                    <span data-type="text">عرض التفاصيل</span><span class="iconify mr-2" data-icon="heroicons:arrow-left" data-width="20"></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- Featured Service 3: Electrical Engineering -->
+            <div data-type="container" data-repeatable="true" class="card bg-base-100 shadow-lg hover-shadow border border-base-300 group">
+              <div id="i106le" class="card-body p-8 text-center i106le spark-custom-i106le">
+                <div class="flex justify-center mb-6">
+                  <div class="w-20 h-20 bg-accent/10 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <span class="iconify text-accent" data-icon="heroicons:bolt" data-width="40"></span>
+                  </div>
+                </div>
+                <h3 data-type="text" class="card-title text-2xl font-bold text-base-content mb-4 justify-center">
+                  الهندسة الكهربائية
+                </h3>
+                <p data-type="text" class="text-neutral leading-relaxed mb-6">
+                  تصميم الأنظمة الكهربائية والإلكترونية وأنظمة الطاقة المتجددة
+                  والتحكم الآلي
+                </p>
+                <div class="card-actions justify-center">
+                  <button data-type="button" class="btn btn-accent btn-lg" onclick="navigateTo(&#39;service_detail&#39;)">
+                    <span data-type="text">عرض التفاصيل</span><span class="iconify mr-2" data-icon="heroicons:arrow-left" data-width="20"></span>
+                  </button>
+                </div>
+              </div>
+              <div id="irn48l" class="card-body p-8 text-center i106le">
+                <div class="flex justify-center mb-6">
+                  <div class="w-20 h-20 bg-accent/10 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <span class="iconify text-accent" data-icon="heroicons:bolt" data-width="40"></span>
+                  </div>
+                </div>
+                <h3 data-type="text" id="ihqwy2" class="card-title text-2xl font-bold text-base-content mb-4 justify-center ihqwy2 spark-custom-ihqwy2">
+                  هندسة السلامه والوقايه من الحريق
+                </h3>
+                <p data-type="text" id="io2e5l" class="text-neutral leading-relaxed mb-6 io2e5l spark-custom-io2e5l">
+                  تصميم وتنفيذ أنظمة السلامة والوقاية من الحريق وأنظمة الإنذار
+                  المبكر وطرق الإخلاء الآمن
+                </p>
+                <div class="card-actions justify-center">
+                  <button data-type="button" class="btn btn-accent btn-lg" onclick="navigateTo(&#39;service_detail&#39;)">
+                    <span data-type="text">عرض التفاصيل</span><span class="iconify mr-2" data-icon="heroicons:arrow-left" data-width="20"></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Services Grid Section -->
+      <section data-section-id="ServicesGridSection" class="py-24 bg-base-200">
+        <div class="max-w-7xl mx-auto px-4 lg:px-8">
+          <div class="text-center mb-16">
+            <h2 data-type="text" class="text-4xl lg:text-5xl font-bold text-base-content mb-6">
+              جميع خدماتنا الاستشارية
+            </h2>
+            <p data-type="text" class="text-xl text-neutral max-w-3xl mx-auto leading-relaxed">
+              استكشف مجموعة شاملة من الخدمات الهندسية المتخصصة التي نقدمها
+              لعملائنا
+            </p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Service Card 1 -->
+            <div data-type="container" data-repeatable="true" class="card bg-base-100 shadow-md hover-shadow border border-base-300 group cursor-pointer" onclick="navigateTo(&#39;service_detail&#39;)">
+              <div class="card-body p-6">
+                <div class="flex items-center gap-4 mb-4">
+                  <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center shrink-0">
+                    <span class="iconify text-primary" data-icon="heroicons:home-modern" data-width="24"></span>
+                  </div>
+                  <h3 data-type="text" class="card-title text-lg font-bold text-base-content">
+                    التصميم المعماري
+                  </h3>
+                </div>
+                <p data-type="text" class="text-neutral text-sm leading-relaxed mb-4">
+                  تصميم المباني السكنية والتجارية بأحدث المعايير
+                </p>
+                <div class="card-actions">
+                  <button data-type="button" class="btn btn-outline btn-primary btn-sm">
+                    <span data-type="text">اكتشف المزيد</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- Service Card 2 -->
+            <div data-type="container" data-repeatable="true" class="card bg-base-100 shadow-md hover-shadow border border-base-300 group cursor-pointer" onclick="navigateTo(&#39;service_detail&#39;)">
+              <div class="card-body p-6">
+                <div class="flex items-center gap-4 mb-4">
+                  <div class="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center shrink-0">
+                    <span class="iconify text-secondary" data-icon="heroicons:cube" data-width="24"></span>
+                  </div>
+                  <h3 data-type="text" class="card-title text-lg font-bold text-base-content">
+                    التصميم الإنشائي
+                  </h3>
+                </div>
+                <p data-type="text" class="text-neutral text-sm leading-relaxed mb-4">
+                  حسابات وتصميم الهياكل الخرسانية والمعدنية
+                </p>
+                <div class="card-actions">
+                  <button data-type="button" class="btn btn-outline btn-secondary btn-sm">
+                    <span data-type="text">اكتشف المزيد</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- Service Card 3 -->
+            <div data-type="container" data-repeatable="true" class="card bg-base-100 shadow-md hover-shadow border border-base-300 group cursor-pointer" onclick="navigateTo(&#39;service_detail&#39;)">
+              <div class="card-body p-6">
+                <div class="flex items-center gap-4 mb-4">
+                  <div class="w-12 h-12 bg-info/10 rounded-lg flex items-center justify-center shrink-0">
+                    <span class="iconify text-info" data-icon="heroicons:light-bulb" data-width="24"></span>
+                  </div>
+                  <h3 data-type="text" class="card-title text-lg font-bold text-base-content">
+                    الأنظمة الكهربائية
+                  </h3>
+                </div>
+                <p data-type="text" class="text-neutral text-sm leading-relaxed mb-4">
+                  تصميم شبكات الكهرباء والإضاءة والتحكم
+                </p>
+                <div class="card-actions">
+                  <button data-type="button" class="btn btn-outline btn-info btn-sm">
+                    <span data-type="text">اكتشف المزيد</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- Service Card 4 -->
+            <div data-type="container" data-repeatable="true" class="card bg-base-100 shadow-md hover-shadow border border-base-300 group cursor-pointer" onclick="navigateTo(&#39;service_detail&#39;)">
+              <div class="card-body p-6">
+                <div class="flex items-center gap-4 mb-4">
+                  <div class="w-12 h-12 bg-success/10 rounded-lg flex items-center justify-center shrink-0">
+                    <span class="iconify text-success" data-icon="heroicons:beaker" data-width="24"></span>
+                  </div>
+                  <h3 data-type="text" class="card-title text-lg font-bold text-base-content">
+                    الأنظمة الصحية
+                  </h3>
+                </div>
+                <p data-type="text" class="text-neutral text-sm leading-relaxed mb-4">
+                  تصميم شبكات المياه والصرف الصحي
+                </p>
+                <div class="card-actions">
+                  <button data-type="button" class="btn btn-outline btn-success btn-sm">
+                    <span data-type="text">اكتشف المزيد</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- Service Card 5 -->
+            <div data-type="container" data-repeatable="true" class="card bg-base-100 shadow-md hover-shadow border border-base-300 group cursor-pointer" onclick="navigateTo(&#39;service_detail&#39;)">
+              <div id="ilbf2n" class="card-body p-6 ilbf2n spark-custom-ilbf2n">
+                <div id="iyxh3p" class="flex items-center gap-4 mb-4 iyxh3p spark-custom-iyxh3p">
+                  <div class="w-12 h-12 bg-warning/10 rounded-lg flex items-center justify-center shrink-0">
+                    <span class="iconify text-warning" data-icon="heroicons:fire" data-width="24"></span>
+                  </div>
+                  <h3 data-type="text" class="card-title text-lg font-bold text-base-content">
+                    أنظمة السلامة
+                  </h3>
+                </div>
+                <p data-type="text" class="text-neutral text-sm leading-relaxed mb-4">
+                  تصميم أنظمة الإنذار ومكافحة الحريق
+                </p>
+                <div class="card-actions">
+                  <button data-type="button" class="btn btn-outline btn-warning btn-sm">
+                    <span data-type="text">اكتشف المزيد</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- Service Card 6 -->
+            <div data-type="container" data-repeatable="true" class="card bg-base-100 shadow-md hover-shadow border border-base-300 group cursor-pointer" onclick="navigateTo(&#39;service_detail&#39;)">
+              <div class="card-body p-6">
+                <div class="flex items-center gap-4 mb-4">
+                  <div class="w-12 h-12 bg-error/10 rounded-lg flex items-center justify-center shrink-0">
+                    <span class="iconify text-error" data-icon="heroicons:chart-bar" data-width="24"></span>
+                  </div>
+                  <h3 data-type="text" class="card-title text-lg font-bold text-base-content">
+                    دراسات الجدوى
+                  </h3>
+                </div>
+                <p data-type="text" class="text-neutral text-sm leading-relaxed mb-4">
+                  تحليل وتقييم المشاريع الهندسية والاقتصادية
+                </p>
+                <div class="card-actions">
+                  <button data-type="button" class="btn btn-outline btn-error btn-sm">
+                    <span data-type="text">اكتشف المزيد</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- Service Card 7 -->
+            <div data-type="container" data-repeatable="true" class="card bg-base-100 shadow-md hover-shadow border border-base-300 group cursor-pointer" onclick="navigateTo(&#39;service_detail&#39;)">
+              <div class="card-body p-6">
+                <div class="flex items-center gap-4 mb-4">
+                  <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center shrink-0">
+                    <span class="iconify text-primary" data-icon="heroicons:cog-6-tooth" data-width="24"></span>
+                  </div>
+                  <h3 data-type="text" class="card-title text-lg font-bold text-base-content">
+                    الإشراف الهندسي
+                  </h3>
+                </div>
+                <p data-type="text" class="text-neutral text-sm leading-relaxed mb-4">
+                  متابعة تنفيذ المشاريع وضمان الجودة
+                </p>
+                <div class="card-actions">
+                  <button data-type="button" class="btn btn-outline btn-primary btn-sm">
+                    <span data-type="text">اكتشف المزيد</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- Service Card 8 -->
+            <div data-type="container" data-repeatable="true" class="card bg-base-100 shadow-md hover-shadow border border-base-300 group cursor-pointer" onclick="navigateTo(&#39;service_detail&#39;)">
+              <div class="card-body p-6">
+                <div class="flex items-center gap-4 mb-4">
+                  <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center shrink-0">
+                    <span class="iconify text-accent" data-icon="heroicons:document-text" data-width="24"></span>
+                  </div>
+                  <h3 data-type="text" class="card-title text-lg font-bold text-base-content">
+                    التراخيص والموافقات
+                  </h3>
+                </div>
+                <p data-type="text" class="text-neutral text-sm leading-relaxed mb-4">
+                  استخراج التراخيص والموافقات الحكومية
+                </p>
+                <div class="card-actions">
+                  <button data-type="button" class="btn btn-outline btn-accent btn-sm">
+                    <span data-type="text">اكتشف المزيد</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- Footer --><div data-section-id="common_footer" data-section-type="common_footer" class="bg-base-200 text-base-content">
+  <!-- Main Footer Content -->
+  <footer class="footer footer-horizontal p-10 max-w-7xl mx-auto">
+    <!-- Office Info -->
+    <aside>
+      <div data-type="container" class="flex items-center gap-2 mb-4">
+        <span class="iconify text-primary" data-icon="heroicons:building-office-2-solid" data-width="32"></span>
+        <h3 data-type="text" class="text-xl font-bold text-primary">
+          مكتب التزامن للاستشارات الهندسية
+        </h3>
+      </div>
+      <div data-type="container" class="text-sm space-y-2">
+        <p data-type="text" class="flex items-center gap-2">
+          <span class="iconify" data-icon="heroicons:map-pin" data-width="16"></span>
+          المملكة العربية السعودية، الرياض
+        </p>
+        <p data-type="text" class="flex items-center gap-2">
+          <span class="iconify" data-icon="heroicons:clock" data-width="16"></span>
+          الأحد - الخميس: 8:00 ص - 5:00 م
+        </p>
+      </div>
+    </aside>
+    <!-- Quick Links -->
+    <nav>
+      <header data-type="text" class="footer-title text-primary">
+        روابط سريعة
+      </header>
+      <button data-type="button" class="link link-hover" onclick="navigateTo(&#39;about_us&#39;)">
+        <span data-type="text">عن المكتب</span></button><button data-type="button" class="link link-hover" onclick="navigateTo(&#39;services&#39;)">
+        <span data-type="text">خدماتنا</span></button><button data-type="button" class="link link-hover" onclick="navigateTo(&#39;projects&#39;)">
+        <span data-type="text">مشاريعنا</span></button><button data-type="button" class="link link-hover" onclick="navigateTo(&#39;contact_us&#39;)">
+        <span data-type="text">اتصل بنا</span>
+      </button>
+    </nav>
+    <!-- Services -->
+    <nav>
+      <header data-type="text" class="footer-title text-primary">
+        خدماتنا
+      </header>
+      <button data-type="button" class="link link-hover" onclick="navigateTo(&#39;services&#39;)">
+        <span data-type="text">الاستشارات الهندسية</span></button><button data-type="button" class="link link-hover" onclick="navigateTo(&#39;services&#39;)">
+        <span data-type="text">إدارة المشاريع</span></button><button data-type="button" class="link link-hover" onclick="navigateTo(&#39;services&#39;)">
+        <span data-type="text">التصاميم الهندسية</span></button><button data-type="button" class="link link-hover" onclick="navigateTo(&#39;services&#39;)">
+        <span data-type="text">الإشراف الهندسي</span>
+      </button>
+    </nav>
+    <!-- Newsletter &amp; Contact -->
+    <nav>
+      <header data-type="text" class="footer-title text-primary">
+        ابق على تواصل
+      </header>
+      <div data-type="container" class="form-control w-full max-w-xs">
+        <label class="label"><span data-type="text" class="label-text text-sm">اشترك في نشرتنا الإخبارية</span></label>
+        <div class="join">
+          <input data-type="input" type="email" placeholder="بريدك الإلكتروني" class="input input-bordered input-sm join-item flex-1"><button data-type="button" class="btn btn-primary btn-sm join-item">
+            <span class="iconify" data-icon="heroicons:paper-airplane" data-width="16"></span>
+          </button>
+        </div>
+      </div>
+      <div data-type="container" class="flex gap-3 mt-4">
+        <a data-type="button" href="#" class="btn btn-ghost btn-sm btn-circle"><span class="iconify" data-icon="heroicons:globe-alt" data-width="20"></span></a><a data-type="button" href="#" class="btn btn-ghost btn-sm btn-circle"><span class="iconify" data-icon="heroicons:phone" data-width="20"></span></a><a data-type="button" href="#" class="btn btn-ghost btn-sm btn-circle"><span class="iconify" data-icon="heroicons:envelope" data-width="20"></span></a>
+      </div>
+    </nav>
+  </footer>
+  <!-- Bottom Footer Bar -->
+  <footer class="footer footer-center p-4 bg-base-300 text-base-content border-t border-base-content/10">
+    <aside class="flex flex-col sm:flex-row items-center gap-4 sm:gap-8">
+      <p data-type="text" class="text-sm">
+        © 2025 مكتب التزامن للاستشارات الهندسية. جميع الحقوق محفوظة.
+      </p>
+      <div data-type="container" class="flex gap-4 text-sm">
+        <button data-type="button" class="link link-hover" onclick="navigateTo(&#39;privacy_policy&#39;)">
+          <span data-type="text">سياسة الخصوصية</span></button><button data-type="button" class="link link-hover" onclick="navigateTo(&#39;terms_of_service&#39;)">
+          <span data-type="text">شروط الاستخدام</span>
+        </button>
+      </div>
+    </aside>
+  </footer>
+</div>
+<script>
+/* JavaScript code for common usage, should be wrapped in a closure */
+(function() {
+// Navigation function for page transitions
+window.navigateTo = function(targetPageId) {
+const isInIframe = window.self !== window.top;
+const targetFileName = `${targetPageId}.html`;
+if (isInIframe) {
+window.parent.postMessage({
+type: &#39;iframeNavigation&#39;,
+targetPageId: targetPageId
+}, &#39;*&#39;);
+} else {
+window.location.href = targetFileName;
+}
+};
+
+// Header navigation state management
+window.HeaderNavigation = {
+setActiveNavItem: function(activePageId) {
+const navItems = document.querySelectorAll(&#39;[data-nav-item]&#39;);
+navItems.forEach(item => {
+const pageId = item.getAttribute(&#39;data-nav-item&#39;);
+if (pageId === activePageId) {
+item.classList.add(&#39;bg-primary/10&#39;, &#39;text-primary&#39;);
+} else {
+item.classList.remove(&#39;bg-primary/10&#39;, &#39;text-primary&#39;);
+}
+});
+},
+toggleMobileMenu: function() {
+const mobileMenu = document.getElementById(&#39;mobile-nav-menu&#39;);
+const hamburger = document.getElementById(&#39;hamburger-icon&#39;);
+const closeIcon = document.getElementById(&#39;close-icon&#39;);
+if (mobileMenu.classList.contains(&#39;hidden&#39;)) {
+mobileMenu.classList.remove(&#39;hidden&#39;);
+hamburger.classList.add(&#39;hidden&#39;);
+closeIcon.classList.remove(&#39;hidden&#39;);
+} else {
+mobileMenu.classList.add(&#39;hidden&#39;);
+hamburger.classList.remove(&#39;hidden&#39;);
+closeIcon.classList.add(&#39;hidden&#39;);
+}
+},
+showServicesMenu: function() {
+const servicesMenu = document.getElementById(&#39;services-mega-menu&#39;);
+if (servicesMenu) {
+servicesMenu.classList.remove(&#39;opacity-0&#39;, &#39;invisible&#39;);
+servicesMenu.classList.add(&#39;opacity-100&#39;, &#39;visible&#39;);
+}
+},
+hideServicesMenu: function() {
+const servicesMenu = document.getElementById(&#39;services-mega-menu&#39;);
+if (servicesMenu) {
+servicesMenu.classList.remove(&#39;opacity-100&#39;, &#39;visible&#39;);
+servicesMenu.classList.add(&#39;opacity-0&#39;, &#39;invisible&#39;);
+}
+}
+};
+
+// Breadcrumb management
+window.BreadcrumbNavigation = {
+updateBreadcrumb: function(breadcrumbData) {
+const breadcrumbContainer = document.querySelector(&#39;[data-section-id="common_breadcrumb"] .breadcrumbs ul&#39;);
+if (!breadcrumbContainer) return;
+breadcrumbContainer.innerHTML = &#39;&#39;;
+breadcrumbData.forEach((item, index) => {
+const li = document.createElement(&#39;li&#39;);
+li.className = &#39;breadcrumb-separator&#39;;
+if (index === breadcrumbData.length - 1) {
+// Last item (current page) - not clickable
+li.innerHTML = `<span data-type="text" class="text-base-content/70">${item.name}</span>`;
+} else {
+// Clickable items
+li.innerHTML = `<a data-type="text" href="#" onclick="navigateTo(&#39;${item.pageId}&#39;)" class="text-primary hover:text-primary/80">${item.name}</a>`;
+}
+breadcrumbContainer.appendChild(li);
+});
+}
+};
+
+// Initialize app globals
+window.APP_GLOBALS = window.APP_GLOBALS || {};
+})();
+</script><script>
+/* JavaScript for services page interactions */
+document.addEventListener(&#39;DOMContentLoaded&#39;, function() {
+    // Set active navigation item
+    if (window.HeaderNavigation) {
+        HeaderNavigation.setActiveNavItem(&#39;services&#39;);
+    }
+    
+    // Update breadcrumb
+    if (window.BreadcrumbNavigation) {
+        BreadcrumbNavigation.updateBreadcrumb([
+            { name: &#39;الرئيسية&#39;, pageId: &#39;home&#39; },
+            { name: &#39;خدماتنا&#39;, pageId: &#39;services&#39; }
+        ]);
+    }
+    
+    // Add staggered animation to service cards
+    const serviceCards = document.querySelectorAll(&#39;[data-section-id="ServicesGridSection"] .card&#39;);
+    serviceCards.forEach((card, index) => {
+        card.style.opacity = &#39;0&#39;;
+        card.style.transform = &#39;translateY(20px)&#39;;
+        
+        setTimeout(() => {
+            card.style.transition = &#39;opacity 0.6s ease, transform 0.6s ease&#39;;
+            card.style.opacity = &#39;1&#39;;
+            card.style.transform = &#39;translateY(0)&#39;;
+        }, index * 100);
+    });
+    
+    // Add intersection observer for scroll animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: &#39;0px 0px -50px 0px&#39;
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add(&#39;animate-fade-in&#39;);
+            }
+        });
+    }, observerOptions);
+    
+    // Observe featured service cards
+    const featuredCards = document.querySelectorAll(&#39;[data-section-id="FeaturedServicesSection"] .card&#39;);
+    featuredCards.forEach(card => {
+        observer.observe(card);
+    });
+    
+    // Enhanced hover effects for service cards
+    const allServiceCards = document.querySelectorAll(&#39;.card.group&#39;);
+    allServiceCards.forEach(card => {
+        card.addEventListener(&#39;mouseenter&#39;, function() {
+            this.style.transform = &#39;translateY(-4px) scale(1.02)&#39;;
+        });
+        
+        card.addEventListener(&#39;mouseleave&#39;, function() {
+            this.style.transform = &#39;translateY(0) scale(1)&#39;;
+        });
+    });
+});
+
+// Service card click handler
+function handleServiceCardClick(serviceId) {
+    // This would typically pass service-specific data
+    navigateTo(&#39;service_detail&#39;);
+}
+
+// Smooth scroll to sections (if needed)
+function scrollToSection(sectionId) {
+    const section = document.querySelector(`[data-section-id="${sectionId}"]`);
+    if (section) {
+        section.scrollIntoView({ 
+            behavior: &#39;smooth&#39;,
+            block: &#39;start&#39;
+        });
+    }
+}
+</script>
+  
+
+</body></html>'></iframe>
+                    </div>
+                  </div>
+
+                </body>
+                </html>
+            

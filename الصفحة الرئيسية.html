@@ -1,0 +1,1294 @@
+
+                <!DOCTYPE html>
+                <html lang="zh">
+                <head>
+                  <meta charset="UTF-8">
+                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                  <title>الصفحة الرئيسية</title>
+                  <style>
+                    *,
+                    *::before,
+                    *::after {
+                      box-sizing: border-box;
+                      margin: 0;
+                    }
+                    .iframe-outer {
+                      position: fixed;
+                      top: 0;
+                      left: 0;
+                      bottom: 0;
+                      right: 0;
+                      display: flex;
+                      justify-content: center;
+                      background-color: #E0E0E0;
+                    }
+                    .iframe-wrapper {
+                      width: 100%;
+                      height: 100%;
+                      margin: 0 auto;
+                      transform-origin: center top;
+                      flex-shrink: 0;
+                    }
+                    #dynamicIframe {
+                      border: none;
+                      width: 100%;
+                      height: 100%;
+                    }
+                  </style>
+                  <script>
+                const width = 1920
+                const height = 1080
+                const resolutionRatio = width && height ? width / height : 1
+                const pageNameMap = {
+                  'home': 'الصفحة الرئيسية',
+    'achievements_history': 'إنجازاتنا وتاريخنا',
+    'services': 'خدماتنا',
+    'projects': 'مشاريعنا',
+    'contact_us': 'اتصل بنا'
+                }
+                function setIframeSize(w, h) {
+                  const currentContainerRadio = w / h
+                  let widthValue = w
+                  let heightValue = h
+                  let zoom = 1
+                  if (currentContainerRadio > resolutionRatio) {
+                    widthValue = h * resolutionRatio
+                    heightValue = h
+                  } else {
+                    widthValue = w
+                    heightValue = w / resolutionRatio
+                  }
+                  zoom = width ? widthValue / width : 1
+                  return {
+                    width: widthValue / zoom + 'px',
+                    height: heightValue / zoom + 'px',
+                    zoom,
+                  }
+                }
+                function adjustIframeSize() {
+                  const iframeWrapper = document.querySelector(".iframe-wrapper")
+                  const { width, height, zoom } = setIframeSize(window.innerWidth, window.innerHeight)
+                  iframeWrapper.style.height = height
+                  iframeWrapper.style.width = width
+                  iframeWrapper.style.transform = 'scale(' + zoom + ')'
+                }
+                function sanitizeFilename(name) {
+                  return name.replace(/[\/:*?"<>|]/g, '_')
+                }
+                function handlePostMessage(event) {
+                  if (!event.data) {
+                    return
+                  }
+                  const { type, targetPageId } = event.data
+                  const targetPageName = pageNameMap[targetPageId]
+                  if (type === "iframeNavigation" && targetPageId && targetPageName) {
+                    window.location.href = targetPageName + '.html'
+                  }
+                }
+                window.addEventListener('message', handlePostMessage)
+                window.onload = adjustIframeSize
+                window.onresize = adjustIframeSize
+                window.onunload = () => {
+                  window.removeEventListener('message', handlePostMessage)
+                }
+              </script>
+                </head>
+                <body>
+                  <div class="iframe-outer">
+                    <div class="iframe-wrapper">
+                      <iframe id="dynamicIframe" srcdoc='<html lang="ar" data-theme="corporate" dir="rtl"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="الصفحة الرئيسية للتزامن للاستشارات الهندسية - حلول مبتكرة لمستقبلك">
+    <title>الصفحة الرئيسية - التزامن للاستشارات الهندسية</title>
+    <link href="./assets/11514579/npm/daisyui@5.css" rel="stylesheet" type="text/css">
+    <script src="./assets/81557572/npm/@tailwindcss/browser@4.js"></script>
+    <link href="./assets/npm/daisyui@5/themes.css" rel="stylesheet" type="text/css">
+    <script src="./assets/3/3.1.1/iconify.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;amp;display=swap" rel="stylesheet">
+    <style>
+/* CSS code for common usage*/
+/* daisyUI Theme Variables Customization
+* Based on the selected daisyUI theme and UI guidance requirements,
+* customize only the CSS variables that need to be different from the theme defaults.
+* Available theme variables for customization:
+*/
+/* Only modify if different from chosen theme defaults */
+:root {
+/* Customize brand colors for engineering consultancy office */
+--color-primary: rgba(44, 62, 80, 1); /* Deep navy #2C3E50 */
+--color-primary-content: rgba(255, 255, 255, 1);
+--color-secondary: rgba(52, 73, 94, 1); /* Charcoal #34495E */
+--color-secondary-content: rgba(255, 255, 255, 1);
+--color-accent: rgba(74, 74, 74, 1); /* Medium charcoal #4A4A4A */
+--color-accent-content: rgba(255, 255, 255, 1);
+--color-base-100: rgba(253, 253, 253, 1); /* Soft ivory #FDFDFD */
+--color-base-200: rgba(249, 249, 249, 1); /* Light gray #F9F9F9 */
+--color-base-300: rgba(240, 240, 240, 1); /* Border gray */
+--color-base-content: rgba(51, 51, 51, 1); /* Primary text charcoal #333333 */
+--color-neutral: rgba(102, 102, 102, 1); /* Secondary text #666666 */
+--color-neutral-content: rgba(255, 255, 255, 1);
+--color-success: rgba(76, 175, 80, 1); /* Muted green #4CAF50 */
+--color-warning: rgba(255, 193, 7, 1); /* Soft amber #FFC107 */
+--color-error: rgba(244, 67, 54, 1); /* Deep red #F44336 */
+--color-info: rgba(33, 150, 243, 1); /* Calm blue #2196F3 */
+--radius-box: 0.5rem; /* 8px for modern feel */
+--radius-field: 0.375rem; /* 6px for input fields */
+--radius-selector: 0.25rem; /* 4px for small elements */
+}
+
+/* Additional custom styles for common usage */
+.header-height {
+height: 64px;
+}
+.mega-menu-transition {
+transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+.breadcrumb-separator::after {
+content: "›";
+margin: 0 0.5rem;
+color: var(--color-base-content);
+opacity: 0.5;
+}
+.breadcrumb-separator:last-child::after {
+display: none;
+}
+
+/* Subtle shadows for corporate feel */
+.card-shadow {
+box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+}
+.hover-shadow {
+transition: box-shadow 0.2s ease-in-out;
+}
+.hover-shadow:hover {
+box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Typography enhancements */
+.text-secondary {
+color: var(--color-neutral);
+}
+.text-light {
+color: rgba(170, 170, 170, 1); /* Light gray #AAAAAA */
+}
+</style> <style>
+/* Custom styles for home page */
+
+/* Hero section enhancements */
+.hero {
+    position: relative;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+}
+
+.hero-overlay {
+    background: linear-gradient(135deg, rgba(44, 62, 80, 0.8) 0%, rgba(52, 73, 94, 0.6) 100%);
+}
+
+/* Projects carousel styling */
+.projects-carousel .carousel-item {
+    transition: opacity 0.5s ease;
+}
+
+.projects-carousel .carousel-item.hidden {
+    opacity: 0;
+}
+
+.projects-carousel .carousel-item.active {
+    opacity: 1;
+}
+
+/* Enhanced card hover effects */
+.card.hover-shadow {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card.hover-shadow:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 32px rgba(44, 62, 80, 0.15);
+}
+
+/* Button hover enhancements */
+.btn.hover-shadow {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn.hover-shadow:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(44, 62, 80, 0.2);
+}
+
+/* Service cards icon animation */
+.card .iconify {
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.card:hover .iconify {
+    transform: scale(1.1);
+    color: var(--color-secondary);
+}
+
+/* Why choose us section styling */
+.w-20.h-20.rounded-full {
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.text-center:hover .w-20.h-20.rounded-full {
+    transform: scale(1.1);
+    background-color: rgba(44, 62, 80, 0.15);
+}
+
+/* Smooth scrolling for better UX */
+html {
+    scroll-behavior: smooth;
+}
+
+/* RTL specific adjustments */
+[dir="rtl"] .hero-content {
+    text-align: center;
+}
+
+[dir="rtl"] .card-title {
+    justify-content: center;
+}
+
+/* Responsive typography adjustments */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.5rem;
+        line-height: 1.2;
+    }
+    
+    .hero p {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+}
+
+/* Carousel indicators styling */
+#projects-indicators button {
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#projects-indicators button:hover {
+    transform: scale(1.2);
+}
+
+/* Section spacing consistency */
+.py-16.md\:py-24 {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+}
+
+@media (min-width: 768px) {
+    .py-16.md\:py-24 {
+        padding-top: 6rem;
+        padding-bottom: 6rem;
+    }
+}
+
+/* Badge styling enhancements */
+.badge {
+    font-weight: 500;
+    letter-spacing: 0.025em;
+}
+
+/* Text content improvements */
+.leading-relaxed {
+    line-height: 1.7;
+}
+
+/* Focus states for accessibility */
+.btn:focus-visible,
+button:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+</style>
+<style>
+#ij4sjt.spark-custom-ij4sjt {
+  background-attachment: scroll;
+  background-image: url("https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/9428088d-aaa5-41db-a0ee-e41b76ce78d0.png");
+  background-position-x: 50%;
+  background-position-y: 0%;
+  background-repeat: repeat-x;
+  background-size: cover;
+}
+
+.irg5qf.spark-custom-irg5qf#irg5qf {
+  height: 24px;
+  width: 24px;
+}
+
+.ioqvv4.spark-custom-ioqvv4#ioqvv4 {
+  height: 24px;
+}
+
+.ij4sjt.spark-custom-ij4sjt#ij4sjt {
+  background-position: center top;
+  background-position-x: center;
+  background-position-y: top;
+  background-size: cover;
+  width: 1257px;
+}
+
+</style>
+<style>
+#ij4sjt.spark-custom-ij4sjt {
+  background-attachment: scroll;
+  background-image: url("https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/9428088d-aaa5-41db-a0ee-e41b76ce78d0.png");
+  background-position-x: 50%;
+  background-position-y: 0%;
+  background-repeat: repeat-x;
+  background-size: cover;
+}
+
+.irg5qf.spark-custom-irg5qf#irg5qf {
+  height: 24px;
+  width: 24px;
+}
+
+.ioqvv4.spark-custom-ioqvv4#ioqvv4 {
+  background-size: cover;
+  height: 24px;
+  width: 24px;
+}
+
+.ij4sjt.spark-custom-ij4sjt#ij4sjt {
+  background-position-x: 50%;
+  background-position-y: 0%;
+  background-repeat: repeat;
+  background-size: cover;
+  height: 327px;
+  width: 620px;
+}
+
+#ip0xdc.spark-custom-ip0xdc {
+  background-image: url("https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/556d6f73-b191-4fa5-b6be-c5e90cdf7def.webp");
+  background-position-x: 50%;
+  background-position-y: 0%;
+  background-size: contain;
+}
+
+.ip0xdc.spark-custom-ip0xdc#ip0xdc {
+  background-attachment: scroll;
+  background-image: url("https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/9f4afbcd-4e2a-4f5a-b71d-bd5204546198.webp");
+  background-position-x: 50%;
+  background-position-y: 50%;
+  background-size: cover;
+  width: 672px;
+}
+
+#ij4sjt-2.spark-custom-ij4sjt-2 {
+  height: 401px;
+  width: 578px;
+}
+
+#ij87ss.spark-custom-ij87ss {
+  height: 403px;
+  width: 700px;
+}
+
+#i8vadx.spark-custom-i8vadx {
+  height: 404px;
+}
+
+.ij4sjt-2.spark-custom-ij4sjt-2#ij4sjt-2 {
+  width: 656px;
+}
+
+.i8vadx.spark-custom-i8vadx#i8vadx {
+  width: 649px;
+}
+
+.ij87ss.spark-custom-ij87ss#ij87ss {
+  height: 401px;
+}
+
+</style>
+  <style>
+#ij4sjt.spark-custom-ij4sjt {
+  background-attachment: scroll;
+  background-image: url("https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/9428088d-aaa5-41db-a0ee-e41b76ce78d0.png");
+  background-position-x: 50%;
+  background-position-y: 0%;
+  background-repeat: repeat-x;
+  background-size: cover;
+}
+
+.irg5qf.spark-custom-irg5qf#irg5qf {
+  height: 24px;
+  width: 24px;
+}
+
+.ioqvv4.spark-custom-ioqvv4#ioqvv4 {
+  background-size: cover;
+  height: 24px;
+  width: 24px;
+}
+
+.ij4sjt.spark-custom-ij4sjt#ij4sjt {
+  background-position-x: 50%;
+  background-position-y: 0%;
+  background-repeat: repeat;
+  background-size: cover;
+  height: 327px;
+  width: 620px;
+}
+
+#ip0xdc.spark-custom-ip0xdc {
+  background-image: url("https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/556d6f73-b191-4fa5-b6be-c5e90cdf7def.webp");
+  background-position-x: 50%;
+  background-position-y: 0%;
+  background-size: contain;
+}
+
+.ip0xdc.spark-custom-ip0xdc#ip0xdc {
+  background-attachment: scroll;
+  background-image: url("https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/9f4afbcd-4e2a-4f5a-b71d-bd5204546198.webp");
+  background-position-x: 50%;
+  background-position-y: 50%;
+  background-size: cover;
+  width: 672px;
+}
+
+#ij4sjt-2.spark-custom-ij4sjt-2 {
+  height: 401px;
+  width: 578px;
+}
+
+#ij87ss.spark-custom-ij87ss {
+  height: 403px;
+  width: 700px;
+}
+
+#i8vadx.spark-custom-i8vadx {
+  height: 404px;
+}
+
+.ij4sjt-2.spark-custom-ij4sjt-2#ij4sjt-2 {
+  width: 656px;
+}
+
+.i8vadx.spark-custom-i8vadx#i8vadx {
+  width: 649px;
+}
+
+.ij87ss.spark-custom-ij87ss#ij87ss {
+  height: 401px;
+}
+
+</style></head>
+  <body class="bg-base-100 min-h-screen flex flex-col">
+    <div data-section-id="common_header" data-section-type="common_header" class="navbar bg-base-100 border-b border-base-300 sticky top-0 z-50 header-height px-4 lg:px-8">
+  <!-- Logo Section -->
+  <div class="navbar-start">
+    <button data-type="button" class="btn btn-ghost lg:hidden" onclick="HeaderNavigation.toggleMobileMenu()">
+      <span id="hamburger-icon" class="iconify" data-icon="heroicons:bars-3" data-width="24"></span><span id="close-icon" class="iconify hidden" data-icon="heroicons:x-mark" data-width="24"></span></button><button data-type="button" class="btn btn-ghost normal-case text-xl font-bold text-primary" onclick="navigateTo(&#39;home&#39;)">
+      <span class="iconify issbj spark-custom-issbj" data-icon="heroicons:building-office-2-solid" data-width="32" id="issbj"></span><span data-type="text">مكتب التزامن للاستشارات الهندسية</span>
+    </button>
+  </div>
+  <!-- Desktop Navigation -->
+  <div class="navbar-center hidden lg:flex">
+    <ul class="menu menu-horizontal px-1 gap-2 i4ti6 spark-custom-i4ti6" id="i4ti6">
+      <li>
+        <button data-type="button" data-nav-item="home" class="btn btn-ghost" onclick="navigateTo(&#39;home&#39;)">
+          <span data-type="text">الرئيسية</span>
+        </button>
+      </li>
+      <li class="relative">
+        <button data-type="button" data-nav-item="about_us" class="btn btn-ghost" onmouseover="HeaderNavigation.showServicesMenu()" onmouseleave="HeaderNavigation.hideServicesMenu()">
+          <span data-type="text">عن المكتب</span><span class="iconify" data-icon="heroicons:chevron-down" data-width="16"></span></button><!-- About Us Mega Menu -->
+        <div id="services-mega-menu" class="absolute top-full left-0 w-96 bg-base-100 shadow-xl rounded-box p-6 opacity-0 invisible mega-menu-transition" onmouseover="HeaderNavigation.showServicesMenu()" onmouseleave="HeaderNavigation.hideServicesMenu()">
+          <div data-type="container" class="grid grid-cols-1 gap-4">
+            <button data-type="button" class="card compact bg-base-200 hover:bg-primary/10 transition-colors duration-200" onclick="navigateTo(&#39;about_us&#39;)">
+              <div class="card-body">
+                <h3 data-type="text" class="card-title text-sm">
+                  نبذة عن المكتب
+                </h3>
+                <p data-type="text" class="text-xs text-base-content/70">
+                  تعرف على رؤيتنا ورسالتنا وقيمنا الأساسية
+                </p>
+              </div></button><button data-type="button" class="card compact bg-base-200 hover:bg-primary/10 transition-colors duration-200" onclick="navigateTo(&#39;team&#39;)">
+              <div class="card-body">
+                <h3 data-type="text" class="card-title text-sm">فريق العمل</h3>
+                <p data-type="text" class="text-xs text-base-content/70">
+                  تعرف على خبراء المكتب والكوادر المتخصصة
+                </p>
+              </div></button><button data-type="button" class="card compact bg-base-200 hover:bg-primary/10 transition-colors duration-200" onclick="navigateTo(&#39;achievements_history&#39;)">
+              <div class="card-body">
+                <h3 data-type="text" class="card-title text-sm">
+                  إنجازاتنا وتاريخنا
+                </h3>
+                <p data-type="text" class="text-xs text-base-content/70">
+                  اطلع على مسيرتنا وأبرز إنجازاتنا
+                </p>
+              </div>
+            </button>
+          </div>
+        </div>
+      </li>
+      <li>
+        <button data-type="button" data-nav-item="services" class="btn btn-ghost" onclick="navigateTo(&#39;services&#39;)">
+          <span data-type="text">خدماتنا</span>
+        </button>
+      </li>
+      <li>
+        <button data-type="button" data-nav-item="projects" class="btn btn-ghost" onclick="navigateTo(&#39;projects&#39;)">
+          <span data-type="text">مشاريعنا</span>
+        </button>
+      </li>
+      <li></li>
+      <li>
+        <button data-type="button" data-nav-item="contact_us" class="btn btn-ghost" id="ibnnb" onclick="navigateTo(&#39;contact_us&#39;)">
+          <span data-type="text">اتصل بنا</span>
+        </button>
+      </li>
+    </ul>
+  </div>
+  <!-- Action Buttons -->
+  <div class="navbar-end gap-2">
+    <button data-type="button" class="btn btn-primary" onclick="navigateTo(&#39;contact_us&#39;)">
+      <span class="iconify" data-icon="heroicons:phone" data-width="20"></span><span data-type="text" class="hidden sm:inline">تواصل معنا</span>
+    </button>
+    <div data-type="container" class="dropdown dropdown-end">
+      <label tabindex="0" class="btn btn-ghost"><span class="iconify" data-icon="heroicons:language" data-width="20"></span><span data-type="text" class="hidden md:inline">AR</span></label>
+      <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-32">
+        <li><a data-type="text" href="#">العربية</a></li>
+        <li><a data-type="text" href="#">English</a></li>
+      </ul>
+    </div>
+    <button data-type="button" class="btn btn-ghost btn-circle">
+      <span class="iconify" data-icon="heroicons:envelope" data-width="20"></span>
+    </button>
+  </div>
+  <!-- Mobile Navigation Menu -->
+  <div id="mobile-nav-menu" class="absolute top-full left-0 right-0 bg-base-100 border-b border-base-300 hidden lg:hidden">
+    <ul class="menu menu-vertical p-4 gap-2">
+      <li>
+        <button data-type="button" data-nav-item="home" class="btn btn-ghost justify-start" onclick="navigateTo(&#39;home&#39;); HeaderNavigation.toggleMobileMenu()">
+          <span data-type="text">الرئيسية</span>
+        </button>
+      </li>
+      <li>
+        <button data-type="button" data-nav-item="about_us" class="btn btn-ghost justify-start" onclick="navigateTo(&#39;about_us&#39;); HeaderNavigation.toggleMobileMenu()">
+          <span data-type="text">عن المكتب</span>
+        </button>
+      </li>
+      <li>
+        <button data-type="button" data-nav-item="services" class="btn btn-ghost justify-start" onclick="navigateTo(&#39;services&#39;); HeaderNavigation.toggleMobileMenu()">
+          <span data-type="text">خدماتنا</span>
+        </button>
+      </li>
+      <li>
+        <button data-type="button" data-nav-item="projects" class="btn btn-ghost justify-start" onclick="navigateTo(&#39;projects&#39;); HeaderNavigation.toggleMobileMenu()">
+          <span data-type="text">مشاريعنا</span>
+        </button>
+      </li>
+      <li>
+        <button data-type="button" data-nav-item="careers" class="btn btn-ghost justify-start" onclick="navigateTo(&#39;careers&#39;); HeaderNavigation.toggleMobileMenu()">
+          <span data-type="text">وظائف</span>
+        </button>
+      </li>
+      <li>
+        <button data-type="button" data-nav-item="contact_us" class="btn btn-ghost justify-start" onclick="navigateTo(&#39;contact_us&#39;); HeaderNavigation.toggleMobileMenu()">
+          <span data-type="text">اتصل بنا</span>
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
+<!-- Main Content Area -->
+    <main class="flex-1">
+      <!-- Hero Section -->
+      <div data-section-id="HeroSection" data-section-type="section" class="hero min-h-screen relative" style="background-image: url(&amp;quot;https://spark-builder.s3.us-east-1.amazonaws.com/image/2025/10/27/cec30e9a-d471-4453-9ffb-7204838b0b7a.png&amp;quot;);" id="i5ynka">
+        <div id="i7602c" class="hero-overlay bg-primary bg-opacity-70 i7602c spark-custom-i7602c"></div>
+        <div data-type="container" class="hero-content text-center text-primary-content relative z-10">
+          <div class="max-w-4xl">
+            <h1 data-type="text" class="text-4xl md:text-6xl font-bold mb-6">
+              التزامن للاستشارات الهندسية: حلول مبتكرة لمستقبلك
+            </h1>
+            <p data-type="text" class="text-lg md:text-xl mb-8 max-w-3xl mx-auto leading-relaxed">
+              نحن نقدم حلولًا استشارية هندسية رائدة لإنشاء وتطوير مشاريع مستدامة
+              وفعالة. خبرتنا الواسعة والتزامنا بالجودة يجعلنا شريكك الموثوق في
+              تحقيق رؤيتك.
+            </p>
+            <div data-type="container" class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <button data-type="button" class="btn btn-secondary btn-lg hover-shadow" onclick="navigateTo(&#39;services&#39;)">
+                <span data-type="text">اكتشف خدماتنا</span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="20" height="20" viewBox="0 0 24 24" data-original="&amp;lt;span data-type=&amp;quot;icon&amp;quot; class=&amp;quot;iconify&amp;quot; data-icon=&amp;quot;heroicons:arrow-left&amp;quot; data-width=&amp;quot;20&amp;quot;&amp;gt;&amp;lt;/span&amp;gt;" class="iconify">
+                  <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"></path>
+                </svg></button><button data-type="button" class="btn btn-accent btn-lg hover-shadow" onclick="navigateTo(&#39;contact_us&#39;)">
+                <span data-type="text">تواصل معنا</span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="20" height="20" viewBox="0 0 24 24" data-original="&amp;lt;span data-type=&amp;quot;icon&amp;quot; class=&amp;quot;iconify&amp;quot; data-icon=&amp;quot;heroicons:phone&amp;quot; data-width=&amp;quot;20&amp;quot;&amp;gt;&amp;lt;/span&amp;gt;" class="iconify">
+                  <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.04 12.04 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5z"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Services Section -->
+      <div data-section-id="ServicesSection" data-section-type="section" class="py-16 md:py-24 bg-base-100">
+        <div data-type="container" class="max-w-7xl mx-auto px-4 lg:px-8">
+          <div class="text-center mb-16">
+            <h2 data-type="text" class="text-3xl md:text-4xl font-bold text-base-content mb-4">
+              خدماتنا
+            </h2>
+            <p data-type="text" class="text-lg text-neutral max-w-3xl mx-auto leading-relaxed">
+              نقدم مجموعة شاملة من الخدمات الهندسية لتلبية احتياجاتك، من التصميم
+              إلى التنفيذ والإشراف. فريقنا المتخصص يضمن تقديم حلول مبتكرة وعالية
+              الجودة.
+            </p>
+          </div>
+          <div data-type="container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+            <!-- Service Card 1 -->
+            <div data-type="container" data-repeatable="true" class="card bg-base-100 shadow-md hover-shadow card-shadow">
+              <div class="card-body text-center">
+                <div data-type="container" class="flex justify-center mb-4">
+                  <span data-type="icon" class="iconify text-primary text-5xl" data-icon="heroicons:chart-bar" data-width="48"></span>
+                </div>
+                <h3 data-type="text" class="card-title justify-center text-xl mb-3">
+                  الاستشارات الهندسية
+                </h3>
+                <p data-type="text" class="text-neutral mb-4 leading-relaxed">
+                  تقديم استشارات متخصصة في جميع المجالات الهندسية لضمان نجاح
+                  مشروعك
+                </p>
+                <div class="card-actions justify-center">
+                  <button data-type="button" class="btn btn-primary btn-sm" onclick="navigateTo(&#39;services&#39;)">
+                    <span data-type="text">تفاصيل</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- Service Card 2 -->
+            <div data-type="container" data-repeatable="true" class="card bg-base-100 shadow-md hover-shadow card-shadow">
+              <div class="card-body text-center">
+                <div data-type="container" class="flex justify-center mb-4">
+                  <span data-type="icon" class="iconify text-primary text-5xl" data-icon="heroicons:map" data-width="48"></span>
+                </div>
+                <h3 data-type="text" class="card-title justify-center text-xl mb-3">
+                  التصاميم الهندسية
+                </h3>
+                <p data-type="text" class="text-neutral mb-4 leading-relaxed">
+                  إعداد تصاميم هندسية دقيقة ومبتكرة تلبي أعلى معايير الجودة
+                  والسلامة
+                </p>
+                <div class="card-actions justify-center">
+                  <button data-type="button" class="btn btn-primary btn-sm" onclick="navigateTo(&#39;services&#39;)">
+                    <span data-type="text">تفاصيل</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- Service Card 3 -->
+            <div data-type="container" data-repeatable="true" class="card bg-base-100 shadow-md hover-shadow card-shadow">
+              <div class="card-body text-center">
+                <div data-type="container" class="flex justify-center mb-4">
+                  <span data-type="icon" class="iconify text-primary text-5xl" data-icon="heroicons:cog-6-tooth" data-width="48"></span>
+                </div>
+                <h3 data-type="text" class="card-title justify-center text-xl mb-3">
+                  إدارة المشاريع
+                </h3>
+                <p data-type="text" class="text-neutral mb-4 leading-relaxed">
+                  إدارة شاملة للمشاريع من البداية حتى التسليم مع ضمان الجودة
+                  والمواعيد
+                </p>
+                <div class="card-actions justify-center">
+                  <button data-type="button" class="btn btn-primary btn-sm" onclick="navigateTo(&#39;services&#39;)">
+                    <span data-type="text">تفاصيل</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- Service Card 4 -->
+            <div data-type="container" data-repeatable="true" class="card bg-base-100 shadow-md hover-shadow card-shadow">
+              <div class="card-body text-center">
+                <div data-type="container" class="flex justify-center mb-4">
+                  <span data-type="icon" class="iconify text-primary text-5xl" data-icon="heroicons:eye" data-width="48"></span>
+                </div>
+                <h3 data-type="text" class="card-title justify-center text-xl mb-3">
+                  الإشراف الهندسي
+                </h3>
+                <p data-type="text" class="text-neutral mb-4 leading-relaxed">
+                  إشراف هندسي متخصص لضمان تنفيذ المشاريع وفقاً للمواصفات
+                  المطلوبة
+                </p>
+                <div class="card-actions justify-center">
+                  <button data-type="button" class="btn btn-primary btn-sm" onclick="navigateTo(&#39;services&#39;)">
+                    <span data-type="text">تفاصيل</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-center">
+            <button data-type="button" class="btn btn-primary btn-lg" onclick="navigateTo(&#39;services&#39;)">
+              <span data-type="text">عرض جميع الخدمات</span><span data-type="icon" class="iconify" data-icon="heroicons:arrow-left" data-width="20"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Projects Section -->
+      <div data-section-id="ProjectsSection" data-section-type="section" id="iadcno" class="py-16 md:py-24 bg-base-200 iadcno spark-custom-iadcno">
+        <div data-type="container" class="max-w-7xl mx-auto px-4 lg:px-8">
+          <div class="text-center mb-16">
+            <h2 data-type="text" class="text-3xl md:text-4xl font-bold text-base-content mb-4">
+              مشاريعنا الأخيرة
+            </h2>
+            <p data-type="text" class="text-lg text-neutral max-w-3xl mx-auto leading-relaxed">
+              نحن نفخر بسجلنا الحافل من المشاريع الناجحة التي تعكس خبرتنا
+              وقدرتنا على تحقيق رؤية عملائنا بأعلى معايير الجودة والابتكار.
+            </p>
+          </div>
+          <!-- Carousel Controls -->
+          <div data-type="container" class="flex justify-between items-center mb-8">
+            <h3 data-type="text" class="text-2xl font-bold text-base-content">
+              مشاريع مميزة
+            </h3>
+            <div data-type="container" id="imriwk" class="flex items-center gap-4 imriwk spark-custom-imriwk">
+              <button data-type="button" id="projects-prev" class="btn btn-circle btn-ghost projects-prev spark-custom-projects-prev">
+                <span data-type="icon" class="iconify ioqvv4 spark-custom-ioqvv4" data-icon="heroicons:chevron-right" data-width="24" id="ioqvv4"></span>
+              </button>
+              <div data-type="container" id="projects-indicators" class="flex gap-2 projects-indicators spark-custom-projects-indicators">
+                <button data-type="button" data-index="0" id="itbde7" class="w-3 h-3 rounded-full bg-primary cursor-pointer itbde7 spark-custom-itbde7"></button><button data-type="button" data-index="1" id="i04ltk" class="w-3 h-3 rounded-full bg-base-300 cursor-pointer i04ltk spark-custom-i04ltk"></button><button data-type="button" data-index="2" id="iowk5h" class="w-3 h-3 rounded-full bg-base-300 cursor-pointer iowk5h spark-custom-iowk5h iowk5h"></button>
+              </div>
+              <button data-type="button" id="projects-next" class="btn btn-circle btn-ghost projects-next spark-custom-projects-next">
+                <span data-type="icon" class="iconify irg5qf spark-custom-irg5qf" data-icon="heroicons:chevron-left" data-width="24" id="irg5qf"></span>
+              </button>
+            </div>
+          </div>
+          <!-- Projects Carousel -->
+          <div data-type="container" id="ieicth" class="projects-carousel relative overflow-hidden rounded-box shadow-lg mb-12 ieicth spark-custom-ieicth" style="height: 400px;">
+            <!-- Project Item 1 -->
+            <div data-type="container" data-repeatable="true" data-index="0" id="iysur3" class="carousel-item absolute inset-0 active iysur3 spark-custom-iysur3">
+              <div class="flex flex-col md:flex-row h-full">
+                <div id="i3oge8" class="w-full md:w-1/2 h-48 md:h-full i3oge8 spark-custom-i3oge8"></div>
+              </div>
+              <img data-type="image" src="https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/cf29c977-b920-4003-9cad-17b8e984ec97.jpg" alt="مشروع بنية تحتية للطرق السريعة يظهر التصميم الهندسي المتقدم" class="w-full h-full object-cover ij87ss spark-custom-ij87ss" id="ij87ss">
+              <div id="id3flh" class="w-full md:w-1/2 p-8 flex flex-col justify-between bg-base-100 i5qycg i7386e-2">
+                <div>
+                  <h3 data-type="text" id="i79woi-2" class="text-2xl font-bold mb-4 i79woi i79woi-2 spark-custom-i79woi-2">
+                    المركز الوطني للقطاع غير الربحي
+                  </h3>
+                  <p data-type="text" id="i7yid5" class="mb-4 leading-relaxed i7yid5 spark-custom-i7yid5">
+                    تصميم خطط الأمن والسلامه
+                  </p>
+                  <div data-type="container" class="flex flex-wrap gap-2 mb-4">
+                    <div id="iqpumw" class="badge badge-primary iqpumw spark-custom-iqpumw">
+                      <span id="i2ncio">تخطيط لأنظمة السلامة</span>
+                    </div>
+                    <div id="idpj0i" class="badge badge-secondary idpj0i spark-custom-idpj0i">
+                      <span id="ia4zyg">مخطط هيكلي لأنطمة السلامه</span>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <button data-type="button" class="btn btn-primary" onclick="navigateTo(&#39;projects&#39;)">
+                    <span data-type="text">المزيد</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- Project Item 2 -->
+            <div data-type="container" data-repeatable="true" data-index="1" id="i9g8uh" class="carousel-item absolute inset-0 hidden i9g8uh spark-custom-i9g8uh">
+              <img data-type="image" src="https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/df593bb1-c2fc-4cf3-94f2-2078583b974a.avif" alt="مشروع مجمع سكني متطور يظهر التخطيط العمراني المتميز" class="w-full h-full object-cover ij4sjt ij4sjt-2 spark-custom-ij4sjt-2" id="ij4sjt-2">
+              <div id="iunx3b" class="w-full md:w-1/2 p-8 flex flex-col justify-between bg-base-100 iunx3b spark-custom-iunx3b">
+                <div id="i44vg8" class="i44vg8 spark-custom-i44vg8">
+                  <h3 data-type="text" id="ibw26p" class="text-2xl font-bold mb-4 ibw26p spark-custom-ibw26p">
+                    STC group
+                  </h3>
+                  <p data-type="text" id="i9p3lb" class="mb-4 leading-relaxed i9p3lb spark-custom-i9p3lb">
+                    تصميم خطط الأمن والسلامه
+                  </p>
+                  <div data-type="container" class="flex flex-wrap gap-2 mb-4">
+                    <div id="igk1n1" class="badge badge-primary igk1n1 spark-custom-igk1n1">
+                      تخطيط لأنظمة السلامة
+                    </div>
+                    <div id="i0zgwv" class="badge badge-secondary i0zgwv spark-custom-i0zgwv">
+                      مخطط هيكلي لأنطمة السلامه
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <button data-type="button" class="btn btn-primary" onclick="navigateTo(&#39;projects&#39;)">
+                    <span data-type="text">المزيد</span>
+                  </button>
+                </div>
+              </div>
+              <div id="iums29" class="flex flex-col md:flex-row h-full iums29 spark-custom-iums29"></div>
+            </div>
+            <!-- Project Item 3 -->
+            <div data-type="container" data-repeatable="true" data-index="2" class="carousel-item absolute inset-0 hidden">
+              <div class="flex flex-col md:flex-row h-full">
+                <div class="w-full md:w-1/2 h-48 md:h-full">
+                  <img data-type="image" src="https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/cf29c977-b920-4003-9cad-17b8e984ec97.jpg" alt="مشروع بنية تحتية للطرق السريعة يظهر التصميم الهندسي المتقدم" class="w-full h-full object-cover ij87ss i8vadx spark-custom-i8vadx i8vadx" id="i8vadx">
+                </div>
+                <div id="i5qycg" class="w-full md:w-1/2 p-8 flex flex-col justify-between bg-base-100 i5qycg spark-custom-i5qycg">
+                  <div>
+                    <h3 data-type="text" id="i79woi" class="text-2xl font-bold mb-4 i79woi spark-custom-i79woi">
+                      جامعة دار العلوم
+                    </h3>
+                    <p data-type="text" id="id46yg" class="mb-4 leading-relaxed id46yg spark-custom-id46yg">
+                      تصميم خطط الأمن والسلامه وعتماد من الدفاع المدني&amp;nbsp;
+                      &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;
+                      &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;
+                      &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;
+                      &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;
+                      &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;
+                      &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp;
+                    </p>
+                    <div data-type="container" class="flex flex-wrap gap-2 mb-4">
+                      <div id="icrdpc" class="badge badge-primary icrdpc spark-custom-icrdpc">
+                        بناء مخطط امن وسلامه
+                      </div>
+                      <div id="ieurrn" class="badge badge-secondary ieurrn spark-custom-ieurrn">
+                        اشراف عمل المخطط
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <button data-type="button" class="btn btn-primary" onclick="navigateTo(&#39;projects&#39;)">
+                      <span data-type="text">المزيد</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="i3his4" class="text-center i3his4 spark-custom-i3his4">
+            <button data-type="button" class="btn btn-primary btn-lg" onclick="navigateTo(&#39;projects&#39;)">
+              <span data-type="text">عرض جميع المشاريع</span><span data-type="icon" class="iconify" data-icon="heroicons:arrow-left" data-width="20"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Why Choose Us Section -->
+      <div data-section-id="WhyChooseUsSection" data-section-type="section" class="py-16 md:py-24 bg-base-100">
+        <div data-type="container" class="max-w-7xl mx-auto px-4 lg:px-8">
+          <div class="text-center mb-16">
+            <h2 data-type="text" class="text-3xl md:text-4xl font-bold text-base-content mb-4">
+              لماذا تختار التزامن؟
+            </h2>
+            <p data-type="text" class="text-lg text-neutral max-w-3xl mx-auto leading-relaxed">
+              خبرتنا والتزامنا بالجودة والابتكار يجعلنا شريكك الموثوق به. نحن
+              نقدم حلولاً متميزة تلبي توقعاتك وتتجاوزها.
+            </p>
+          </div>
+          <div data-type="container" class="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <!-- Feature 1 -->
+            <div data-type="container" class="text-center">
+              <div data-type="container" class="flex justify-center mb-6">
+                <div class="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center">
+                  <span data-type="icon" class="iconify text-primary text-4xl" data-icon="heroicons:cog-6-tooth" data-width="40"></span>
+                </div>
+              </div>
+              <h3 data-type="text" class="text-2xl font-bold mb-4">
+                خبرة مثبتة
+              </h3>
+              <p data-type="text" id="i3bk1g" class="text-neutral leading-relaxed i3bk1g spark-custom-i3bk1g">
+                أكثر من 15 عاماً من الخبرة في تقديم الحلول الهندسية المتطورة
+                والمشاريع الناجحة في مختلف القطاعات.
+              </p>
+            </div>
+            <!-- Feature 2 -->
+            <div data-type="container" class="text-center">
+              <div data-type="container" class="flex justify-center mb-6">
+                <div class="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center">
+                  <span data-type="icon" class="iconify text-primary text-4xl" data-icon="heroicons:light-bulb" data-width="40"></span>
+                </div>
+              </div>
+              <h3 data-type="text" class="text-2xl font-bold mb-4">
+                حلول مبتكرة
+              </h3>
+              <p data-type="text" class="text-neutral leading-relaxed">
+                نستخدم أحدث التقنيات والأساليب المبتكرة لتقديم حلول هندسية عصرية
+                تواكب التطورات العالمية.
+              </p>
+            </div>
+            <!-- Feature 3 -->
+            <div data-type="container" class="text-center">
+              <div data-type="container" class="flex justify-center mb-6">
+                <div class="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center">
+                  <span data-type="icon" class="iconify text-primary text-4xl" data-icon="heroicons:shield-check" data-width="40"></span>
+                </div>
+              </div>
+              <h3 data-type="text" class="text-2xl font-bold mb-4">
+                جودة لا مثيل لها
+              </h3>
+              <p data-type="text" class="text-neutral leading-relaxed">
+                التزامنا الصارم بمعايير الجودة العالمية وضمان تسليم المشاريع في
+                الوقت المحدد وبأعلى مستويات الإتقان.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- Footer --><div data-section-id="common_footer" data-section-type="common_footer" class="bg-base-200 text-base-content">
+  <!-- Main Footer Content -->
+  <footer class="footer footer-horizontal p-10 max-w-7xl mx-auto">
+    <!-- Office Info -->
+    <aside>
+      <div data-type="container" class="flex items-center gap-2 mb-4">
+        <span class="iconify text-primary" data-icon="heroicons:building-office-2-solid" data-width="32"></span>
+        <h3 data-type="text" class="text-xl font-bold text-primary">
+          مكتب التزامن للاستشارات الهندسية
+        </h3>
+      </div>
+      <div data-type="container" class="text-sm space-y-2">
+        <p data-type="text" class="flex items-center gap-2">
+          <span class="iconify" data-icon="heroicons:map-pin" data-width="16"></span>
+          المملكة العربية السعودية، الرياض
+        </p>
+        <p data-type="text" id="ifjb6s" class="flex items-center gap-2 ifjb6s spark-custom-ifjb6s ifjb6s">
+          <span class="iconify" data-icon="heroicons:phone" data-width="16"></span>
+          00966558141472 - 00966501015066
+        </p>
+        <p data-type="text" id="i9hei8" class="flex items-center gap-2 i9hei8 spark-custom-i9hei8">
+          <span class="iconify" data-icon="heroicons:envelope" data-width="16"></span>
+          faleh2783@gmail.com
+        </p>
+        <p data-type="text" class="flex items-center gap-2">
+          <span class="iconify" data-icon="heroicons:clock" data-width="16"></span>
+          الأحد - الخميس: 8:00 ص - 5:00 م
+        </p>
+      </div>
+    </aside>
+    <!-- Quick Links -->
+    <nav>
+      <header data-type="text" class="footer-title text-primary">
+        روابط سريعة
+      </header>
+      <button data-type="button" class="link link-hover" onclick="navigateTo(&#39;about_us&#39;)">
+        <span data-type="text">عن المكتب</span></button><button data-type="button" class="link link-hover" onclick="navigateTo(&#39;services&#39;)">
+        <span data-type="text">خدماتنا</span></button><button data-type="button" class="link link-hover" onclick="navigateTo(&#39;projects&#39;)">
+        <span data-type="text">مشاريعنا</span></button><button data-type="button" class="link link-hover" onclick="navigateTo(&#39;contact_us&#39;)">
+        <span data-type="text">اتصل بنا</span>
+      </button>
+    </nav>
+    <!-- Services -->
+    <nav>
+      <header data-type="text" class="footer-title text-primary">
+        خدماتنا
+      </header>
+      <button data-type="button" class="link link-hover" onclick="navigateTo(&#39;services&#39;)">
+        <span data-type="text">الاستشارات الهندسية</span></button><button data-type="button" class="link link-hover" onclick="navigateTo(&#39;services&#39;)">
+        <span data-type="text">إدارة المشاريع</span></button><button data-type="button" class="link link-hover" onclick="navigateTo(&#39;services&#39;)">
+        <span data-type="text">التصاميم الهندسية</span></button><button data-type="button" class="link link-hover" onclick="navigateTo(&#39;services&#39;)">
+        <span data-type="text">الإشراف الهندسي</span>
+      </button>
+    </nav>
+    <!-- Newsletter &amp; Contact -->
+    <nav>
+      <header data-type="text" class="footer-title text-primary">
+        ابق على تواصل
+      </header>
+      <div data-type="container" class="form-control w-full max-w-xs">
+        <label class="label"><span data-type="text" class="label-text text-sm">اشترك في نشرتنا الإخبارية</span></label>
+        <div class="join">
+          <input data-type="input" type="email" placeholder="بريدك الإلكتروني" class="input input-bordered input-sm join-item flex-1"><button data-type="button" class="btn btn-primary btn-sm join-item">
+            <span class="iconify" data-icon="heroicons:paper-airplane" data-width="16"></span>
+          </button>
+        </div>
+      </div>
+      <div data-type="container" class="flex gap-3 mt-4">
+        <a data-type="button" href="#" class="btn btn-ghost btn-sm btn-circle"><span class="iconify" data-icon="heroicons:globe-alt" data-width="20"></span></a><a data-type="button" href="#" class="btn btn-ghost btn-sm btn-circle"><span class="iconify" data-icon="heroicons:phone" data-width="20"></span></a><a data-type="button" href="#" class="btn btn-ghost btn-sm btn-circle"><span class="iconify" data-icon="heroicons:envelope" data-width="20"></span></a>
+      </div>
+    </nav>
+  </footer>
+  <!-- Bottom Footer Bar -->
+  <footer class="footer footer-center p-4 bg-base-300 text-base-content border-t border-base-content/10">
+    <aside class="flex flex-col sm:flex-row items-center gap-4 sm:gap-8">
+      <p data-type="text" class="text-sm">
+        © 2025 مكتب التزامن للاستشارات الهندسية. جميع الحقوق محفوظة.
+      </p>
+      <div data-type="container" class="flex gap-4 text-sm">
+        <button data-type="button" class="link link-hover" onclick="navigateTo(&#39;privacy_policy&#39;)">
+          <span data-type="text">سياسة الخصوصية</span></button><button data-type="button" class="link link-hover" onclick="navigateTo(&#39;terms_of_service&#39;)">
+          <span data-type="text">شروط الاستخدام</span>
+        </button>
+      </div>
+    </aside>
+  </footer>
+</div>
+<script>
+/* JavaScript code for common usage, should be wrapped in a closure */
+(function() {
+// Navigation function for page transitions
+window.navigateTo = function(targetPageId) {
+const isInIframe = window.self !== window.top;
+const targetFileName = `${targetPageId}.html`;
+if (isInIframe) {
+window.parent.postMessage({
+type: &#39;iframeNavigation&#39;,
+targetPageId: targetPageId
+}, &#39;*&#39;);
+} else {
+window.location.href = targetFileName;
+}
+};
+
+// Header navigation state management
+window.HeaderNavigation = {
+setActiveNavItem: function(activePageId) {
+const navItems = document.querySelectorAll(&#39;[data-nav-item]&#39;);
+navItems.forEach(item => {
+const pageId = item.getAttribute(&#39;data-nav-item&#39;);
+if (pageId === activePageId) {
+item.classList.add(&#39;bg-primary/10&#39;, &#39;text-primary&#39;);
+} else {
+item.classList.remove(&#39;bg-primary/10&#39;, &#39;text-primary&#39;);
+}
+});
+},
+toggleMobileMenu: function() {
+const mobileMenu = document.getElementById(&#39;mobile-nav-menu&#39;);
+const hamburger = document.getElementById(&#39;hamburger-icon&#39;);
+const closeIcon = document.getElementById(&#39;close-icon&#39;);
+if (mobileMenu.classList.contains(&#39;hidden&#39;)) {
+mobileMenu.classList.remove(&#39;hidden&#39;);
+hamburger.classList.add(&#39;hidden&#39;);
+closeIcon.classList.remove(&#39;hidden&#39;);
+} else {
+mobileMenu.classList.add(&#39;hidden&#39;);
+hamburger.classList.remove(&#39;hidden&#39;);
+closeIcon.classList.add(&#39;hidden&#39;);
+}
+},
+showServicesMenu: function() {
+const servicesMenu = document.getElementById(&#39;services-mega-menu&#39;);
+if (servicesMenu) {
+servicesMenu.classList.remove(&#39;opacity-0&#39;, &#39;invisible&#39;);
+servicesMenu.classList.add(&#39;opacity-100&#39;, &#39;visible&#39;);
+}
+},
+hideServicesMenu: function() {
+const servicesMenu = document.getElementById(&#39;services-mega-menu&#39;);
+if (servicesMenu) {
+servicesMenu.classList.remove(&#39;opacity-100&#39;, &#39;visible&#39;);
+servicesMenu.classList.add(&#39;opacity-0&#39;, &#39;invisible&#39;);
+}
+}
+};
+
+// Breadcrumb management
+window.BreadcrumbNavigation = {
+updateBreadcrumb: function(breadcrumbData) {
+const breadcrumbContainer = document.querySelector(&#39;[data-section-id="common_breadcrumb"] .breadcrumbs ul&#39;);
+if (!breadcrumbContainer) return;
+breadcrumbContainer.innerHTML = &#39;&#39;;
+breadcrumbData.forEach((item, index) => {
+const li = document.createElement(&#39;li&#39;);
+li.className = &#39;breadcrumb-separator&#39;;
+if (index === breadcrumbData.length - 1) {
+// Last item (current page) - not clickable
+li.innerHTML = `<span data-type="text" class="text-base-content/70">${item.name}</span>`;
+} else {
+// Clickable items
+li.innerHTML = `<a data-type="text" href="#" onclick="navigateTo(&#39;${item.pageId}&#39;)" class="text-primary hover:text-primary/80">${item.name}</a>`;
+}
+breadcrumbContainer.appendChild(li);
+});
+}
+};
+
+// Initialize app globals
+window.APP_GLOBALS = window.APP_GLOBALS || {};
+})();
+</script><script>
+/* JavaScript for home page interactions */
+document.addEventListener(&#39;DOMContentLoaded&#39;, function() {
+    // Set active navigation item
+    HeaderNavigation.setActiveNavItem(&#39;home&#39;);
+
+    // Initialize projects carousel
+    initProjectsCarousel();
+
+    // Initialize smooth scroll for anchor links
+    initSmoothScroll();
+
+    // Initialize intersection observer for animations
+    initScrollAnimations();
+});
+
+// Projects carousel functionality
+function initProjectsCarousel() {
+    const carouselItems = document.querySelectorAll(&#39;.projects-carousel .carousel-item&#39;);
+    const indicators = document.querySelectorAll(&#39;#projects-indicators button&#39;);
+    const prevBtn = document.getElementById(&#39;projects-prev&#39;);
+    const nextBtn = document.getElementById(&#39;projects-next&#39;);
+    let currentIndex = 0;
+    let autoplayInterval;
+
+    // Function to switch slides
+    function goToSlide(index) {
+        // Wrap around if index is out of bounds
+        if (index < 0) index = carouselItems.length - 1;
+        if (index >= carouselItems.length) index = 0;
+
+        // Update current index
+        currentIndex = index;
+
+        // Update carousel items
+        carouselItems.forEach((item, i) => {
+            if (i === currentIndex) {
+                item.classList.remove(&#39;hidden&#39;);
+                item.classList.add(&#39;active&#39;);
+            } else {
+                item.classList.add(&#39;hidden&#39;);
+                item.classList.remove(&#39;active&#39;);
+            }
+        });
+
+        // Update indicators
+        indicators.forEach((indicator, i) => {
+            if (i === currentIndex) {
+                indicator.classList.remove(&#39;bg-base-300&#39;);
+                indicator.classList.add(&#39;bg-primary&#39;);
+            } else {
+                indicator.classList.add(&#39;bg-base-300&#39;);
+                indicator.classList.remove(&#39;bg-primary&#39;);
+            }
+        });
+    }
+
+    // Setup event listeners for prev/next buttons
+    if (prevBtn) {
+        prevBtn.addEventListener(&#39;click&#39;, () => {
+            resetAutoplay();
+            goToSlide(currentIndex - 1);
+        });
+    }
+
+    if (nextBtn) {
+        nextBtn.addEventListener(&#39;click&#39;, () => {
+            resetAutoplay();
+            goToSlide(currentIndex + 1);
+        });
+    }
+
+    // Setup indicators
+    indicators.forEach((indicator, i) => {
+        indicator.addEventListener(&#39;click&#39;, () => {
+            resetAutoplay();
+            goToSlide(i);
+        });
+    });
+
+    // Start autoplay
+    function startAutoplay() {
+        autoplayInterval = setInterval(() => {
+            goToSlide(currentIndex + 1);
+        }, 5000);
+    }
+
+    // Reset autoplay
+    function resetAutoplay() {
+        clearInterval(autoplayInterval);
+        startAutoplay();
+    }
+
+    // Pause on hover
+    const carouselContainer = document.querySelector(&#39;.projects-carousel&#39;);
+    if (carouselContainer) {
+        carouselContainer.addEventListener(&#39;mouseenter&#39;, () => {
+            clearInterval(autoplayInterval);
+        });
+
+        carouselContainer.addEventListener(&#39;mouseleave&#39;, () => {
+            startAutoplay();
+        });
+    }
+
+    // Initialize
+    if (carouselItems.length > 0) {
+        goToSlide(0);
+        startAutoplay();
+    }
+}
+
+// Smooth scroll for anchor links
+function initSmoothScroll() {
+    // Add smooth scrolling behavior to internal links
+    document.querySelectorAll(&#39;a[href^="#"]&#39;).forEach(anchor => {
+        anchor.addEventListener(&#39;click&#39;, function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute(&#39;href&#39;));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: &#39;smooth&#39;,
+                    block: &#39;start&#39;
+                });
+            }
+        });
+    });
+}
+
+// Scroll animations using Intersection Observer
+function initScrollAnimations() {
+    // Create intersection observer for fade-in animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: &#39;0px 0px -50px 0px&#39;
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = &#39;1&#39;;
+                entry.target.style.transform = &#39;translateY(0)&#39;;
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    // Apply fade-in animation to service cards
+    const serviceCards = document.querySelectorAll(&#39;#ServicesSection .card&#39;);
+    serviceCards.forEach((card, index) => {
+        card.style.opacity = &#39;0&#39;;
+        card.style.transform = &#39;translateY(30px)&#39;;
+        card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+        observer.observe(card);
+    });
+
+    // Apply fade-in animation to why choose us features
+    const features = document.querySelectorAll(&#39;#WhyChooseUsSection .text-center&#39;);
+    features.forEach((feature, index) => {
+        feature.style.opacity = &#39;0&#39;;
+        feature.style.transform = &#39;translateY(30px)&#39;;
+        feature.style.transition = `opacity 0.6s ease ${index * 0.2}s, transform 0.6s ease ${index * 0.2}s`;
+        observer.observe(feature);
+    });
+}
+
+// Utility function for handling navigation
+function handleNavigation(targetPageId) {
+    navigateTo(targetPageId);
+}
+
+// Handle hero section parallax effect (optional enhancement)
+function initParallaxEffect() {
+    const hero = document.querySelector(&#39;.hero&#39;);
+    if (hero) {
+        window.addEventListener(&#39;scroll&#39;, () => {
+            const scrolled = window.pageYOffset;
+            const parallax = scrolled * 0.5;
+            hero.style.transform = `translateY(${parallax}px)`;
+        });
+    }
+}
+
+// Initialize parallax effect if desired
+// initParallaxEffect();
+</script>
+  
+
+</body></html>'></iframe>
+                    </div>
+                  </div>
+
+                </body>
+                </html>
+            

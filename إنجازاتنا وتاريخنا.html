@@ -1,0 +1,1510 @@
+
+                <!DOCTYPE html>
+                <html lang="zh">
+                <head>
+                  <meta charset="UTF-8">
+                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                  <title>إنجازاتنا وتاريخنا</title>
+                  <style>
+                    *,
+                    *::before,
+                    *::after {
+                      box-sizing: border-box;
+                      margin: 0;
+                    }
+                    .iframe-outer {
+                      position: fixed;
+                      top: 0;
+                      left: 0;
+                      bottom: 0;
+                      right: 0;
+                      display: flex;
+                      justify-content: center;
+                      background-color: #E0E0E0;
+                    }
+                    .iframe-wrapper {
+                      width: 100%;
+                      height: 100%;
+                      margin: 0 auto;
+                      transform-origin: center top;
+                      flex-shrink: 0;
+                    }
+                    #dynamicIframe {
+                      border: none;
+                      width: 100%;
+                      height: 100%;
+                    }
+                  </style>
+                  <script>
+                const width = 1920
+                const height = 1080
+                const resolutionRatio = width && height ? width / height : 1
+                const pageNameMap = {
+                  'home': 'الصفحة الرئيسية',
+    'achievements_history': 'إنجازاتنا وتاريخنا',
+    'services': 'خدماتنا',
+    'projects': 'مشاريعنا',
+    'contact_us': 'اتصل بنا'
+                }
+                function setIframeSize(w, h) {
+                  const currentContainerRadio = w / h
+                  let widthValue = w
+                  let heightValue = h
+                  let zoom = 1
+                  if (currentContainerRadio > resolutionRatio) {
+                    widthValue = h * resolutionRatio
+                    heightValue = h
+                  } else {
+                    widthValue = w
+                    heightValue = w / resolutionRatio
+                  }
+                  zoom = width ? widthValue / width : 1
+                  return {
+                    width: widthValue / zoom + 'px',
+                    height: heightValue / zoom + 'px',
+                    zoom,
+                  }
+                }
+                function adjustIframeSize() {
+                  const iframeWrapper = document.querySelector(".iframe-wrapper")
+                  const { width, height, zoom } = setIframeSize(window.innerWidth, window.innerHeight)
+                  iframeWrapper.style.height = height
+                  iframeWrapper.style.width = width
+                  iframeWrapper.style.transform = 'scale(' + zoom + ')'
+                }
+                function sanitizeFilename(name) {
+                  return name.replace(/[\/:*?"<>|]/g, '_')
+                }
+                function handlePostMessage(event) {
+                  if (!event.data) {
+                    return
+                  }
+                  const { type, targetPageId } = event.data
+                  const targetPageName = pageNameMap[targetPageId]
+                  if (type === "iframeNavigation" && targetPageId && targetPageName) {
+                    window.location.href = targetPageName + '.html'
+                  }
+                }
+                window.addEventListener('message', handlePostMessage)
+                window.onload = adjustIframeSize
+                window.onresize = adjustIframeSize
+                window.onunload = () => {
+                  window.removeEventListener('message', handlePostMessage)
+                }
+              </script>
+                </head>
+                <body>
+                  <div class="iframe-outer">
+                    <div class="iframe-wrapper">
+                      <iframe id="dynamicIframe" srcdoc='<html lang="ar" data-theme="corporate" dir="rtl"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="تاريخ وإنجازات مكتب الاستشارات الهندسية - مسيرة من التميز والإبداع في مجال الهندسة والتصميم">
+    <title>إنجازاتنا وتاريخنا - مكتب الاستشارات الهندسية</title>
+    <link href="./assets/11514579/npm/daisyui@5.css" rel="stylesheet" type="text/css">
+    <script src="./assets/81557572/npm/@tailwindcss/browser@4.js"></script>
+    <link href="./assets/npm/daisyui@5/themes.css" rel="stylesheet" type="text/css">
+    <script src="./assets/3/3.1.1/iconify.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;amp;display=swap" rel="stylesheet">
+    <style>
+/* CSS code for common usage*/
+/* daisyUI Theme Variables Customization
+* Based on the selected daisyUI theme and UI guidance requirements,
+* customize only the CSS variables that need to be different from the theme defaults.
+* Available theme variables for customization:
+*/
+/* Only modify if different from chosen theme defaults */
+:root {
+/* Customize brand colors for engineering consultancy office */
+--color-primary: rgba(44, 62, 80, 1); /* Deep navy #2C3E50 */
+--color-primary-content: rgba(255, 255, 255, 1);
+--color-secondary: rgba(52, 73, 94, 1); /* Charcoal #34495E */
+--color-secondary-content: rgba(255, 255, 255, 1);
+--color-accent: rgba(74, 74, 74, 1); /* Medium charcoal #4A4A4A */
+--color-accent-content: rgba(255, 255, 255, 1);
+--color-base-100: rgba(253, 253, 253, 1); /* Soft ivory #FDFDFD */
+--color-base-200: rgba(249, 249, 249, 1); /* Light gray #F9F9F9 */
+--color-base-300: rgba(240, 240, 240, 1); /* Border gray */
+--color-base-content: rgba(51, 51, 51, 1); /* Primary text charcoal #333333 */
+--color-neutral: rgba(102, 102, 102, 1); /* Secondary text #666666 */
+--color-neutral-content: rgba(255, 255, 255, 1);
+--color-success: rgba(76, 175, 80, 1); /* Muted green #4CAF50 */
+--color-warning: rgba(255, 193, 7, 1); /* Soft amber #FFC107 */
+--color-error: rgba(244, 67, 54, 1); /* Deep red #F44336 */
+--color-info: rgba(33, 150, 243, 1); /* Calm blue #2196F3 */
+--radius-box: 0.5rem; /* 8px for modern feel */
+--radius-field: 0.375rem; /* 6px for input fields */
+--radius-selector: 0.25rem; /* 4px for small elements */
+}
+
+/* Additional custom styles for common usage */
+.header-height {
+height: 64px;
+}
+.mega-menu-transition {
+transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+.breadcrumb-separator::after {
+content: "›";
+margin: 0 0.5rem;
+color: var(--color-base-content);
+opacity: 0.5;
+}
+.breadcrumb-separator:last-child::after {
+display: none;
+}
+
+/* Subtle shadows for corporate feel */
+.card-shadow {
+box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+}
+.hover-shadow {
+transition: box-shadow 0.2s ease-in-out;
+}
+.hover-shadow:hover {
+box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Typography enhancements */
+.text-secondary {
+color: var(--color-neutral);
+}
+.text-light {
+color: rgba(170, 170, 170, 1); /* Light gray #AAAAAA */
+}
+</style> <style>
+/* Custom styles for achievements history page */
+
+/* Hero section enhancements */
+.hero {
+    position: relative;
+}
+
+.hero-overlay {
+    background: linear-gradient(135deg, rgba(44, 62, 80, 0.8) 0%, rgba(52, 73, 94, 0.6) 100%);
+}
+
+/* Timeline enhancements */
+.timeline-box {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.timeline-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Card hover effects */
+.hover-shadow {
+    transition: all 0.3s ease;
+}
+
+.hover-shadow:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(44, 62, 80, 0.15);
+}
+
+/* Achievement stats animation */
+.card-title {
+    background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Awards section styling */
+.card img {
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+    transition: transform 0.3s ease;
+}
+
+.card:hover img {
+    transform: scale(1.1);
+}
+
+/* Project cards enhancement */
+.card figure {
+    overflow: hidden;
+}
+
+.card figure img {
+    transition: transform 0.5s ease;
+}
+
+.card:hover figure img {
+    transform: scale(1.05);
+}
+
+/* Timeline responsive adjustments */
+@media (max-width: 768px) {
+    .timeline-box {
+        font-size: 0.875rem;
+    }
+    
+    .timeline-box h4 {
+        font-size: 1rem;
+    }
+}
+
+/* Smooth scroll behavior */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Custom micro-textures for backgrounds */
+.bg-base-200 {
+    background-image: 
+        radial-gradient(circle at 1px 1px, rgba(44, 62, 80, 0.02) 1px, transparent 0);
+    background-size: 20px 20px;
+}
+
+.bg-base-100 {
+    background-image: 
+        radial-gradient(circle at 1px 1px, rgba(52, 73, 94, 0.01) 1px, transparent 0);
+    background-size: 16px 16px;
+}
+
+/* Enhanced button styling */
+.btn-primary {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-primary) 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(44, 62, 80, 0.3);
+}
+
+/* Modal enhancements */
+.modal-box {
+    background: var(--color-base-100);
+    border: 1px solid var(--color-base-300);
+}
+
+/* Typography improvements */
+h1, h2, h3, h4 {
+    line-height: 1.4;
+    letter-spacing: -0.02em;
+}
+
+p {
+    line-height: 1.7;
+}
+
+/* Icon styling */
+.iconify {
+    transition: transform 0.2s ease;
+}
+
+.btn:hover .iconify {
+    transform: translateX(-2px);
+}
+
+/* Achievement cards special styling */
+.card-body .w-16 {
+    transition: all 0.3s ease;
+}
+
+.card:hover .card-body .w-16 {
+    transform: scale(1.1);
+    background-color: rgba(var(--color-primary), 0.15) !important;
+}
+</style>
+<style>
+#ienqrl.spark-custom-ienqrl {
+  background-image: url("https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/ed429275-330c-43a3-abc5-e707248e7f49.jpeg");
+}
+
+#ir5t4l.spark-custom-ir5t4l {
+  background-image: url("https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/782f3b6d-606a-43ed-afbf-83f3439ebbbd.jpeg");
+  background-position-x: 0%;
+  background-position-y: 0%;
+}
+
+</style>
+<style>
+#ienqrl.spark-custom-ienqrl {
+  background-image: url("https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/ed429275-330c-43a3-abc5-e707248e7f49.jpeg");
+}
+
+#ir5t4l.spark-custom-ir5t4l {
+  background-image: url("https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/782f3b6d-606a-43ed-afbf-83f3439ebbbd.jpeg");
+  background-position-x: 0%;
+  background-position-y: 0%;
+}
+
+</style>
+<style>
+#ienqrl.spark-custom-ienqrl {
+  background-image: url("https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/ed429275-330c-43a3-abc5-e707248e7f49.jpeg");
+}
+
+#ir5t4l.spark-custom-ir5t4l {
+  background-image: url("https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/782f3b6d-606a-43ed-afbf-83f3439ebbbd.jpeg");
+  background-position-x: 0%;
+  background-position-y: 0%;
+}
+
+</style>
+<style>
+#ienqrl.spark-custom-ienqrl {
+  background-image: url("https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/ed429275-330c-43a3-abc5-e707248e7f49.jpeg");
+}
+
+#ir5t4l.spark-custom-ir5t4l {
+  background-image: url("https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/782f3b6d-606a-43ed-afbf-83f3439ebbbd.jpeg");
+  background-position-x: 0%;
+  background-position-y: 0%;
+}
+
+</style>
+<style>
+#ienqrl.spark-custom-ienqrl {
+  background-image: url("https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/ed429275-330c-43a3-abc5-e707248e7f49.jpeg");
+}
+
+#ir5t4l.spark-custom-ir5t4l {
+  background-image: url("https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/782f3b6d-606a-43ed-afbf-83f3439ebbbd.jpeg");
+  background-position-x: 0%;
+  background-position-y: 0%;
+}
+
+#i1s6aj.spark-custom-i1s6aj {
+  background-image: url("https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/f4811f02-0714-4a6b-af01-7c0afc6a0b61.jpeg");
+  background-position: center top;
+  background-size: contain;
+}
+
+#i0t1qs.spark-custom-i0t1qs {
+  background-image: url("https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/00d9b791-4042-4274-9ea1-5ca8c7525bb2.jpeg");
+  background-size: contain;
+}
+
+</style>
+<style>
+.idgrmr.spark-custom-idgrmr#idgrmr {
+  box-shadow: unset;
+  opacity: 0.99;
+  text-align: left;
+  text-decoration-color: initial;
+  text-decoration-line: none;
+  text-decoration-style: initial;
+  text-decoration-thickness: initial;
+  text-shadow: unset;
+}
+
+#iqskoo.spark-custom-iqskoo {
+  text-shadow: unset;
+}
+
+#iz3zuk.spark-custom-iz3zuk {
+  background-position-x: 0%;
+  background-position-y: 0%;
+  background-repeat: repeat;
+  background-size: auto;
+  font-size: 15.875px;
+}
+
+#ienqrl.spark-custom-ienqrl {
+  background-image: url("https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/ed429275-330c-43a3-abc5-e707248e7f49.jpeg");
+}
+
+#ir5t4l.spark-custom-ir5t4l {
+  background-image: url("https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/782f3b6d-606a-43ed-afbf-83f3439ebbbd.jpeg");
+  background-position-x: 0%;
+  background-position-y: 0%;
+}
+
+#i1s6aj.spark-custom-i1s6aj {
+  background-image: url("https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/f4811f02-0714-4a6b-af01-7c0afc6a0b61.jpeg");
+  background-position-x: 50%;
+  background-position-y: 0%;
+  background-size: contain;
+}
+
+#i0t1qs.spark-custom-i0t1qs {
+  background-image: url("https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/00d9b791-4042-4274-9ea1-5ca8c7525bb2.jpeg");
+  background-size: contain;
+}
+
+.ifp6im.spark-custom-ifp6im#ifp6im {
+  font-family: Arial, Helvetica, sans-serif;
+  opacity: 1;
+}
+
+</style>
+<style>
+.idgrmr.spark-custom-idgrmr#idgrmr {
+  box-shadow: unset;
+  opacity: 0.99;
+  text-align: left;
+  text-decoration-color: initial;
+  text-decoration-line: none;
+  text-decoration-style: initial;
+  text-decoration-thickness: initial;
+  text-shadow: unset;
+}
+
+#iz3zuk.spark-custom-iz3zuk {
+  background-position-x: 0%;
+  background-position-y: 0%;
+  background-repeat: repeat;
+  background-size: auto;
+  font-size: 15.875px;
+}
+
+.ifp6im.spark-custom-ifp6im#ifp6im {
+  font-family: Arial, Helvetica, sans-serif;
+  opacity: 1;
+}
+
+#ienqrl.spark-custom-ienqrl {
+  background-image: url("https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/ed429275-330c-43a3-abc5-e707248e7f49.jpeg");
+}
+
+#ir5t4l.spark-custom-ir5t4l {
+  background-image: url("https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/782f3b6d-606a-43ed-afbf-83f3439ebbbd.jpeg");
+  background-position-x: 0%;
+  background-position-y: 0%;
+}
+
+#i1s6aj.spark-custom-i1s6aj {
+  background-image: url("https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/f4811f02-0714-4a6b-af01-7c0afc6a0b61.jpeg");
+  background-position-x: 50%;
+  background-position-y: 0%;
+  background-size: contain;
+}
+
+#i0t1qs.spark-custom-i0t1qs {
+  background-image: url("https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/00d9b791-4042-4274-9ea1-5ca8c7525bb2.jpeg");
+  background-size: contain;
+}
+
+#iqskoo.spark-custom-iqskoo {
+  text-shadow: unset;
+}
+
+</style>
+<style>
+.idgrmr.spark-custom-idgrmr#idgrmr {
+  box-shadow: unset;
+  opacity: 0.99;
+  text-align: left;
+  text-decoration-color: initial;
+  text-decoration-line: none;
+  text-decoration-style: initial;
+  text-decoration-thickness: initial;
+  text-shadow: unset;
+}
+
+#iz3zuk.spark-custom-iz3zuk {
+  background-position-x: 0%;
+  background-position-y: 0%;
+  background-repeat: repeat;
+  background-size: auto;
+  font-size: 15.875px;
+}
+
+.ifp6im.spark-custom-ifp6im#ifp6im {
+  font-family: Arial, Helvetica, sans-serif;
+  opacity: 1;
+}
+
+#ienqrl.spark-custom-ienqrl {
+  background-image: url("https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/ed429275-330c-43a3-abc5-e707248e7f49.jpeg");
+}
+
+#ir5t4l.spark-custom-ir5t4l {
+  background-image: url("https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/782f3b6d-606a-43ed-afbf-83f3439ebbbd.jpeg");
+  background-position-x: 0%;
+  background-position-y: 0%;
+}
+
+#i1s6aj.spark-custom-i1s6aj {
+  background-image: url("https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/f4811f02-0714-4a6b-af01-7c0afc6a0b61.jpeg");
+  background-position-x: 50%;
+  background-position-y: 0%;
+  background-size: contain;
+}
+
+#i0t1qs.spark-custom-i0t1qs {
+  background-image: url("https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/00d9b791-4042-4274-9ea1-5ca8c7525bb2.jpeg");
+  background-size: contain;
+}
+
+#iqskoo.spark-custom-iqskoo {
+  text-shadow: unset;
+}
+
+</style>
+  <style>
+.idgrmr.spark-custom-idgrmr#idgrmr {
+  box-shadow: unset;
+  opacity: 0.99;
+  text-align: left;
+  text-decoration-color: initial;
+  text-decoration-line: none;
+  text-decoration-style: initial;
+  text-decoration-thickness: initial;
+  text-shadow: unset;
+}
+
+#iz3zuk.spark-custom-iz3zuk {
+  background-position-x: 0%;
+  background-position-y: 0%;
+  background-repeat: repeat;
+  background-size: auto;
+  font-size: 15.875px;
+}
+
+.ifp6im.spark-custom-ifp6im#ifp6im {
+  font-family: Arial, Helvetica, sans-serif;
+  opacity: 1;
+}
+
+#ienqrl.spark-custom-ienqrl {
+  background-image: url("https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/ed429275-330c-43a3-abc5-e707248e7f49.jpeg");
+}
+
+#ir5t4l.spark-custom-ir5t4l {
+  background-image: url("https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/782f3b6d-606a-43ed-afbf-83f3439ebbbd.jpeg");
+  background-position-x: 0%;
+  background-position-y: 0%;
+}
+
+#i1s6aj.spark-custom-i1s6aj {
+  background-image: url("https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/f4811f02-0714-4a6b-af01-7c0afc6a0b61.jpeg");
+  background-position-x: 50%;
+  background-position-y: 0%;
+  background-size: contain;
+}
+
+#i0t1qs.spark-custom-i0t1qs {
+  background-image: url("https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/00d9b791-4042-4274-9ea1-5ca8c7525bb2.jpeg");
+  background-size: contain;
+}
+
+#iqskoo.spark-custom-iqskoo {
+  text-shadow: unset;
+}
+
+</style></head>
+  <body class="bg-base-100 min-h-screen flex flex-col">
+    <div data-section-id="common_header" data-section-type="common_header" class="navbar bg-base-100 border-b border-base-300 sticky top-0 z-50 header-height px-4 lg:px-8">
+  <!-- Logo Section -->
+  <div class="navbar-start">
+    <button data-type="button" class="btn btn-ghost lg:hidden" onclick="HeaderNavigation.toggleMobileMenu()">
+      <span id="hamburger-icon" class="iconify" data-icon="heroicons:bars-3" data-width="24"></span><span id="close-icon" class="iconify hidden" data-icon="heroicons:x-mark" data-width="24"></span></button><button data-type="button" class="btn btn-ghost normal-case text-xl font-bold text-primary" onclick="navigateTo(&#39;home&#39;)">
+      <span class="iconify" data-icon="heroicons:building-office-2-solid" data-width="32"></span><span data-type="text">مكتب التزامن للاستشارات الهندسية</span>
+    </button>
+  </div>
+  <!-- Desktop Navigation -->
+  <div class="navbar-center hidden lg:flex">
+    <ul class="menu menu-horizontal px-1 gap-2">
+      <li>
+        <button data-type="button" data-nav-item="home" class="btn btn-ghost" onclick="navigateTo(&#39;home&#39;)">
+          <span data-type="text">الرئيسية</span>
+        </button>
+      </li>
+      <li class="relative">
+        <button data-type="button" data-nav-item="about_us" class="btn btn-ghost" onmouseover="HeaderNavigation.showServicesMenu()" onmouseleave="HeaderNavigation.hideServicesMenu()">
+          <span data-type="text">عن المكتب</span><span class="iconify" data-icon="heroicons:chevron-down" data-width="16"></span></button><!-- About Us Mega Menu -->
+        <div id="services-mega-menu" class="absolute top-full left-0 w-96 bg-base-100 shadow-xl rounded-box p-6 opacity-0 invisible mega-menu-transition" onmouseover="HeaderNavigation.showServicesMenu()" onmouseleave="HeaderNavigation.hideServicesMenu()">
+          <div data-type="container" class="grid grid-cols-1 gap-4">
+            <button data-type="button" class="card compact bg-base-200 hover:bg-primary/10 transition-colors duration-200" onclick="navigateTo(&#39;about_us&#39;)">
+              <div class="card-body">
+                <h3 data-type="text" class="card-title text-sm">
+                  نبذة عن المكتب
+                </h3>
+                <p data-type="text" class="text-xs text-base-content/70">
+                  تعرف على رؤيتنا ورسالتنا وقيمنا الأساسية
+                </p>
+              </div></button><button data-type="button" class="card compact bg-base-200 hover:bg-primary/10 transition-colors duration-200" onclick="navigateTo(&#39;team&#39;)">
+              <div class="card-body">
+                <h3 data-type="text" class="card-title text-sm">فريق العمل</h3>
+                <p data-type="text" class="text-xs text-base-content/70">
+                  تعرف على خبراء المكتب والكوادر المتخصصة
+                </p>
+              </div></button><button data-type="button" class="card compact bg-base-200 hover:bg-primary/10 transition-colors duration-200" onclick="navigateTo(&#39;achievements_history&#39;)">
+              <div class="card-body">
+                <h3 data-type="text" class="card-title text-sm">
+                  إنجازاتنا وتاريخنا
+                </h3>
+                <p data-type="text" class="text-xs text-base-content/70">
+                  اطلع على مسيرتنا وأبرز إنجازاتنا
+                </p>
+              </div>
+            </button>
+          </div>
+        </div>
+      </li>
+      <li>
+        <button data-type="button" data-nav-item="services" class="btn btn-ghost" onclick="navigateTo(&#39;services&#39;)">
+          <span data-type="text">خدماتنا</span>
+        </button>
+      </li>
+      <li>
+        <button data-type="button" data-nav-item="projects" class="btn btn-ghost ithxy spark-custom-ithxy" id="ithxy" onclick="navigateTo(&#39;projects&#39;)">
+          <span data-type="text">مشاريعنا</span>
+        </button>
+      </li>
+      <li>
+        <button data-type="button" data-nav-item="careers" class="btn btn-ghost" onclick="navigateTo(&#39;careers&#39;)">
+          <span data-type="text">وظائف</span>
+        </button>
+      </li>
+      <li>
+        <button data-type="button" data-nav-item="contact_us" class="btn btn-ghost" onclick="navigateTo(&#39;contact_us&#39;)">
+          <span data-type="text">اتصل بنا</span>
+        </button>
+      </li>
+    </ul>
+  </div>
+  <!-- Action Buttons -->
+  <div class="navbar-end gap-2">
+    <button data-type="button" class="btn btn-primary" onclick="navigateTo(&#39;contact_us&#39;)">
+      <span class="iconify" data-icon="heroicons:phone" data-width="20"></span><span data-type="text" class="hidden sm:inline">تواصل معنا</span>
+    </button>
+    <div data-type="container" class="dropdown dropdown-end">
+      <label tabindex="0" class="btn btn-ghost"><span class="iconify" data-icon="heroicons:language" data-width="20"></span><span data-type="text" class="hidden md:inline">AR</span></label>
+      <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-32">
+        <li><a data-type="text" href="#">العربية</a></li>
+        <li><a data-type="text" href="#">English</a></li>
+      </ul>
+    </div>
+    <button data-type="button" class="btn btn-ghost btn-circle">
+      <span class="iconify" data-icon="heroicons:envelope" data-width="20"></span>
+    </button>
+  </div>
+  <!-- Mobile Navigation Menu -->
+  <div id="mobile-nav-menu" class="absolute top-full left-0 right-0 bg-base-100 border-b border-base-300 hidden lg:hidden">
+    <ul class="menu menu-vertical p-4 gap-2">
+      <li>
+        <button data-type="button" data-nav-item="home" class="btn btn-ghost justify-start" onclick="navigateTo(&#39;home&#39;); HeaderNavigation.toggleMobileMenu()">
+          <span data-type="text">الرئيسية</span>
+        </button>
+      </li>
+      <li>
+        <button data-type="button" data-nav-item="about_us" class="btn btn-ghost justify-start" onclick="navigateTo(&#39;about_us&#39;); HeaderNavigation.toggleMobileMenu()">
+          <span data-type="text">عن المكتب</span>
+        </button>
+      </li>
+      <li>
+        <button data-type="button" data-nav-item="services" class="btn btn-ghost justify-start" onclick="navigateTo(&#39;services&#39;); HeaderNavigation.toggleMobileMenu()">
+          <span data-type="text">خدماتنا</span>
+        </button>
+      </li>
+      <li>
+        <button data-type="button" data-nav-item="projects" class="btn btn-ghost justify-start" onclick="navigateTo(&#39;projects&#39;); HeaderNavigation.toggleMobileMenu()">
+          <span data-type="text">مشاريعنا</span>
+        </button>
+      </li>
+      <li>
+        <button data-type="button" data-nav-item="careers" class="btn btn-ghost justify-start" onclick="navigateTo(&#39;careers&#39;); HeaderNavigation.toggleMobileMenu()">
+          <span data-type="text">وظائف</span>
+        </button>
+      </li>
+      <li>
+        <button data-type="button" data-nav-item="contact_us" class="btn btn-ghost justify-start" onclick="navigateTo(&#39;contact_us&#39;); HeaderNavigation.toggleMobileMenu()">
+          <span data-type="text">اتصل بنا</span>
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
+<!-- Breadcrumb --><div data-section-id="common_breadcrumb" data-section-type="common_section" class="bg-base-200 py-4 px-4 lg:px-8">
+<div data-type="container" class="max-w-7xl mx-auto">
+<div class="text-sm breadcrumbs">
+<ul>
+<li class="breadcrumb-separator">
+<a data-type="text" href="#" onclick="navigateTo(&#39;home&#39;)" class="flex items-center gap-1 text-primary hover:text-primary/80">
+<span class="iconify" data-icon="heroicons:home-solid" data-width="16"></span>
+<span>الرئيسية</span>
+</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<style>
+[data-section-id="common_breadcrumb"] .breadcrumb-separator::after {
+content: "›";
+margin: 0 0.5rem;
+color: var(--color-base-content);
+opacity: 0.5;
+}
+[data-section-id="common_breadcrumb"] .breadcrumb-separator:last-child::after {
+display: none;
+}
+[data-section-id="common_breadcrumb"] a {
+transition: color 0.2s ease-in-out;
+}
+</style>
+<script>
+(function() {
+// Breadcrumb component is managed through the global BreadcrumbNavigation object
+// Usage example:
+// BreadcrumbNavigation.updateBreadcrumb([
+//   { name: &#39;الرئيسية&#39;, pageId: &#39;home&#39; },
+//   { name: &#39;خدماتنا&#39;, pageId: &#39;services&#39; },
+//   { name: &#39;الاستشارات الهندسية&#39;, pageId: &#39;service_detail&#39; }
+// ]);
+})();
+</script><!-- Main Content Area -->
+    <main class="flex-1">
+      <!-- Hero Section -->
+      <section data-section-id="HeroSection" class="hero min-h-96 relative" style="background-image: url(&amp;quot;https://spark-builder.s3.us-east-1.amazonaws.com/image/2025/10/27/9119c20b-d014-4af5-b896-851366f38a0c.png&amp;quot;);" id="idhzt3">
+        <div class="hero-overlay bg-primary/70"></div>
+        <div data-type="container" class="hero-content text-center text-primary-content relative z-10">
+          <div class="max-w-4xl">
+            <h1 data-type="text" class="text-4xl md:text-6xl font-bold mb-6">
+              إنجازاتنا وتاريخنا
+            </h1>
+            <p data-type="text" id="iqr5x9" class="text-lg md:text-xl mb-8 max-w-2xl mx-auto leading-relaxed iqr5x9 spark-custom-iqr5x9">
+              شراكة في النجاح، مسيرة من الإبداع والتميز في عالم الهندسة
+              والاستشارات الهندسية
+            </p>
+          </div>
+        </div>
+      </section>
+      <!-- Achievements Overview Section -->
+      <section data-section-id="AchievementsOverviewSection" class="py-16 bg-base-200">
+        <div data-type="container" class="max-w-7xl mx-auto px-4 lg:px-8">
+          <div class="text-center mb-12">
+            <h2 data-type="text" class="text-3xl md:text-4xl font-bold text-base-content mb-4">
+              لمحة عن تاريخنا الحافل
+            </h2>
+            <p data-type="text" class="text-lg text-neutral max-w-2xl mx-auto leading-relaxed">
+              رحلة طويلة من الإنجازات والتطوير المستمر في خدمة المجتمع الهندسي
+            </p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div data-type="container" data-repeatable="true" class="card bg-base-100 shadow-md hover-shadow text-center">
+              <div class="card-body">
+                <div class="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
+                  <span class="iconify text-primary" data-icon="heroicons:building-office" data-width="32"></span>
+                </div>
+                <h3 data-type="text" id="iudb55" class="card-title text-2xl font-bold justify-center iudb55 spark-custom-iudb55">
+                  12+
+                </h3>
+                <p data-type="text" class="text-neutral">سنة من الخبرة</p>
+              </div>
+            </div>
+            <div data-type="container" data-repeatable="true" class="card bg-base-100 shadow-md hover-shadow text-center">
+              <div class="card-body">
+                <div class="w-16 h-16 mx-auto mb-4 bg-secondary/10 rounded-full flex items-center justify-center">
+                  <span class="iconify text-secondary" data-icon="heroicons:trophy" data-width="32"></span>
+                </div>
+                <h3 data-type="text" class="card-title text-2xl font-bold justify-center">
+                  150+
+                </h3>
+                <p data-type="text" class="text-neutral">مشروع منجز</p>
+              </div>
+            </div>
+            <div data-type="container" data-repeatable="true" class="card bg-base-100 shadow-md hover-shadow text-center">
+              <div class="card-body">
+                <div class="w-16 h-16 mx-auto mb-4 bg-accent/10 rounded-full flex items-center justify-center">
+                  <span class="iconify text-accent" data-icon="heroicons:star" data-width="32"></span>
+                </div>
+                <h3 data-type="text" id="i4chwi" class="card-title text-2xl font-bold justify-center i4chwi spark-custom-i4chwi">
+                  8
+                </h3>
+                <p data-type="text" class="text-neutral">جائزة وتكريم</p>
+              </div>
+            </div>
+            <div data-type="container" data-repeatable="true" class="card bg-base-100 shadow-md hover-shadow text-center">
+              <div class="card-body">
+                <div class="w-16 h-16 mx-auto mb-4 bg-success/10 rounded-full flex items-center justify-center">
+                  <span class="iconify text-success" data-icon="heroicons:users" data-width="32"></span>
+                </div>
+                <h3 data-type="text" id="in25ng" class="card-title text-2xl font-bold justify-center in25ng spark-custom-in25ng">
+                  147+
+                </h3>
+                <p data-type="text" class="text-neutral">عميل راضٍ</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Milestones Timeline Section -->
+      <section data-section-id="MilestonesTimelineSection" id="itsaji" class="py-16 bg-base-100 itsaji spark-custom-itsaji">
+        <div data-type="container" class="max-w-6xl mx-auto px-4 lg:px-8">
+          <div class="text-center mb-12">
+            <h2 data-type="text" class="text-3xl md:text-4xl font-bold text-base-content mb-4">
+              مسيرتنا عبر الزمن
+            </h2>
+            <p data-type="text" class="text-lg text-neutral max-w-2xl mx-auto leading-relaxed">
+              المحطات الرئيسية في تطور مكتبنا ونموه المستمر
+            </p>
+          </div>
+          <ul class="timeline timeline-vertical">
+            <li data-repeatable="true">
+              <div class="timeline-start timeline-box bg-primary text-primary-content">
+                <div class="flex items-center gap-3">
+                  <span class="iconify" data-icon="heroicons:rocket-launch" data-width="24"></span>
+                  <div>
+                    <h4 data-type="text" id="igzv44" class="font-bold igzv44 spark-custom-igzv44">
+                      2014 - التأسيس
+                    </h4>
+                    <p data-type="text" id="i8ewbv" class="text-sm i8ewbv spark-custom-i8ewbv">
+                      بداية المسيرة مع فريق من 5 مهندسين
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="timeline-middle">
+                <span class="iconify text-primary" data-icon="heroicons:check-circle-solid" data-width="20"></span>
+              </div>
+              <hr>
+            </li>
+            <li data-repeatable="true">
+              <hr>
+              <div class="timeline-middle">
+                <span class="iconify text-secondary" data-icon="heroicons:check-circle-solid" data-width="20"></span>
+              </div>
+              <div class="timeline-end timeline-box bg-secondary text-secondary-content">
+                <div class="flex items-center gap-3">
+                  <span class="iconify" data-icon="heroicons:building-office-2" data-width="24"></span>
+                  <div>
+                    <h4 data-type="text" id="isgvcv" class="font-bold isgvcv spark-custom-isgvcv">
+                      2018 - التوسع الأول
+                    </h4>
+                    <p data-type="text" class="text-sm">
+                      افتتاح المقر الجديد وتوسيع الفريق
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <hr>
+            </li>
+            <li data-repeatable="true" id="i0ktz5" class="i0ktz5 spark-custom-i0ktz5">
+              <hr>
+              <div class="timeline-start timeline-box bg-accent text-accent-content">
+                <h4 data-type="text" id="idu7ks" class="font-bold i3fcok idu7ks spark-custom-idu7ks">
+                  2022 - من اوائل المكاتب
+                </h4>
+                <div class="flex items-center gap-3">
+                  <span class="iconify" data-icon="heroicons:trophy" data-width="24"></span>
+                  <div>
+                    <p data-type="text" id="iy3m4f" class="text-sm iy3m4f spark-custom-iy3m4f">
+                      رخصة المكتب لتصميم انظمة السلامه
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="timeline-middle">
+                <span class="iconify text-accent" data-icon="heroicons:check-circle-solid" data-width="20"></span>
+              </div>
+              <hr>
+            </li>
+            <li data-repeatable="true">
+              <hr>
+              <div class="timeline-middle">
+                <span class="iconify text-success" data-icon="heroicons:check-circle-solid" data-width="20"></span>
+              </div>
+              <div class="timeline-end timeline-box bg-success text-success-content">
+                <div class="flex items-center gap-3">
+                  <span class="iconify" data-icon="heroicons:globe-alt" data-width="24"></span>
+                  <div>
+                    <h4 data-type="text" id="ihguca" class="font-bold ihguca spark-custom-ihguca">
+                      2030- التوسع في المملكه
+                    </h4>
+                    <p data-type="text" id="i78f3c" class="text-sm i78f3c spark-custom-i78f3c">
+                      بداية العمل في المشاريع المحلية
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </section>
+      <!-- Key Projects Section -->
+      <section data-section-id="KeyProjectsSection" id="i3p78t" class="py-16 bg-base-200 i3p78t spark-custom-i3p78t">
+        <div data-type="container" id="ib0udi" class="max-w-7xl mx-auto px-4 lg:px-8 ib0udi spark-custom-ib0udi">
+          <div class="text-center mb-12">
+            <h2 data-type="text" class="text-3xl md:text-4xl font-bold text-base-content mb-4">
+              مشاريعنا الرئيسية التي نفخر بها
+            </h2>
+            <p data-type="text" class="text-lg text-neutral max-w-2xl mx-auto leading-relaxed">
+              مجموعة مختارة من أبرز المشاريع التي تعكس خبرتنا وجودة عملنا
+            </p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div data-type="container" data-repeatable="true" class="card bg-base-100 shadow-md hover-shadow">
+              <figure>
+                <img data-type="image" src="https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/0e34bde1-5a8c-43cb-9cb9-0a04f83c9364.png" alt="مشروع جامعة شقراء - تصميم الحرم الجامعي والمرافق التعليمية" class="w-full h-48 object-cover ikxbxj spark-custom-ikxbxj" id="ikxbxj">
+              </figure>
+              <div class="card-body">
+                <h3 data-type="text" id="iv9prn" class="card-title iv9prn spark-custom-iv9prn">
+                  جامعة شقراء
+                </h3>
+                <p data-type="text" id="iti1tg" class="text-neutral mb-4 iti1tg spark-custom-iti1tg">
+                  تصميم خطط الأمن والسلامه
+                </p>
+                <div class="card-actions justify-end">
+                  <button data-type="button" class="btn btn-primary btn-sm" onclick="openProjectModal(&#39;commercial-complex&#39;)">
+                    <span data-type="text">عرض التفاصيل</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div data-type="container" data-repeatable="true" class="card bg-base-100 shadow-md hover-shadow">
+              <figure>
+                <img data-type="image" src="https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/97b0a214-3622-4b84-9d22-2dbd0b2b6c97.avif" alt="مشروع برج سكني فاخر بتصميم معماري مبتكر" class="w-full h-48 object-cover ir5t4l ir5t4l-2 spark-custom-ir5t4l-2" id="ir5t4l-2">
+              </figure>
+              <div id="if7cm2" class="card-body if7cm2 spark-custom-if7cm2">
+                <h3 data-type="text" id="iqiqji" class="card-title iqiqji spark-custom-iqiqji"></h3>
+                <h3 id="ibw26p" draggable="false" data-type="text" class="text-2xl font-bold mb-4 ibw26p spark-custom-ibw26p gjs-selected">
+                  STC group
+                </h3>
+                <p data-type="text" id="inneh9" class="text-neutral mb-4 inneh9 spark-custom-inneh9">
+                  تصميم خطط الأمن والسلامه
+                </p>
+                <div class="card-actions justify-end">
+                  <button data-type="button" class="btn btn-primary btn-sm" onclick="openProjectModal(&#39;residential-tower&#39;)">
+                    <span data-type="text">عرض التفاصيل</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div data-type="container" data-repeatable="true" class="card bg-base-100 shadow-md hover-shadow">
+              <figure>
+                <img data-type="image" src="https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/9f722387-b766-48fb-9254-e909718805d9.jpg" alt="مشروع الجبس الوطني - تصميم خطط الأمن والسلامة" class="w-full h-48 object-cover ienqrl spark-custom-ienqrl" id="ienqrl">
+              </figure>
+              <div class="card-body">
+                <h3 data-type="text" id="i4xetg" class="card-title i4xetg spark-custom-i4xetg"></h3>
+                <h3 id="i4xetg-2" draggable="false" data-type="text" class="card-title i4xetg gjs-selected i4xetg-2 spark-custom-i4xetg-2">
+                  <span id="is79pg">المركز الوطني للقطاع غير الربحي</span>
+                </h3>
+                <p data-type="text" id="ij3ivh" class="text-neutral mb-4 ij3ivh spark-custom-ij3ivh">
+                  تصميم خطط الأمن والسلامه
+                </p>
+                <div class="card-actions justify-end">
+                  <button data-type="button" class="btn btn-primary btn-sm" onclick="openProjectModal(&#39;infrastructure&#39;)">
+                    <span data-type="text">عرض التفاصيل</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Awards and Recognition Section -->
+      <section data-section-id="AwardsAndRecognitionSection" id="imt63k" class="py-16 bg-base-100">
+        <div data-type="container" class="max-w-7xl mx-auto px-4 lg:px-8">
+          <div class="text-center mb-12">
+            <h2 data-type="text" id="i76oqj" class="text-3xl md:text-4xl font-bold text-base-content mb-4 i76oqj spark-custom-i76oqj">
+              التراخيص والشهادات
+            </h2>
+            <p data-type="text" class="text-lg text-neutral max-w-2xl mx-auto leading-relaxed">
+              اعتراف محلي ودولي بجودة عملنا وإبداعنا في مجال الهندسة
+            </p>
+          </div>
+          <div id="iwrxox" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div data-type="container" data-repeatable="true" id="imckuh" class="card bg-base-100 shadow-md hover-shadow text-center">
+              <div id="ikgu2v" class="card-body ikgu2v spark-custom-ikgu2v">
+                <h3 data-type="text" id="ij58xh" class="card-title justify-center mb-2 ij58xh spark-custom-ij58xh">
+                  <br><br><br><br><br><br><br><br>
+                </h3>
+              </div>
+            </div>
+            <div data-type="container" data-repeatable="true" class="card bg-base-100 shadow-md hover-shadow text-center">
+              <div id="i0t1qs" class="card-body i0t1qs spark-custom-i0t1qs"></div>
+            </div>
+            <div data-type="container" data-repeatable="true" class="card bg-base-100 shadow-md hover-shadow text-center">
+              <div id="i1s6aj" class="card-body i1s6aj spark-custom-i1s6aj"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Back to About Us Section -->
+      <section data-section-id="BackToAboutUs" id="iub855" class="py-16 bg-base-200 iub855 spark-custom-iub855">
+        <div data-type="container" id="i9it2i" class="max-w-4xl mx-auto px-4 lg:px-8 text-center i9it2i spark-custom-i9it2i">
+          <h2 data-type="text" class="text-3xl font-bold text-base-content mb-4">
+            تعرف على المزيد عن مكتبنا
+          </h2>
+          <p data-type="text" class="text-lg text-neutral mb-8 leading-relaxed">
+            اكتشف رؤيتنا ورسالتنا وفريق العمل المتميز الذي يقف وراء هذه
+            الإنجازات
+          </p>
+          <button data-type="button" class="btn btn-primary btn-lg" onclick="navigateTo(&#39;about_us&#39;)">
+            <span class="iconify" data-icon="heroicons:arrow-right" data-width="24"></span><span data-type="text">العودة إلى عن المكتب</span>
+          </button>
+        </div>
+      </section>
+      <!-- Project Detail Modal -->
+      <dialog id="project-modal" class="modal">
+        <div class="modal-box max-w-4xl">
+          <button data-type="button" class="btn btn-sm btn-circle btn-ghost absolute left-2 top-2" onclick="closeProjectModal()">
+            <span class="iconify" data-icon="heroicons:x-mark" data-width="20"></span>
+          </button>
+          <div id="project-modal-content">
+            <!-- Content will be dynamically inserted by JS -->
+          </div>
+          <div class="modal-action">
+            <button data-type="button" class="btn" onclick="closeProjectModal()">
+              <span data-type="text">إغلاق</span>
+            </button>
+          </div>
+        </div>
+      </dialog>
+    </main>
+    <!-- Footer --><div data-section-id="common_footer" data-section-type="common_footer" id="ic0e8g" class="bg-base-200 text-base-content ic0e8g spark-custom-ic0e8g">
+  <!-- Main Footer Content -->
+  <footer id="imonfr" class="footer footer-horizontal p-10 max-w-7xl mx-auto imonfr spark-custom-imonfr">
+    <!-- Office Info -->
+    <aside>
+      <div data-type="container" class="flex items-center gap-2 mb-4">
+        <span class="iconify text-primary" data-icon="heroicons:building-office-2-solid" data-width="32"></span>
+        <h3 data-type="text" class="text-xl font-bold text-primary">
+          مكتب التزامن للاستشارات الهندسية
+        </h3>
+      </div>
+      <div data-type="container" id="iz3zuk" class="text-sm space-y-2 iz3zuk spark-custom-iz3zuk">
+        <p data-type="text" id="icg1xr" class="flex items-center gap-2 icg1xr spark-custom-icg1xr">
+          <span class="iconify" data-icon="heroicons:map-pin" data-width="16"></span>
+          المملكة العربية السعودية، الرياض
+        </p>
+        <p data-type="text" id="i002h4" class="flex items-center gap-2 i002h4 spark-custom-i002h4 i002h4">
+          <span class="iconify" data-icon="heroicons:phone" data-width="16"></span>
+          00966558141472 - 00966501015066
+        </p>
+        <p data-type="text" id="ifp6im" title="" class="flex items-center gap-2 ifp6im spark-custom-ifp6im">
+          <span class="iconify" data-icon="heroicons:envelope" data-width="16"></span>
+          faleh2783@gmail.com
+        </p>
+        <p data-type="text" id="ie29t9" class="flex items-center gap-2 ie29t9 spark-custom-ie29t9">
+          <span class="iconify" data-icon="heroicons:clock" data-width="16"></span>
+          الأحد - الخميس: 8:00 ص - 5:00 م
+        </p>
+      </div>
+    </aside>
+    <!-- Quick Links -->
+    <nav>
+      <header data-type="text" class="footer-title text-primary">
+        روابط سريعة
+      </header>
+      <button data-type="button" class="link link-hover" onclick="navigateTo(&#39;about_us&#39;)">
+        <span data-type="text">عن المكتب</span></button><button data-type="button" class="link link-hover" onclick="navigateTo(&#39;services&#39;)">
+        <span data-type="text">خدماتنا</span></button><button data-type="button" class="link link-hover" onclick="navigateTo(&#39;projects&#39;)">
+        <span data-type="text">مشاريعنا</span></button><button data-type="button" class="link link-hover" onclick="navigateTo(&#39;contact_us&#39;)">
+        <span data-type="text">اتصل بنا</span>
+      </button>
+    </nav>
+    <!-- Services -->
+    <nav>
+      <header data-type="text" class="footer-title text-primary">
+        خدماتنا
+      </header>
+      <button data-type="button" class="link link-hover" onclick="navigateTo(&#39;services&#39;)">
+        <span data-type="text">الاستشارات الهندسية</span></button><button data-type="button" class="link link-hover" onclick="navigateTo(&#39;services&#39;)">
+        <span data-type="text">إدارة المشاريع</span></button><button data-type="button" class="link link-hover" onclick="navigateTo(&#39;services&#39;)">
+        <span data-type="text">التصاميم الهندسية</span></button><button data-type="button" class="link link-hover" onclick="navigateTo(&#39;services&#39;)">
+        <span data-type="text">الإشراف الهندسي</span>
+      </button>
+    </nav>
+    <!-- Newsletter &amp; Contact -->
+    <nav>
+      <header data-type="text" class="footer-title text-primary">
+        ابق على تواصل
+      </header>
+      <div data-type="container" class="form-control w-full max-w-xs">
+        <label class="label"><span data-type="text" class="label-text text-sm">اشترك في نشرتنا الإخبارية</span></label>
+        <div class="join">
+          <input data-type="input" type="email" placeholder="بريدك الإلكتروني" id="iafh4s" class="input input-bordered input-sm join-item flex-1 iafh4s spark-custom-iafh4s"><button data-type="button" class="btn btn-primary btn-sm join-item">
+            <span class="iconify" data-icon="heroicons:paper-airplane" data-width="16"></span>
+          </button>
+        </div>
+      </div>
+      <div data-type="container" class="flex gap-3 mt-4">
+        <a data-type="button" href="#" class="btn btn-ghost btn-sm btn-circle"><span class="iconify" data-icon="heroicons:globe-alt" data-width="20"></span></a><a data-type="button" href="#" class="btn btn-ghost btn-sm btn-circle"><span class="iconify" data-icon="heroicons:phone" data-width="20"></span></a><a data-type="button" href="#" class="btn btn-ghost btn-sm btn-circle"><span class="iconify" data-icon="heroicons:envelope" data-width="20"></span></a>
+      </div>
+    </nav>
+  </footer>
+  <!-- Bottom Footer Bar -->
+  <footer id="igf71r" class="footer footer-center p-4 bg-base-300 text-base-content border-t border-base-content/10 igf71r spark-custom-igf71r">
+    <aside class="flex flex-col sm:flex-row items-center gap-4 sm:gap-8">
+      <p data-type="text" class="text-sm">
+        © 2025 مكتب التزامن للاستشارات الهندسية. جميع الحقوق محفوظة.
+      </p>
+      <div data-type="container" class="flex gap-4 text-sm">
+        <button data-type="button" class="link link-hover" onclick="navigateTo(&#39;privacy_policy&#39;)">
+          <span data-type="text">سياسة الخصوصية</span></button><button data-type="button" class="link link-hover" onclick="navigateTo(&#39;terms_of_service&#39;)">
+          <span data-type="text">شروط الاستخدام</span>
+        </button>
+      </div>
+    </aside>
+  </footer>
+</div>
+<style>
+.idgrmr.spark-custom-idgrmr#idgrmr {
+  box-shadow: unset;
+  opacity: 0.99;
+  text-align: left;
+  text-decoration-color: initial;
+  text-decoration-line: none;
+  text-decoration-style: initial;
+  text-decoration-thickness: initial;
+  text-shadow: unset;
+}
+
+#iz3zuk.spark-custom-iz3zuk {
+  background-position-x: 0%;
+  background-position-y: 0%;
+  background-repeat: repeat;
+  background-size: auto;
+  font-size: 15.875px;
+}
+
+.ifp6im.spark-custom-ifp6im#ifp6im {
+  font-family: Arial, Helvetica, sans-serif;
+  opacity: 1;
+}
+
+</style>
+<style>
+#iz3zuk.spark-custom-iz3zuk {
+  background-position-x: 0%;
+  background-position-y: 0%;
+  background-repeat: repeat;
+  background-size: auto;
+  font-size: 15.875px;
+}
+
+.ifp6im.spark-custom-ifp6im#ifp6im {
+  font-family: Arial, Helvetica, sans-serif;
+  opacity: 1;
+}
+
+</style>
+<style>
+#iz3zuk.spark-custom-iz3zuk {
+  background-position-x: 0%;
+  background-position-y: 0%;
+  background-repeat: repeat;
+  background-size: auto;
+  font-size: 15.875px;
+}
+
+.ifp6im.spark-custom-ifp6im#ifp6im {
+  font-family: Arial, Helvetica, sans-serif;
+  opacity: 1;
+}
+
+</style><style>
+#iz3zuk.spark-custom-iz3zuk {
+  background-position-x: 0%;
+  background-position-y: 0%;
+  background-repeat: repeat;
+  background-size: auto;
+  font-size: 15.875px;
+}
+
+.ifp6im.spark-custom-ifp6im#ifp6im {
+  font-family: Arial, Helvetica, sans-serif;
+  opacity: 1;
+}
+
+</style><script>
+/* JavaScript code for common usage, should be wrapped in a closure */
+(function() {
+// Navigation function for page transitions
+window.navigateTo = function(targetPageId) {
+const isInIframe = window.self !== window.top;
+const targetFileName = `${targetPageId}.html`;
+if (isInIframe) {
+window.parent.postMessage({
+type: &#39;iframeNavigation&#39;,
+targetPageId: targetPageId
+}, &#39;*&#39;);
+} else {
+window.location.href = targetFileName;
+}
+};
+
+// Header navigation state management
+window.HeaderNavigation = {
+setActiveNavItem: function(activePageId) {
+const navItems = document.querySelectorAll(&#39;[data-nav-item]&#39;);
+navItems.forEach(item => {
+const pageId = item.getAttribute(&#39;data-nav-item&#39;);
+if (pageId === activePageId) {
+item.classList.add(&#39;bg-primary/10&#39;, &#39;text-primary&#39;);
+} else {
+item.classList.remove(&#39;bg-primary/10&#39;, &#39;text-primary&#39;);
+}
+});
+},
+toggleMobileMenu: function() {
+const mobileMenu = document.getElementById(&#39;mobile-nav-menu&#39;);
+const hamburger = document.getElementById(&#39;hamburger-icon&#39;);
+const closeIcon = document.getElementById(&#39;close-icon&#39;);
+if (mobileMenu.classList.contains(&#39;hidden&#39;)) {
+mobileMenu.classList.remove(&#39;hidden&#39;);
+hamburger.classList.add(&#39;hidden&#39;);
+closeIcon.classList.remove(&#39;hidden&#39;);
+} else {
+mobileMenu.classList.add(&#39;hidden&#39;);
+hamburger.classList.remove(&#39;hidden&#39;);
+closeIcon.classList.add(&#39;hidden&#39;);
+}
+},
+showServicesMenu: function() {
+const servicesMenu = document.getElementById(&#39;services-mega-menu&#39;);
+if (servicesMenu) {
+servicesMenu.classList.remove(&#39;opacity-0&#39;, &#39;invisible&#39;);
+servicesMenu.classList.add(&#39;opacity-100&#39;, &#39;visible&#39;);
+}
+},
+hideServicesMenu: function() {
+const servicesMenu = document.getElementById(&#39;services-mega-menu&#39;);
+if (servicesMenu) {
+servicesMenu.classList.remove(&#39;opacity-100&#39;, &#39;visible&#39;);
+servicesMenu.classList.add(&#39;opacity-0&#39;, &#39;invisible&#39;);
+}
+}
+};
+
+// Breadcrumb management
+window.BreadcrumbNavigation = {
+updateBreadcrumb: function(breadcrumbData) {
+const breadcrumbContainer = document.querySelector(&#39;[data-section-id="common_breadcrumb"] .breadcrumbs ul&#39;);
+if (!breadcrumbContainer) return;
+breadcrumbContainer.innerHTML = &#39;&#39;;
+breadcrumbData.forEach((item, index) => {
+const li = document.createElement(&#39;li&#39;);
+li.className = &#39;breadcrumb-separator&#39;;
+if (index === breadcrumbData.length - 1) {
+// Last item (current page) - not clickable
+li.innerHTML = `<span data-type="text" class="text-base-content/70">${item.name}</span>`;
+} else {
+// Clickable items
+li.innerHTML = `<a data-type="text" href="#" onclick="navigateTo(&#39;${item.pageId}&#39;)" class="text-primary hover:text-primary/80">${item.name}</a>`;
+}
+breadcrumbContainer.appendChild(li);
+});
+}
+};
+
+// Initialize app globals
+window.APP_GLOBALS = window.APP_GLOBALS || {};
+})();
+</script><script>
+/* JavaScript for achievements history page interaction */
+document.addEventListener(&#39;DOMContentLoaded&#39;, function() {
+    // Initialize breadcrumb
+    BreadcrumbNavigation.updateBreadcrumb([
+        { name: &#39;الرئيسية&#39;, pageId: &#39;home&#39; },
+        { name: &#39;عن المكتب&#39;, pageId: &#39;about_us&#39; },
+        { name: &#39;إنجازاتنا وتاريخنا&#39;, pageId: &#39;achievements_history&#39; }
+    ]);
+
+    // Set active navigation item
+    HeaderNavigation.setActiveNavItem(&#39;about_us&#39;);
+
+    // Initialize scroll animations
+    initScrollAnimations();
+
+    // Initialize counter animations
+    initCounterAnimations();
+});
+
+// Scroll animations for timeline and cards
+function initScrollAnimations() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: &#39;0px 0px -50px 0px&#39;
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = &#39;1&#39;;
+                entry.target.style.transform = &#39;translateY(0)&#39;;
+            }
+        });
+    }, observerOptions);
+
+    // Observe timeline items
+    const timelineItems = document.querySelectorAll(&#39;.timeline li&#39;);
+    timelineItems.forEach((item, index) => {
+        item.style.opacity = &#39;0&#39;;
+        item.style.transform = &#39;translateY(30px)&#39;;
+        item.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+        observer.observe(item);
+    });
+
+    // Observe cards
+    const cards = document.querySelectorAll(&#39;.card&#39;);
+    cards.forEach((card, index) => {
+        card.style.opacity = &#39;0&#39;;
+        card.style.transform = &#39;translateY(20px)&#39;;
+        card.style.transition = `opacity 0.5s ease ${index * 0.1}s, transform 0.5s ease ${index * 0.1}s`;
+        observer.observe(card);
+    });
+}
+
+// Counter animations for achievement stats
+function initCounterAnimations() {
+    const counters = document.querySelectorAll(&#39;.card-title&#39;);
+    
+    const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const counter = entry.target;
+                const text = counter.textContent;
+                const number = parseInt(text.match(/\d+/));
+                
+                if (number) {
+                    animateCounter(counter, 0, number, 2000);
+                    counterObserver.unobserve(counter);
+                }
+            }
+        });
+    }, { threshold: 0.5 });
+
+    counters.forEach(counter => {
+        if (counter.textContent.match(/\d+/)) {
+            counterObserver.observe(counter);
+        }
+    });
+}
+
+// Counter animation function
+function animateCounter(element, start, end, duration) {
+    const range = end - start;
+    const increment = range / (duration / 16);
+    let current = start;
+    const originalText = element.textContent;
+    
+    const timer = setInterval(() => {
+        current += increment;
+        if (current >= end) {
+            current = end;
+            clearInterval(timer);
+        }
+        
+        const newText = originalText.replace(/\d+/, Math.floor(current));
+        element.textContent = newText;
+    }, 16);
+}
+
+// Project modal functionality
+function openProjectModal(projectId) {
+    const modal = document.getElementById(&#39;project-modal&#39;);
+    const modalContent = document.getElementById(&#39;project-modal-content&#39;);
+
+    let content = &#39;&#39;;
+    switch(projectId) {
+        case &#39;commercial-complex&#39;:
+            content = `
+                <h3 class="font-bold text-2xl mb-4">المجمع التجاري الحديث</h3>
+                <div class="flex flex-col md:flex-row gap-8">
+                    <img src="https://placehold.co/500x300.png?text=Commercial+Complex+Details" alt="تفاصيل المجمع التجاري الحديث" class="rounded-lg md:w-1/2"/>
+                    <div>
+                        <p class="mb-4">مشروع متكامل يجمع بين التصميم المعماري الحديث والوظائف التجارية المتنوعة في مساحة 15,000 متر مربع.</p>
+                        <ul class="list-disc pr-5 mb-4 space-y-2">
+                            <li>تصميم معماري مبتكر يراعي البيئة المحلية</li>
+                            <li>مساحات تجارية متنوعة تلبي احتياجات المجتمع</li>
+                            <li>نظام إدارة ذكي للطاقة والإضاءة</li>
+                            <li>مواقف سيارات متعددة الطوابق</li>
+                            <li>مساحات خضراء ومناطق ترفيهية</li>
+                        </ul>
+                        <div class="stats shadow mb-4 w-full">
+                            <div class="stat">
+                                <div class="stat-title">المساحة الإجمالية</div>
+                                <div class="stat-value text-primary">15,000 م²</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-title">مدة التنفيذ</div>
+                                <div class="stat-value text-secondary">18 شهر</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            break;
+        case &#39;residential-tower&#39;:
+            content = `
+                <h3 class="font-bold text-2xl mb-4">البرج السكني الفاخر</h3>
+                <div class="flex flex-col md:flex-row gap-8">
+                    <img src="https://placehold.co/500x300.png?text=Residential+Tower+Details" alt="تفاصيل البرج السكني الفاخر" class="rounded-lg md:w-1/2"/>
+                    <div>
+                        <p class="mb-4">برج سكني من 25 طابق يضم وحدات سكنية فاخرة بتصميم معماري مبتكر وصديق للبيئة.</p>
+                        <ul class="list-disc pr-5 mb-4 space-y-2">
+                            <li>75 وحدة سكنية بمساحات متنوعة</li>
+                            <li>تصميم يراعي كفاءة الطاقة</li>
+                            <li>مرافق ترفيهية متكاملة</li>
+                            <li>نظام أمان متطور</li>
+                            <li>إطلالات بانورامية على المدينة</li>
+                        </ul>
+                        <div class="stats shadow mb-4 w-full">
+                            <div class="stat">
+                                <div class="stat-title">عدد الطوابق</div>
+                                <div class="stat-value text-primary">25</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-title">الوحدات السكنية</div>
+                                <div class="stat-value text-secondary">75</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            break;
+        case &#39;infrastructure&#39;:
+            content = `
+                <h3 class="font-bold text-2xl mb-4">تطوير البنية التحتية</h3>
+                <div class="flex flex-col md:flex-row gap-8">
+                    <img src="https://placehold.co/500x300.png?text=Infrastructure+Project+Details" alt="تفاصيل مشروع تطوير البنية التحتية" class="rounded-lg md:w-1/2"/>
+                    <div>
+                        <p class="mb-4">مشروع ضخم لتطوير شبكة الطرق والجسور بطول 50 كيلومتر لتحسين الاتصال بين المناطق الحضرية.</p>
+                        <ul class="list-disc pr-5 mb-4 space-y-2">
+                            <li>تصميم 3 جسور رئيسية</li>
+                            <li>شبكة طرق حديثة بمعايير دولية</li>
+                            <li>أنظمة صرف متطورة</li>
+                            <li>إضاءة ذكية موفرة للطاقة</li>
+                            <li>مسارات للمشاة وراكبي الدراجات</li>
+                        </ul>
+                        <div class="stats shadow mb-4 w-full">
+                            <div class="stat">
+                                <div class="stat-title">طول الشبكة</div>
+                                <div class="stat-value text-primary">50 كم</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-title">عدد الجسور</div>
+                                <div class="stat-value text-secondary">3</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            break;
+        default:
+            content = `
+                <h3 class="font-bold text-2xl mb-4">تفاصيل المشروع</h3>
+                <p>معلومات تفصيلية عن هذا المشروع قيد الإعداد. يرجى التواصل مع مكتبنا للحصول على المزيد من التفاصيل.</p>
+            `;
+    }
+
+    modalContent.innerHTML = content;
+    modal.showModal();
+}
+
+function closeProjectModal() {
+    const modal = document.getElementById(&#39;project-modal&#39;);
+    modal.close();
+}
+</script>
+  
+
+</body></html>'></iframe>
+                    </div>
+                  </div>
+
+                </body>
+                </html>
+            

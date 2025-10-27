@@ -1,0 +1,1709 @@
+
+                <!DOCTYPE html>
+                <html lang="zh">
+                <head>
+                  <meta charset="UTF-8">
+                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                  <title>مشاريعنا</title>
+                  <style>
+                    *,
+                    *::before,
+                    *::after {
+                      box-sizing: border-box;
+                      margin: 0;
+                    }
+                    .iframe-outer {
+                      position: fixed;
+                      top: 0;
+                      left: 0;
+                      bottom: 0;
+                      right: 0;
+                      display: flex;
+                      justify-content: center;
+                      background-color: #E0E0E0;
+                    }
+                    .iframe-wrapper {
+                      width: 100%;
+                      height: 100%;
+                      margin: 0 auto;
+                      transform-origin: center top;
+                      flex-shrink: 0;
+                    }
+                    #dynamicIframe {
+                      border: none;
+                      width: 100%;
+                      height: 100%;
+                    }
+                  </style>
+                  <script>
+                const width = 1920
+                const height = 1080
+                const resolutionRatio = width && height ? width / height : 1
+                const pageNameMap = {
+                  'home': 'الصفحة الرئيسية',
+    'achievements_history': 'إنجازاتنا وتاريخنا',
+    'services': 'خدماتنا',
+    'projects': 'مشاريعنا',
+    'contact_us': 'اتصل بنا'
+                }
+                function setIframeSize(w, h) {
+                  const currentContainerRadio = w / h
+                  let widthValue = w
+                  let heightValue = h
+                  let zoom = 1
+                  if (currentContainerRadio > resolutionRatio) {
+                    widthValue = h * resolutionRatio
+                    heightValue = h
+                  } else {
+                    widthValue = w
+                    heightValue = w / resolutionRatio
+                  }
+                  zoom = width ? widthValue / width : 1
+                  return {
+                    width: widthValue / zoom + 'px',
+                    height: heightValue / zoom + 'px',
+                    zoom,
+                  }
+                }
+                function adjustIframeSize() {
+                  const iframeWrapper = document.querySelector(".iframe-wrapper")
+                  const { width, height, zoom } = setIframeSize(window.innerWidth, window.innerHeight)
+                  iframeWrapper.style.height = height
+                  iframeWrapper.style.width = width
+                  iframeWrapper.style.transform = 'scale(' + zoom + ')'
+                }
+                function sanitizeFilename(name) {
+                  return name.replace(/[\/:*?"<>|]/g, '_')
+                }
+                function handlePostMessage(event) {
+                  if (!event.data) {
+                    return
+                  }
+                  const { type, targetPageId } = event.data
+                  const targetPageName = pageNameMap[targetPageId]
+                  if (type === "iframeNavigation" && targetPageId && targetPageName) {
+                    window.location.href = targetPageName + '.html'
+                  }
+                }
+                window.addEventListener('message', handlePostMessage)
+                window.onload = adjustIframeSize
+                window.onresize = adjustIframeSize
+                window.onunload = () => {
+                  window.removeEventListener('message', handlePostMessage)
+                }
+              </script>
+                </head>
+                <body>
+                  <div class="iframe-outer">
+                    <div class="iframe-wrapper">
+                      <iframe id="dynamicIframe" srcdoc='<html lang="ar" data-theme="corporate" dir="rtl"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مشاريعنا - مكتب الاستشارات الهندسية</title>
+    <link href="./assets/11514579/npm/daisyui@5.css" rel="stylesheet" type="text/css">
+    <script src="./assets/81557572/npm/@tailwindcss/browser@4.js"></script>
+    <link href="./assets/npm/daisyui@5/themes.css" rel="stylesheet" type="text/css">
+    <script src="./assets/3/3.1.1/iconify.min.js"></script>
+    <style>
+/* CSS code for common usage*/
+/* daisyUI Theme Variables Customization
+* Based on the selected daisyUI theme and UI guidance requirements,
+* customize only the CSS variables that need to be different from the theme defaults.
+* Available theme variables for customization:
+*/
+/* Only modify if different from chosen theme defaults */
+:root {
+/* Customize brand colors for engineering consultancy office */
+--color-primary: rgba(44, 62, 80, 1); /* Deep navy #2C3E50 */
+--color-primary-content: rgba(255, 255, 255, 1);
+--color-secondary: rgba(52, 73, 94, 1); /* Charcoal #34495E */
+--color-secondary-content: rgba(255, 255, 255, 1);
+--color-accent: rgba(74, 74, 74, 1); /* Medium charcoal #4A4A4A */
+--color-accent-content: rgba(255, 255, 255, 1);
+--color-base-100: rgba(253, 253, 253, 1); /* Soft ivory #FDFDFD */
+--color-base-200: rgba(249, 249, 249, 1); /* Light gray #F9F9F9 */
+--color-base-300: rgba(240, 240, 240, 1); /* Border gray */
+--color-base-content: rgba(51, 51, 51, 1); /* Primary text charcoal #333333 */
+--color-neutral: rgba(102, 102, 102, 1); /* Secondary text #666666 */
+--color-neutral-content: rgba(255, 255, 255, 1);
+--color-success: rgba(76, 175, 80, 1); /* Muted green #4CAF50 */
+--color-warning: rgba(255, 193, 7, 1); /* Soft amber #FFC107 */
+--color-error: rgba(244, 67, 54, 1); /* Deep red #F44336 */
+--color-info: rgba(33, 150, 243, 1); /* Calm blue #2196F3 */
+--radius-box: 0.5rem; /* 8px for modern feel */
+--radius-field: 0.375rem; /* 6px for input fields */
+--radius-selector: 0.25rem; /* 4px for small elements */
+}
+
+/* Additional custom styles for common usage */
+.header-height {
+height: 64px;
+}
+.mega-menu-transition {
+transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+.breadcrumb-separator::after {
+content: "›";
+margin: 0 0.5rem;
+color: var(--color-base-content);
+opacity: 0.5;
+}
+.breadcrumb-separator:last-child::after {
+display: none;
+}
+
+/* Subtle shadows for corporate feel */
+.card-shadow {
+box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+}
+.hover-shadow {
+transition: box-shadow 0.2s ease-in-out;
+}
+.hover-shadow:hover {
+box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Typography enhancements */
+.text-secondary {
+color: var(--color-neutral);
+}
+.text-light {
+color: rgba(170, 170, 170, 1); /* Light gray #AAAAAA */
+}
+</style> <style>
+/* Projects page specific styles */
+.hover-shadow {
+    transition: all 0.3s ease;
+}
+
+.hover-shadow:hover {
+    transform: translateY(-4px);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.project-card {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-2px);
+}
+
+.project-card figure img {
+    transition: transform 0.3s ease;
+}
+
+.project-card:hover figure img {
+    transform: scale(1.02);
+}
+
+/* Hero section overlay enhancement */
+.hero-overlay {
+    background: linear-gradient(135deg, rgba(44, 62, 80, 0.7) 0%, rgba(52, 73, 94, 0.6) 100%);
+}
+
+/* Filter buttons styling */
+.dropdown .btn {
+    transition: all 0.2s ease;
+}
+
+.dropdown .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Badge styling for project types */
+.badge {
+    font-weight: 500;
+    letter-spacing: 0.025em;
+}
+
+/* Grid animation for filtered results */
+.project-card.fade-in {
+    animation: fadeInUp 0.5s ease forwards;
+}
+
+.project-card.fade-out {
+    animation: fadeOut 0.3s ease forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+}
+
+/* Loading state styling */
+#loadingState {
+    min-height: 200px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hero-content .max-w-4xl {
+        padding: 0 1rem;
+    }
+    
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-content p {
+        font-size: 1.125rem;
+    }
+    
+    .dropdown {
+        width: 100%;
+    }
+    
+    .dropdown .btn {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+
+/* Enhanced micro-textures for corporate feel */
+.card {
+    background: linear-gradient(145deg, var(--color-base-100) 0%, rgba(249, 249, 249, 0.8) 100%);
+    backdrop-filter: blur(10px);
+}
+
+.hero {
+    position: relative;
+}
+
+.hero::before {
+    content: &#39;&#39;;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url(&#39;data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60"><g fill-opacity="0.03"><circle cx="30" cy="30" r="1"/></g></svg>&#39;);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+</style>
+<style>
+#if5hk4.spark-custom-if5hk4 {
+  background-position-x: 50%;
+  background-position-y: 0%;
+}
+
+#ier7uh.spark-custom-ier7uh {
+  height: 272px;
+}
+
+</style>
+<style>
+#if5hk4.spark-custom-if5hk4 {
+  background-position-x: 50%;
+  background-position-y: 0%;
+}
+
+#ier7uh.spark-custom-ier7uh {
+  height: 272px;
+}
+
+.iimb6k.spark-custom-iimb6k#iimb6k {
+  color: rgb(255, 255, 255);
+}
+
+#ijw5c9.spark-custom-ijw5c9 {
+  opacity: 1;
+}
+
+#ignodv.spark-custom-ignodv {
+  font-family: "Arial Black", Gadget, sans-serif;
+}
+
+#iqsl0r.spark-custom-iqsl0r {
+  box-shadow:
+    oklab(0 0 0 / 0.00129772) 0px 0.129772px 0px 0px inset,
+    oklab(1 0 0 / 0.00129772) 0px -0.129772px 0px 0px inset;
+  font-family: "Brush Script MT", sans-serif;
+}
+
+#izpchw.spark-custom-izpchw {
+  color: rgb(246, 241, 241);
+}
+
+.if9pcx.spark-custom-if9pcx#if9pcx {
+  box-shadow:
+    oklab(1 0 0 / 0.000361469) 0px -0.0361469px 0px 0px inset,
+    oklab(0 0 0 / 0.000361469) 0px 0.0361469px 0px 0px inset;
+}
+
+</style>
+<style>
+#if5hk4.spark-custom-if5hk4 {
+  background-position-x: 50%;
+  background-position-y: 0%;
+}
+
+#ier7uh.spark-custom-ier7uh {
+  height: 272px;
+}
+
+.iimb6k.spark-custom-iimb6k#iimb6k {
+  color: rgb(255, 255, 255);
+}
+
+#ijw5c9.spark-custom-ijw5c9 {
+  opacity: 1;
+}
+
+#ignodv.spark-custom-ignodv {
+  font-family: "Arial Black", Gadget, sans-serif;
+}
+
+#iqsl0r.spark-custom-iqsl0r {
+  box-shadow:
+    oklab(0 0 0 / 0.00129772) 0px 0.129772px 0px 0px inset,
+    oklab(1 0 0 / 0.00129772) 0px -0.129772px 0px 0px inset;
+  font-family: "Brush Script MT", sans-serif;
+}
+
+#izpchw.spark-custom-izpchw {
+  color: rgb(246, 241, 241);
+}
+
+.if9pcx.spark-custom-if9pcx#if9pcx {
+  box-shadow:
+    oklab(1 0 0 / 0.000361469) 0px -0.0361469px 0px 0px inset,
+    oklab(0 0 0 / 0.000361469) 0px 0.0361469px 0px 0px inset;
+}
+
+</style>
+<style>
+#if5hk4.spark-custom-if5hk4 {
+  background-position-x: 50%;
+  background-position-y: 0%;
+}
+
+#ier7uh.spark-custom-ier7uh {
+  height: 272px;
+}
+
+.iimb6k.spark-custom-iimb6k#iimb6k {
+  color: rgb(255, 255, 255);
+}
+
+#ijw5c9.spark-custom-ijw5c9 {
+  opacity: 1;
+}
+
+#ignodv.spark-custom-ignodv {
+  font-family: "Arial Black", Gadget, sans-serif;
+}
+
+#iqsl0r.spark-custom-iqsl0r {
+  box-shadow:
+    oklab(0 0 0 / 0.00129772) 0px 0.129772px 0px 0px inset,
+    oklab(1 0 0 / 0.00129772) 0px -0.129772px 0px 0px inset;
+  font-family: "Brush Script MT", sans-serif;
+}
+
+#izpchw.spark-custom-izpchw {
+  color: rgb(246, 241, 241);
+}
+
+.if9pcx.spark-custom-if9pcx#if9pcx {
+  box-shadow:
+    oklab(1 0 0 / 0.000361469) 0px -0.0361469px 0px 0px inset,
+    oklab(0 0 0 / 0.000361469) 0px 0.0361469px 0px 0px inset;
+}
+
+</style>
+<style>
+#if5hk4.spark-custom-if5hk4 {
+  background-position-x: 50%;
+  background-position-y: 0%;
+}
+
+#ier7uh.spark-custom-ier7uh {
+  height: 272px;
+}
+
+.iimb6k.spark-custom-iimb6k#iimb6k {
+  color: rgb(255, 255, 255);
+}
+
+#ijw5c9.spark-custom-ijw5c9 {
+  opacity: 1;
+}
+
+#ignodv.spark-custom-ignodv {
+  font-family: "Arial Black", Gadget, sans-serif;
+}
+
+#iqsl0r.spark-custom-iqsl0r {
+  box-shadow:
+    oklab(0 0 0 / 0.00129772) 0px 0.129772px 0px 0px inset,
+    oklab(1 0 0 / 0.00129772) 0px -0.129772px 0px 0px inset;
+  font-family: "Brush Script MT", sans-serif;
+}
+
+#izpchw.spark-custom-izpchw {
+  color: rgb(246, 241, 241);
+}
+
+.if9pcx.spark-custom-if9pcx#if9pcx {
+  box-shadow:
+    oklab(1 0 0 / 0.000361469) 0px -0.0361469px 0px 0px inset,
+    oklab(0 0 0 / 0.000361469) 0px 0.0361469px 0px 0px inset;
+}
+
+</style>
+<style>
+#if5hk4.spark-custom-if5hk4 {
+  background-position-x: 50%;
+  background-position-y: 0%;
+}
+
+#ier7uh.spark-custom-ier7uh {
+  height: 272px;
+}
+
+.iimb6k.spark-custom-iimb6k#iimb6k {
+  color: rgb(255, 255, 255);
+}
+
+#ijw5c9.spark-custom-ijw5c9 {
+  opacity: 1;
+}
+
+#ignodv.spark-custom-ignodv {
+  font-family: "Arial Black", Gadget, sans-serif;
+}
+
+#iqsl0r.spark-custom-iqsl0r {
+  box-shadow:
+    oklab(0 0 0 / 0.00129772) 0px 0.129772px 0px 0px inset,
+    oklab(1 0 0 / 0.00129772) 0px -0.129772px 0px 0px inset;
+  font-family: "Brush Script MT", sans-serif;
+}
+
+#izpchw.spark-custom-izpchw {
+  color: rgb(246, 241, 241);
+}
+
+.if9pcx.spark-custom-if9pcx#if9pcx {
+  box-shadow:
+    oklab(1 0 0 / 0.000361469) 0px -0.0361469px 0px 0px inset,
+    oklab(0 0 0 / 0.000361469) 0px 0.0361469px 0px 0px inset;
+}
+
+</style>
+  <style>
+#if5hk4.spark-custom-if5hk4 {
+  background-position-x: 50%;
+  background-position-y: 0%;
+}
+
+#ier7uh.spark-custom-ier7uh {
+  height: 272px;
+}
+
+.iimb6k.spark-custom-iimb6k#iimb6k {
+  color: rgb(255, 255, 255);
+}
+
+#ijw5c9.spark-custom-ijw5c9 {
+  opacity: 1;
+}
+
+#ignodv.spark-custom-ignodv {
+  font-family: "Arial Black", Gadget, sans-serif;
+}
+
+#iqsl0r.spark-custom-iqsl0r {
+  box-shadow:
+    oklab(0 0 0 / 0.00129772) 0px 0.129772px 0px 0px inset,
+    oklab(1 0 0 / 0.00129772) 0px -0.129772px 0px 0px inset;
+  font-family: "Brush Script MT", sans-serif;
+}
+
+#izpchw.spark-custom-izpchw {
+  color: rgb(246, 241, 241);
+}
+
+.if9pcx.spark-custom-if9pcx#if9pcx {
+  box-shadow:
+    oklab(1 0 0 / 0.000361469) 0px -0.0361469px 0px 0px inset,
+    oklab(0 0 0 / 0.000361469) 0px 0.0361469px 0px 0px inset;
+}
+
+#imfhri.spark-custom-imfhri {
+  width: 469px;
+}
+
+</style></head>
+  <body class="min-h-screen flex flex-col bg-base-100">
+    <div data-section-id="common_header" data-section-type="common_header" class="navbar bg-base-100 border-b border-base-300 sticky top-0 z-50 header-height px-4 lg:px-8">
+<!-- Logo Section -->
+<div class="navbar-start">
+<button data-type="button" onclick="HeaderNavigation.toggleMobileMenu()" class="btn btn-ghost lg:hidden">
+<span id="hamburger-icon" class="iconify" data-icon="heroicons:bars-3" data-width="24"></span>
+<span id="close-icon" class="iconify hidden" data-icon="heroicons:x-mark" data-width="24"></span>
+</button>
+<button data-type="button" onclick="navigateTo(&#39;home&#39;)" class="btn btn-ghost normal-case text-xl font-bold text-primary">
+<span class="iconify" data-icon="heroicons:building-office-2-solid" data-width="32"></span>
+<span data-type="text">مكتب التزامن للاستشارات الهندسية</span>
+</button>
+</div>
+
+<!-- Desktop Navigation -->
+<div class="navbar-center hidden lg:flex">
+<ul class="menu menu-horizontal px-1 gap-2">
+<li>
+<button data-type="button" data-nav-item="home" onclick="navigateTo(&#39;home&#39;)" class="btn btn-ghost">
+<span data-type="text">الرئيسية</span>
+</button>
+</li>
+<li class="relative">
+<button data-type="button" data-nav-item="about_us" onmouseover="HeaderNavigation.showServicesMenu()" onmouseleave="HeaderNavigation.hideServicesMenu()" class="btn btn-ghost">
+<span data-type="text">عن المكتب</span>
+<span class="iconify" data-icon="heroicons:chevron-down" data-width="16"></span>
+</button>
+<!-- About Us Mega Menu -->
+<div id="services-mega-menu" onmouseover="HeaderNavigation.showServicesMenu()" onmouseleave="HeaderNavigation.hideServicesMenu()" class="absolute top-full left-0 w-96 bg-base-100 shadow-xl rounded-box p-6 opacity-0 invisible mega-menu-transition">
+<div data-type="container" class="grid grid-cols-1 gap-4">
+<button data-type="button" onclick="navigateTo(&#39;about_us&#39;)" class="card compact bg-base-200 hover:bg-primary/10 transition-colors duration-200">
+<div class="card-body">
+<h3 data-type="text" class="card-title text-sm">نبذة عن المكتب</h3>
+<p data-type="text" class="text-xs text-base-content/70">تعرف على رؤيتنا ورسالتنا وقيمنا الأساسية</p>
+</div>
+</button>
+<button data-type="button" onclick="navigateTo(&#39;team&#39;)" class="card compact bg-base-200 hover:bg-primary/10 transition-colors duration-200">
+<div class="card-body">
+<h3 data-type="text" class="card-title text-sm">فريق العمل</h3>
+<p data-type="text" class="text-xs text-base-content/70">تعرف على خبراء المكتب والكوادر المتخصصة</p>
+</div>
+</button>
+<button data-type="button" onclick="navigateTo(&#39;achievements_history&#39;)" class="card compact bg-base-200 hover:bg-primary/10 transition-colors duration-200">
+<div class="card-body">
+<h3 data-type="text" class="card-title text-sm">إنجازاتنا وتاريخنا</h3>
+<p data-type="text" class="text-xs text-base-content/70">اطلع على مسيرتنا وأبرز إنجازاتنا</p>
+</div>
+</button>
+</div>
+</div>
+</li>
+<li>
+<button data-type="button" data-nav-item="services" onclick="navigateTo(&#39;services&#39;)" class="btn btn-ghost">
+<span data-type="text">خدماتنا</span>
+</button>
+</li>
+<li>
+<button data-type="button" data-nav-item="projects" onclick="navigateTo(&#39;projects&#39;)" class="btn btn-ghost">
+<span data-type="text">مشاريعنا</span>
+</button>
+</li>
+<li>
+<button data-type="button" data-nav-item="careers" onclick="navigateTo(&#39;careers&#39;)" class="btn btn-ghost">
+<span data-type="text">وظائف</span>
+</button>
+</li>
+<li>
+<button data-type="button" data-nav-item="contact_us" onclick="navigateTo(&#39;contact_us&#39;)" class="btn btn-ghost">
+<span data-type="text">اتصل بنا</span>
+</button>
+</li>
+</ul>
+</div>
+
+<!-- Action Buttons -->
+<div class="navbar-end gap-2">
+<button data-type="button" onclick="navigateTo(&#39;contact_us&#39;)" class="btn btn-primary">
+<span class="iconify" data-icon="heroicons:phone" data-width="20"></span>
+<span data-type="text" class="hidden sm:inline">تواصل معنا</span>
+</button>
+<div data-type="container" class="dropdown dropdown-end">
+<label tabindex="0" class="btn btn-ghost">
+<span class="iconify" data-icon="heroicons:language" data-width="20"></span>
+<span data-type="text" class="hidden md:inline">AR</span>
+</label>
+<ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-32">
+<li><a data-type="text" href="#">العربية</a></li>
+<li><a data-type="text" href="#">English</a></li>
+</ul>
+</div>
+<button data-type="button" class="btn btn-ghost btn-circle">
+<span class="iconify" data-icon="heroicons:envelope" data-width="20"></span>
+</button>
+</div>
+
+<!-- Mobile Navigation Menu -->
+<div id="mobile-nav-menu" class="absolute top-full left-0 right-0 bg-base-100 border-b border-base-300 hidden lg:hidden">
+<ul class="menu menu-vertical p-4 gap-2">
+<li>
+<button data-type="button" data-nav-item="home" onclick="navigateTo(&#39;home&#39;); HeaderNavigation.toggleMobileMenu()" class="btn btn-ghost justify-start">
+<span data-type="text">الرئيسية</span>
+</button>
+</li>
+<li>
+<button data-type="button" data-nav-item="about_us" onclick="navigateTo(&#39;about_us&#39;); HeaderNavigation.toggleMobileMenu()" class="btn btn-ghost justify-start">
+<span data-type="text">عن المكتب</span>
+</button>
+</li>
+<li>
+<button data-type="button" data-nav-item="services" onclick="navigateTo(&#39;services&#39;); HeaderNavigation.toggleMobileMenu()" class="btn btn-ghost justify-start">
+<span data-type="text">خدماتنا</span>
+</button>
+</li>
+<li>
+<button data-type="button" data-nav-item="projects" onclick="navigateTo(&#39;projects&#39;); HeaderNavigation.toggleMobileMenu()" class="btn btn-ghost justify-start">
+<span data-type="text">مشاريعنا</span>
+</button>
+</li>
+<li>
+<button data-type="button" data-nav-item="careers" onclick="navigateTo(&#39;careers&#39;); HeaderNavigation.toggleMobileMenu()" class="btn btn-ghost justify-start">
+<span data-type="text">وظائف</span>
+</button>
+</li>
+<li>
+<button data-type="button" data-nav-item="contact_us" onclick="navigateTo(&#39;contact_us&#39;); HeaderNavigation.toggleMobileMenu()" class="btn btn-ghost justify-start">
+<span data-type="text">اتصل بنا</span>
+</button>
+</li>
+</ul>
+</div>
+</div>
+<style>
+[data-section-id="common_header"] .navbar {
+min-height: 64px;
+}
+[data-section-id="common_header"] .mega-menu-transition {
+transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+[data-section-id="common_header"] .dropdown:hover .dropdown-content {
+display: block;
+}
+[data-section-id="common_header"] .btn:hover {
+background-color: var(--color-primary);
+background-color: rgba(44, 62, 80, 0.1);
+}
+</style>
+<script>
+(function() {
+// Initialize header on page load
+document.addEventListener(&#39;DOMContentLoaded&#39;, function() {
+// Close mobile menu when clicking outside
+document.addEventListener(&#39;click&#39;, function(e) {
+const mobileMenu = document.getElementById(&#39;mobile-nav-menu&#39;);
+const hamburgerBtn = e.target.closest(&#39;.btn&#39;);
+if (mobileMenu &amp;&amp; !mobileMenu.classList.contains(&#39;hidden&#39;) &amp;&amp; !mobileMenu.contains(e.target) &amp;&amp; !hamburgerBtn) {
+HeaderNavigation.toggleMobileMenu();
+}
+});
+});
+})();
+</script><!-- Breadcrumb --><div data-section-id="common_breadcrumb" data-section-type="common_section" class="bg-base-200 py-4 px-4 lg:px-8">
+<div data-type="container" class="max-w-7xl mx-auto">
+<div class="text-sm breadcrumbs">
+<ul>
+<li class="breadcrumb-separator">
+<a data-type="text" href="#" onclick="navigateTo(&#39;home&#39;)" class="flex items-center gap-1 text-primary hover:text-primary/80">
+<span class="iconify" data-icon="heroicons:home-solid" data-width="16"></span>
+<span>الرئيسية</span>
+</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<style>
+[data-section-id="common_breadcrumb"] .breadcrumb-separator::after {
+content: "›";
+margin: 0 0.5rem;
+color: var(--color-base-content);
+opacity: 0.5;
+}
+[data-section-id="common_breadcrumb"] .breadcrumb-separator:last-child::after {
+display: none;
+}
+[data-section-id="common_breadcrumb"] a {
+transition: color 0.2s ease-in-out;
+}
+</style>
+<script>
+(function() {
+// Breadcrumb component is managed through the global BreadcrumbNavigation object
+// Usage example:
+// BreadcrumbNavigation.updateBreadcrumb([
+//   { name: &#39;الرئيسية&#39;, pageId: &#39;home&#39; },
+//   { name: &#39;خدماتنا&#39;, pageId: &#39;services&#39; },
+//   { name: &#39;الاستشارات الهندسية&#39;, pageId: &#39;service_detail&#39; }
+// ]);
+})();
+</script><!-- Main Content -->
+    <main class="flex-1">
+      <!-- Projects Hero Section -->
+      <section data-section-id="ProjectsHeroSection" class="hero min-h-96 relative i7sc3w spark-custom-i7sc3w" style="background-image: url(&amp;quot;https://images.unsplash.com/photo-1710714529040-34c43ce96652?crop=entropy&amp;amp;cs=tinysrgb&amp;amp;fit=crop&amp;amp;fm=jpg&amp;amp;ixid=M3w3MjkzNDZ8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBhcmNoaXRlY3R1cmUlMjBza3lsaW5lfGVufDB8fHx8MTc2MTU2Njk3NXww&amp;amp;ixlib=rb-4.1.0&amp;amp;q=80&amp;amp;w=1920&amp;amp;h=600&amp;quot;);" id="i7sc3w">
+        <div id="ib165k" class="hero-content text-center text-primary-content ib165k spark-custom-ib165k">
+          <div class="max-w-4xl">
+            <h1 data-type="text" id="if0g2g" class="mb-6 text-5xl font-bold if0g2g spark-custom-if0g2g">
+              مشاريعنا
+            </h1>
+            <p data-type="text" class="mb-8 text-xl leading-relaxed">
+              استعرض أعمالنا المبتكرة والملهمة في مجال الاستشارات الهندسية
+            </p>
+            <!-- Primary Filters -->
+            <div data-type="container" class="flex flex-wrap justify-center gap-4 mt-8">
+              <div id="izaxbi" class="dropdown izaxbi spark-custom-izaxbi">
+                <button tabindex="0" role="button" id="typeFilterBtn" class="btn btn-ghost bg-base-100/20 text-primary-content border-primary-content/30 hover:bg-base-100/30">
+                  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="20" height="20" viewBox="0 0 24 24" data-original="&amp;lt;span class=&amp;quot;iconify&amp;quot; data-icon=&amp;quot;heroicons:building-office&amp;quot; data-width=&amp;quot;20&amp;quot;&amp;gt;&amp;lt;/span&amp;gt;" class="iconify">
+                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21"></path></svg><span data-type="text">النوع</span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="16" height="16" viewBox="0 0 24 24" data-original="&amp;lt;span class=&amp;quot;iconify&amp;quot; data-icon=&amp;quot;heroicons:chevron-down&amp;quot; data-width=&amp;quot;16&amp;quot;&amp;gt;&amp;lt;/span&amp;gt;" class="iconify">
+                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m19.5 8.25l-7.5 7.5l-7.5-7.5"></path>
+                  </svg>
+                </button>
+                <ul tabindex="0" id="ikflmb" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 mt-2 ikflmb spark-custom-ikflmb">
+                  <li>
+                    <a data-type="button" id="ijw5c9" class="ijw5c9 spark-custom-ijw5c9" onclick="filterProjects(&#39;type&#39;, &#39;all&#39;)">جميع الأنواع</a>
+                  </li>
+                  <li>
+                    <a data-type="button" id="iniaof" class="iniaof spark-custom-iniaof" onclick="filterProjects(&#39;type&#39;, &#39;residential&#39;)">صحي</a>
+                  </li>
+                  <li>
+                    <a data-type="button" id="iia9ow" class="iia9ow spark-custom-iia9ow" onclick="filterProjects(&#39;type&#39;, &#39;commercial&#39;)">تجاري</a>
+                  </li>
+                  <li>
+                    <a data-type="button" id="i4b6dp" class="i4b6dp spark-custom-i4b6dp" onclick="filterProjects(&#39;type&#39;, &#39;educational&#39;)">تعليمي</a>
+                  </li>
+                  <li>
+                    <a data-type="button" id="iboo5a" class="iboo5a spark-custom-iboo5a" onclick="filterProjects(&#39;type&#39;, &#39;industrial&#39;)">حكومي</a>
+                  </li>
+                </ul>
+              </div>
+              <div id="ignodv" class="dropdown ignodv spark-custom-ignodv">
+                <button tabindex="0" role="button" id="industryFilterBtn" class="btn btn-ghost bg-base-100/20 text-primary-content border-primary-content/30 hover:bg-base-100/30">
+                  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="20" height="20" viewBox="0 0 24 24" data-original="&amp;lt;span class=&amp;quot;iconify&amp;quot; data-icon=&amp;quot;heroicons:briefcase&amp;quot; data-width=&amp;quot;20&amp;quot;&amp;gt;&amp;lt;/span&amp;gt;" class="iconify">
+                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18c-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 0 0 .75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48 48 0 0 0-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A24 24 0 0 1 12 15.75a24 24 0 0 1-7.577-1.22a2 2 0 0 1-.673-.38m0 0A2.18 2.18 0 0 1 3 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48 48 0 0 1 3.413-.387m7.5 0V5.25A2.25 2.25 0 0 0 13.5 3h-3a2.25 2.25 0 0 0-2.25 2.25v.894m7.5 0a49 49 0 0 0-7.5 0M12 12.75h.008v.008H12z"></path></svg><span data-type="text">الصناعة</span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="16" height="16" viewBox="0 0 24 24" data-original="&amp;lt;span class=&amp;quot;iconify&amp;quot; data-icon=&amp;quot;heroicons:chevron-down&amp;quot; data-width=&amp;quot;16&amp;quot;&amp;gt;&amp;lt;/span&amp;gt;" class="iconify">
+                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m19.5 8.25l-7.5 7.5l-7.5-7.5"></path>
+                  </svg>
+                </button>
+                <ul tabindex="0" id="iyr7fj" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 mt-2 iyr7fj spark-custom-iyr7fj">
+                  <li>
+                    <a data-type="button" id="iqsl0r" class="iqsl0r spark-custom-iqsl0r" onclick="filterProjects(&#39;industry&#39;, &#39;all&#39;)">جميع الصناعات</a>
+                  </li>
+                  <li>
+                    <a data-type="button" id="i625jx" class="i625jx spark-custom-i625jx" onclick="filterProjects(&#39;industry&#39;, &#39;hospitality&#39;)">شركة</a>
+                  </li>
+                  <li>
+                    <a data-type="button" id="if9pcx" class="if9pcx spark-custom-if9pcx" onclick="filterProjects(&#39;industry&#39;, &#39;healthcare&#39;)">الرعاية الصحية</a>
+                  </li>
+                  <li>
+                    <a data-type="button" id="iq8cxz" class="iq8cxz spark-custom-iq8cxz" onclick="filterProjects(&#39;industry&#39;, &#39;infrastructure&#39;)">البنية التحتية</a>
+                  </li>
+                  <li>
+                    <a data-type="button" id="izpchw" class="izpchw spark-custom-izpchw" onclick="filterProjects(&#39;industry&#39;, &#39;energy&#39;)">الطاقة</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Project Filters and Display Grid -->
+      <div id="i8vmnr" class="hero-overlay bg-primary/60 i8vmnr spark-custom-i8vmnr"></div>
+      <section data-section-id="ProjectFiltersAndDisplayGrid" id="i2xeny" class="py-16 px-4 lg:px-8 bg-base-100 i2xeny spark-custom-i2xeny">
+        <div data-type="container" id="i59mk1" class="max-w-7xl mx-auto i59mk1 spark-custom-i59mk1">
+          <!-- Advanced Filters -->
+          <div data-type="container" class="flex flex-wrap items-center justify-between gap-4 mb-8">
+            <div data-type="container" class="flex items-center gap-4">
+              <h2 data-type="text" class="text-2xl font-bold text-base-content">
+                مشاريعنا
+              </h2>
+              <div id="projectCount" class="badge badge-primary">20 مشروع</div>
+            </div>
+            <div data-type="container" class="flex items-center gap-4"></div>
+          </div>
+          <!-- Loading State -->
+          <div data-type="container" id="loadingState" class="hidden justify-center items-center py-16">
+            <span class="loading loading-spinner loading-lg text-primary"></span><span data-type="text" class="mr-4 text-base-content/70">جاري تحميل المشاريع...</span>
+          </div>
+          <!-- Projects Grid -->
+          <div data-type="container" id="projectsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 projectsGrid spark-custom-projectsGrid">
+            <!-- Project Card 1 - صحي -->
+            <div data-type="container" data-industry="healthcare" data-repeatable="true" class="card bg-base-100 shadow-md hover-shadow project-card" onclick="navigateTo(&#39;project_detail&#39;)">
+              <figure class="relative overflow-hidden">
+                <img data-type="image" src="https://images.unsplash.com/photo-1615770891862-cf9c510272c7?crop=entropy&amp;amp;cs=tinysrgb&amp;amp;fit=crop&amp;amp;fm=jpg&amp;amp;ixid=M3w3MjkzNDZ8MHwxfHNlYXJjaHwzfHxtb2Rlcm4lMjBob3NwaXRhbCUyMGJ1aWxkaW5nfGVufDB8fHx8MTc2MTU2Njk3Nnww&amp;amp;ixlib=rb-4.1.0&amp;amp;q=80&amp;amp;w=400&amp;amp;h=250" alt="مركز طبي متخصص - مشروع تجاري في قطاع الرعاية الصحية" class="w-full h-64 object-cover transition-transform duration-300 hover:scale-105 isvqn8 spark-custom-isvqn8" id="isvqn8">
+                <div class="absolute top-4 right-4 flex gap-2">
+                  <div id="i6xpfs" class="badge badge-success badge-sm i6xpfs spark-custom-i6xpfs">
+                    <span class="iconify is06mg spark-custom-is06mg" data-icon="heroicons:heart" data-width="12" id="is06mg"></span><span data-type="text" id="iisuj6" class="mr-1 iisuj6 spark-custom-iisuj6">صحي</span>
+                  </div>
+                </div>
+              </figure>
+              <div id="i9xzzu" class="card-body p-6 i9xzzu spark-custom-i9xzzu">
+                <h3 data-type="text" id="i5p5kg" class="card-title text-lg font-bold text-base-content mb-2 i5p5kg spark-custom-i5p5kg">
+                  مستشفى عفيف العام
+                </h3>
+                <p data-type="text" id="icgfwc" class="text-base-content/70 text-sm leading-relaxed mb-4 icgfwc spark-custom-icgfwc">
+                  تصميم مخطط أمن والسلامة
+                </p>
+                <div data-type="container" id="io9t3h" class="flex items-center justify-between io9t3h spark-custom-io9t3h">
+                  <div data-type="container" class="flex items-center gap-2 text-xs text-base-content/60"></div>
+                  <div data-type="container" class="flex items-center gap-1">
+                    <span class="iconify text-success" data-icon="heroicons:heart" data-width="16"></span><span data-type="text" class="text-xs text-base-content/60">الرعاية الصحية</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Project Card 2 - صحي -->
+            <div data-type="container" data-industry="healthcare" data-repeatable="true" class="card bg-base-100 shadow-md hover-shadow project-card" onclick="navigateTo(&#39;project_detail&#39;)">
+              <figure class="relative overflow-hidden">
+                <img data-type="image" src="https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/f04ee979-1fe9-4ac7-b6b6-bd9ee231e77a.png" alt="مجمع مستشفى حديث - مشروع طبي متطور في قطاع الرعاية الصحية" class="w-full h-64 object-cover transition-transform duration-300 hover:scale-105 iw6cav spark-custom-iw6cav" id="iw6cav">
+                <div class="absolute top-4 right-4 flex gap-2">
+                  <div class="badge badge-secondary badge-sm">
+                    <span class="iconify" data-icon="heroicons:building-office-2" data-width="12"></span><span data-type="text" class="mr-1">تجاري</span>
+                  </div>
+                </div>
+              </figure>
+              <div class="card-body p-6">
+                <h3 data-type="text" id="idx6nf" class="card-title text-lg font-bold text-base-content mb-2 idx6nf spark-custom-idx6nf">
+                  شركة التحكم الشامل (تحكم)
+                </h3>
+                <p data-type="text" id="ids0yj" class="text-base-content/70 text-sm leading-relaxed mb-4 ids0yj spark-custom-ids0yj">
+                  تصميم مخطط أمن والسلامة
+                </p>
+                <div data-type="container" id="ipt97a" class="flex items-center justify-between ipt97a spark-custom-ipt97a">
+                  <div data-type="container" class="flex items-center gap-2 text-xs text-base-content/60"></div>
+                  <div data-type="container" class="flex items-center gap-1">
+                    <span class="iconify text-primary" data-icon="heroicons:building-office" data-width="16" id="ict29g"></span><span data-type="text" id="im2q7z" class="text-xs text-base-content/60 im2q7z spark-custom-im2q7z">شركة</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Project Card 3 - تعليمي -->
+            <div data-type="container" data-industry="infrastructure" data-repeatable="true" class="card bg-base-100 shadow-md hover-shadow project-card" onclick="navigateTo(&#39;project_detail&#39;)">
+              <figure class="relative overflow-hidden">
+                <img data-type="image" src="https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/5f752031-3e92-4bd3-a169-1b458709ea12.png" alt="حرم جامعي حديث - مشروع تعليمي في قطاع البنية التحتية" class="w-full h-64 object-cover transition-transform duration-300 hover:scale-105 i79uq7 spark-custom-i79uq7" id="i79uq7">
+                <div class="absolute top-4 right-4 flex gap-2">
+                  <div id="iodp0h" class="badge badge-accent badge-sm iodp0h spark-custom-iodp0h">
+                    <span class="iconify" data-icon="heroicons:academic-cap" data-width="12"></span><span data-type="text" class="mr-1">تعليمي</span>
+                  </div>
+                </div>
+              </figure>
+              <div class="card-body p-6">
+                <h3 data-type="text" id="i7179r" class="card-title text-lg font-bold text-base-content mb-2 i7179r spark-custom-i7179r">
+                  جامعة شقراء
+                </h3>
+                <p data-type="text" id="ir7c65" class="text-base-content/70 text-sm leading-relaxed mb-4 ir7c65 spark-custom-ir7c65">
+                  تخطيط وتصميم نظام الأمن والسلامة
+                </p>
+                <div data-type="container" id="irkvz7" class="flex items-center justify-between irkvz7 spark-custom-irkvz7">
+                  <div data-type="container" id="i4wmio" class="flex items-center gap-2 text-xs text-base-content/60 i4wmio spark-custom-i4wmio"></div>
+                  <div data-type="container" class="flex items-center gap-1">
+                    <span class="iconify text-accent" data-icon="heroicons:academic-cap" data-width="16"></span><span data-type="text" id="ium3x5" class="text-xs text-base-content/60 ium3x5 spark-custom-ium3x5">جامعة</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Project Card 4 - تعليمي -->
+            <div data-type="container" data-industry="infrastructure" data-repeatable="true" class="card bg-base-100 shadow-md hover-shadow project-card" onclick="navigateTo(&#39;project_detail&#39;)">
+              <figure class="relative overflow-hidden">
+                <img data-type="image" src="https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/6758248c-6487-4997-b4ce-a2718bc64183.jpg" alt="مجمع ملعب رياضي - مشروع رياضي في قطاع البنية التحتية" class="w-full h-64 object-cover transition-transform duration-300 hover:scale-105 i2b1kd spark-custom-i2b1kd" id="i2b1kd">
+                <div class="absolute top-4 right-4 flex gap-2">
+                  <div class="badge badge-accent badge-sm">
+                    <span class="iconify" data-icon="heroicons:academic-cap" data-width="12"></span><span data-type="text" class="mr-1">تعليمي</span>
+                  </div>
+                </div>
+              </figure>
+              <div class="card-body p-6">
+                <h3 data-type="text" id="ibj2w2" class="card-title text-lg font-bold text-base-content mb-2 ibj2w2 spark-custom-ibj2w2">
+                  جامعة دار العلوم
+                </h3>
+                <p data-type="text" id="i5gtb4" class="text-base-content/70 text-sm leading-relaxed mb-4 i5gtb4 spark-custom-i5gtb4">
+                  تصميم مخطط أمن والسلامة
+                </p>
+                <div data-type="container" id="irkvz7-2" class="flex items-center justify-between irkvz7 irkvz7-2 spark-custom-irkvz7-2">
+                  <div data-type="container" id="i4wmio-2" class="flex items-center gap-2 text-xs text-base-content/60 i4wmio"></div>
+                  <div data-type="container" class="flex items-center gap-1">
+                    <span class="iconify text-accent" data-icon="heroicons:academic-cap" data-width="16"></span><span data-type="text" id="ium3x5-2" class="text-xs text-base-content/60 ium3x5">جامعة</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Project Card 5 - تجاري -->
+            <div data-type="container" data-industry="hospitality" data-repeatable="true" class="card bg-base-100 shadow-md hover-shadow project-card" onclick="navigateTo(&#39;project_detail&#39;)">
+              <figure class="relative overflow-hidden">
+                <img data-type="image" src="https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/c79e36da-d263-4ac3-b01a-9138bfd72337.avif" alt="مجمع تجاري متكامل - مشروع تجاري في قطاع الضيافة" class="w-full h-64 object-cover transition-transform duration-300 hover:scale-105 ier7uh spark-custom-ier7uh" id="ier7uh">
+                <div class="absolute top-4 right-4 flex gap-2">
+                  <div class="badge badge-secondary badge-sm">
+                    <span class="iconify" data-icon="heroicons:building-office-2" data-width="12"></span><span data-type="text" class="mr-1">تجاري</span>
+                  </div>
+                </div>
+              </figure>
+              <div class="card-body p-6">
+                <h3 data-type="text" id="icga2c" class="card-title text-lg font-bold text-base-content mb-2 icga2c spark-custom-icga2c"></h3>
+                <h3 id="ibw26p" draggable="false" data-type="text" class="text-2xl font-bold mb-4 ibw26p spark-custom-ibw26p gjs-selected">
+                  STC group
+                </h3>
+                <p data-type="text" id="i1goca" class="text-base-content/70 text-sm leading-relaxed mb-4 i1goca spark-custom-i1goca">
+                  تصميم مخطط أمن والسلامة
+                </p>
+                <div data-type="container" class="flex items-center justify-between">
+                  <div data-type="container" class="flex items-center gap-2 text-xs text-base-content/60"></div>
+                  <div data-type="container" id="iwvpp8" class="flex items-center gap-1">
+                    <span class="iconify text-primary" data-icon="heroicons:building-office" data-width="16" id="ibbrvf"></span><span data-type="text" id="i9vn5f" class="text-xs text-base-content/60 i9vn5f spark-custom-i9vn5f">شركة</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Project Card 6 - تجاري -->
+            <div data-type="container" data-industry="hospitality" data-repeatable="true" class="card bg-base-100 shadow-md hover-shadow project-card" onclick="navigateTo(&#39;project_detail&#39;)">
+              <figure class="relative overflow-hidden">
+                <img data-type="image" src="https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/f12be1fb-443a-4546-a789-b38e8d376541.avif" alt="منتجع فندقي فاخر - مشروع سياحي في قطاع الضيافة" class="w-full h-64 object-cover transition-transform duration-300 hover:scale-105 ir6ua6 spark-custom-ir6ua6" id="ir6ua6">
+                <div class="absolute top-4 right-4 flex gap-2">
+                  <div class="badge badge-secondary badge-sm">
+                    <span class="iconify" data-icon="heroicons:building-office-2" data-width="12"></span><span data-type="text" class="mr-1">تجاري</span>
+                  </div>
+                </div>
+              </figure>
+              <div id="ixvi5w" class="card-body p-6 ixvi5w spark-custom-ixvi5w">
+                <h3 data-type="text" id="itfyzy" class="card-title text-lg font-bold text-base-content mb-2 itfyzy spark-custom-itfyzy">
+                  الجبس الوطني
+                </h3>
+                <p data-type="text" id="ig3to1" class="text-base-content/70 text-sm leading-relaxed mb-4 ig3to1 spark-custom-ig3to1">
+                  تصميم مخطط أمن والسلامة
+                </p>
+                <div data-type="container" class="flex items-center justify-between">
+                  <div data-type="container" class="flex items-center gap-2 text-xs text-base-content/60">
+                    <span class="iconify" data-icon="heroicons:calendar" data-width="14"></span><span data-type="text">2025</span>
+                  </div>
+                  <div data-type="container" class="flex items-center gap-1">
+                    <span class="iconify text-primary" data-icon="heroicons:building-office" data-width="16"></span><span data-type="text" class="text-xs text-base-content/60">شركة</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Project Card 7 - تجاري -->
+            <div data-type="container" data-industry="hospitality" data-repeatable="true" class="card bg-base-100 shadow-md hover-shadow project-card" onclick="navigateTo(&#39;project_detail&#39;)">
+              <figure class="relative overflow-hidden">
+                <img data-type="image" src="https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/817c1e8e-776d-441d-b38c-b2cab74bdd32.webp" alt="مجمع أبراج أعمال - مشروع تجاري في قطاع الضيافة" class="w-full h-64 object-cover transition-transform duration-300 hover:scale-105 imfhri spark-custom-imfhri" id="imfhri">
+                <div class="absolute top-4 right-4 flex gap-2">
+                  <div class="badge badge-secondary badge-sm">
+                    <span class="iconify" data-icon="heroicons:building-office-2" data-width="12"></span><span data-type="text" class="mr-1">تجاري</span>
+                  </div>
+                </div>
+              </figure>
+              <div class="card-body p-6">
+                <h3 data-type="text" id="ib2vy9" class="card-title text-lg font-bold text-base-content mb-2 ib2vy9 spark-custom-ib2vy9">
+                  محطة بترومين
+                </h3>
+                <p data-type="text" id="i5jgha" class="text-base-content/70 text-sm leading-relaxed mb-4 i5jgha spark-custom-i5jgha">
+                  تخطيط وتصميم نظام الأمن والسلامة
+                </p>
+                <div data-type="container" class="flex items-center justify-between">
+                  <div data-type="container" class="flex items-center gap-2 text-xs text-base-content/60"></div>
+                  <div data-type="container" class="flex items-center gap-1">
+                    <span class="iconify text-primary" data-icon="heroicons:building-office" data-width="16"></span><span data-type="text" class="text-xs text-base-content/60">شركة</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Project Card 8 - تجاري -->
+            <div data-type="container" data-industry="hospitality" data-repeatable="true" class="card bg-base-100 shadow-md hover-shadow project-card" onclick="navigateTo(&#39;project_detail&#39;)">
+              <figure class="relative overflow-hidden">
+                <img data-type="image" src="https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/59883224-53d3-42b7-b653-3274443b9a7d.png" alt="مجمع مكاتب تجارية - مشروع تجاري حديث" class="w-full h-64 object-cover transition-transform duration-300 hover:scale-105 ip1u66 spark-custom-ip1u66" id="ip1u66">
+                <div class="absolute top-4 right-4 flex gap-2">
+                  <div class="badge badge-secondary badge-sm">
+                    <span class="iconify" data-icon="heroicons:building-office-2" data-width="12"></span><span data-type="text" class="mr-1">تجاري</span>
+                  </div>
+                </div>
+              </figure>
+              <div class="card-body p-6">
+                <h3 data-type="text" id="i1fuin" class="card-title text-lg font-bold text-base-content mb-2 i1fuin spark-custom-i1fuin">
+                  شركة إنجاز البيطرية
+                </h3>
+                <p data-type="text" id="i8bhzt" class="text-base-content/70 text-sm leading-relaxed mb-4 i8bhzt spark-custom-i8bhzt">
+                  تخطيط وتصميم نظام الأمن والسلامة
+                </p>
+                <div data-type="container" class="flex items-center justify-between">
+                  <div data-type="container" class="flex items-center gap-2 text-xs text-base-content/60"></div>
+                  <div data-type="container" class="flex items-center gap-1">
+                    <span class="iconify text-primary" data-icon="heroicons:building-office" data-width="16"></span><span data-type="text" class="text-xs text-base-content/60">شركة</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Project Card 9 - تجاري -->
+            <div data-type="container" data-industry="hospitality" data-repeatable="true" class="card bg-base-100 shadow-md hover-shadow project-card" onclick="navigateTo(&#39;project_detail&#39;)">
+              <figure class="relative overflow-hidden">
+                <img data-type="image" src="https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/ffc9298d-9739-4238-a71d-204bde3af380.jpg" alt="ساحة تجارية حديثة - مشروع تجاري متكامل" class="w-full h-64 object-cover transition-transform duration-300 hover:scale-105 icoddj spark-custom-icoddj" id="icoddj">
+                <div class="absolute top-4 right-4 flex gap-2">
+                  <div class="badge badge-secondary badge-sm">
+                    <span class="iconify" data-icon="heroicons:building-office-2" data-width="12"></span><span data-type="text" class="mr-1">تجاري</span>
+                  </div>
+                </div>
+              </figure>
+              <div class="card-body p-6">
+                <h3 data-type="text" id="i9d4zh" class="card-title text-lg font-bold text-base-content mb-2 i9d4zh spark-custom-i9d4zh">
+                  الربيع للدواجن
+                </h3>
+                <p data-type="text" id="iyrb3e" class="text-base-content/70 text-sm leading-relaxed mb-4 iyrb3e spark-custom-iyrb3e">
+                  تصميم مخطط أمن والسلامة
+                </p>
+                <div data-type="container" class="flex items-center justify-between">
+                  <div data-type="container" class="flex items-center gap-2 text-xs text-base-content/60"></div>
+                  <div data-type="container" class="flex items-center gap-1">
+                    <span class="iconify text-primary" data-icon="heroicons:building-office" data-width="16"></span><span data-type="text" class="text-xs text-base-content/60">شركة</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Project Card 10 - تجاري -->
+            <div data-type="container" data-industry="hospitality" data-repeatable="true" class="card bg-base-100 shadow-md hover-shadow project-card" onclick="navigateTo(&#39;project_detail&#39;)">
+              <figure class="relative overflow-hidden">
+                <img data-type="image" src="https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/3c070fa1-e57b-4ff9-b4e5-af488fea4eaa.jpg" alt="مركز مصرفي - مشروع تجاري مصرفي" class="w-full h-64 object-cover transition-transform duration-300 hover:scale-105 ihakrz spark-custom-ihakrz" id="ihakrz">
+                <div class="absolute top-4 right-4 flex gap-2">
+                  <div class="badge badge-secondary badge-sm">
+                    <span class="iconify" data-icon="heroicons:building-office-2" data-width="12"></span><span data-type="text" class="mr-1">تجاري</span>
+                  </div>
+                </div>
+              </figure>
+              <div id="i3c8n7" class="card-body p-6 i3c8n7 spark-custom-i3c8n7">
+                <h3 data-type="text" id="i8ryaa" class="card-title text-lg font-bold text-base-content mb-2 i8ryaa spark-custom-i8ryaa">
+                  صيدلية انوفا
+                </h3>
+                <p data-type="text" id="isj4hu" class="text-base-content/70 text-sm leading-relaxed mb-4 isj4hu spark-custom-isj4hu">
+                  تصميم مخطط أمن والسلامة
+                </p>
+                <div data-type="container" class="flex items-center justify-between io9t3h igd2bc-2">
+                  <div data-type="container" class="flex items-center gap-2 text-xs text-base-content/60"></div>
+                  <div data-type="container" class="flex items-center gap-1">
+                    <span class="iconify text-success" data-icon="heroicons:heart" data-width="16"></span><span data-type="text" id="ii6spd" class="text-xs text-base-content/60 ii6spd spark-custom-ii6spd">الرعاية الصحية</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Project Card 11 - تجاري -->
+            <div data-type="container" data-industry="hospitality" data-repeatable="true" class="card bg-base-100 shadow-md hover-shadow project-card" onclick="navigateTo(&#39;project_detail&#39;)">
+              <figure class="relative overflow-hidden">
+                <img data-type="image" src="https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/e3c777ab-e41d-41ab-a434-925dde8fa550.webp" alt="مجمع مطاعم - مشروع تجاري للمطاعم" class="w-full h-64 object-cover transition-transform duration-300 hover:scale-105 iubqug spark-custom-iubqug" id="iubqug">
+                <div class="absolute top-4 right-4 flex gap-2">
+                  <div class="badge badge-secondary badge-sm">
+                    <span class="iconify" data-icon="heroicons:building-office-2" data-width="12"></span><span data-type="text" class="mr-1">تجاري</span>
+                  </div>
+                </div>
+              </figure>
+              <div class="card-body p-6">
+                <h3 data-type="text" id="i57lp1" class="card-title text-lg font-bold text-base-content mb-2 i57lp1 spark-custom-i57lp1">
+                  شركة عالية نجد الزراعية
+                </h3>
+                <p data-type="text" id="icmech" class="text-base-content/70 text-sm leading-relaxed mb-4 icmech spark-custom-icmech">
+                  تصميم مخططات لأنظام الأمن والسلامة
+                </p>
+                <div data-type="container" class="flex items-center justify-between">
+                  <div data-type="container" class="flex items-center gap-2 text-xs text-base-content/60"></div>
+                  <div data-type="container" class="flex items-center gap-1">
+                    <span class="iconify text-primary" data-icon="heroicons:building-office" data-width="16"></span><span data-type="text" class="text-xs text-base-content/60">شركة</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Project Card 12 - تجاري -->
+            <div data-type="container" data-industry="hospitality" data-repeatable="true" class="card bg-base-100 shadow-md hover-shadow project-card" onclick="navigateTo(&#39;project_detail&#39;)">
+              <figure class="relative overflow-hidden">
+                <img data-type="image" src="https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/5bf2ded0-e663-465c-ba6e-040af6712e2b.jpg" alt="مجمع متاجر تجزئة - مشروع تجاري للتجزئة" class="w-full h-64 object-cover transition-transform duration-300 hover:scale-105 iyzosh spark-custom-iyzosh" id="iyzosh">
+                <div class="absolute top-4 right-4 flex gap-2">
+                  <div class="badge badge-secondary badge-sm">
+                    <span class="iconify" data-icon="heroicons:building-office-2" data-width="12"></span><span data-type="text" class="mr-1">تجاري</span>
+                  </div>
+                </div>
+              </figure>
+              <div class="card-body p-6">
+                <h3 data-type="text" id="idkmzk" class="card-title text-lg font-bold text-base-content mb-2 idkmzk spark-custom-idkmzk">
+                  اسواق العثيم
+                </h3>
+                <p data-type="text" id="in6h0k" class="text-base-content/70 text-sm leading-relaxed mb-4 in6h0k spark-custom-in6h0k">
+                  تصميم&amp;nbsp;وتنفيذ مخطط أمن والسلامة
+                </p>
+                <div data-type="container" class="flex items-center justify-between">
+                  <div data-type="container" class="flex items-center gap-2 text-xs text-base-content/60"></div>
+                  <div data-type="container" class="flex items-center gap-1">
+                    <span class="iconify text-primary" data-icon="heroicons:building-office" data-width="16"></span><span data-type="text" class="text-xs text-base-content/60">شركة</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Project Card 13 - تجاري -->
+            <div data-type="container" data-industry="hospitality" data-repeatable="true" class="card bg-base-100 shadow-md hover-shadow project-card" onclick="navigateTo(&#39;project_detail&#39;)">
+              <figure class="relative overflow-hidden">
+                <img data-type="image" src="https://placehold.co/400x250.png?text=Entertainment+Center" alt="شركة اوفار" class="w-full h-64 object-cover transition-transform duration-300 hover:scale-105 ivqhub spark-custom-ivqhub" id="ivqhub">
+                <div class="absolute top-4 right-4 flex gap-2">
+                  <div class="badge badge-secondary badge-sm">
+                    <span class="iconify" data-icon="heroicons:building-office-2" data-width="12"></span><span data-type="text" class="mr-1">تجاري</span>
+                  </div>
+                </div>
+              </figure>
+              <div class="card-body p-6">
+                <h3 data-type="text" id="ii0k2l" class="card-title text-lg font-bold text-base-content mb-2 ii0k2l spark-custom-ii0k2l">
+                  شركة اوفار
+                </h3>
+                <p data-type="text" id="iven7q" class="text-base-content/70 text-sm leading-relaxed mb-4 iven7q spark-custom-iven7q">
+                  تصميم مخطط أمن والسلامة
+                </p>
+                <div data-type="container" class="flex items-center justify-between">
+                  <div data-type="container" class="flex items-center gap-2 text-xs text-base-content/60"></div>
+                  <div data-type="container" class="flex items-center gap-1">
+                    <span class="iconify text-primary" data-icon="heroicons:building-office" data-width="16"></span><span data-type="text" class="text-xs text-base-content/60">شركة</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Project Card 14 - تجاري -->
+            <div data-type="container" data-industry="hospitality" data-repeatable="true" class="card bg-base-100 shadow-md hover-shadow project-card" onclick="navigateTo(&#39;project_detail&#39;)">
+              <figure class="relative overflow-hidden">
+                <img data-type="image" src="https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/dfcd3a9c-a4e6-4a0b-9b05-2772e967bb7d.webp" alt="مركز مؤتمرات - مشروع تجاري للمؤتمرات" class="w-full h-64 object-cover transition-transform duration-300 hover:scale-105 ip1x2c spark-custom-ip1x2c" id="ip1x2c">
+                <div class="absolute top-4 right-4 flex gap-2">
+                  <div class="badge badge-secondary badge-sm">
+                    <span class="iconify" data-icon="heroicons:building-office-2" data-width="12"></span><span data-type="text" class="mr-1">تجاري</span>
+                  </div>
+                </div>
+              </figure>
+              <div class="card-body p-6">
+                <h3 data-type="text" id="ikw5os" class="card-title text-lg font-bold text-base-content mb-2 ikw5os spark-custom-ikw5os">
+                  شركة نخبة حواء الطبيه (عيادات)
+                </h3>
+                <p data-type="text" id="in64sl" class="text-base-content/70 text-sm leading-relaxed mb-4 in64sl spark-custom-in64sl">
+                  تصميم مخططات لأنظام الأمن والسلامة
+                </p>
+                <div data-type="container" id="igd2bc-2" class="flex items-center justify-between io9t3h igd2bc igd2bc-2 spark-custom-igd2bc-2">
+                  <div data-type="container" class="flex items-center gap-2 text-xs text-base-content/60"></div>
+                  <div data-type="container" class="flex items-center gap-1">
+                    <span class="iconify text-success" data-icon="heroicons:heart" data-width="16"></span><span data-type="text" id="itglrd" class="text-xs text-base-content/60 ii6spd">الرعاية الصحية</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Project Card 15 - تجاري -->
+            <div data-type="container" data-industry="hospitality" data-repeatable="true" class="card bg-base-100 shadow-md hover-shadow project-card" onclick="navigateTo(&#39;project_detail&#39;)">
+              <figure class="relative overflow-hidden">
+                <img data-type="image" src="https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/a5619ca4-f2d6-42b0-940c-50185c2b66a8.jpg" alt="مجمع صالات عرض - مشروع تجاري لصالات العرض" class="w-full h-64 object-cover transition-transform duration-300 hover:scale-105 iyop0q spark-custom-iyop0q" id="iyop0q">
+                <div class="absolute top-4 right-4 flex gap-2">
+                  <div class="badge badge-secondary badge-sm">
+                    <span class="iconify" data-icon="heroicons:building-office-2" data-width="12"></span><span data-type="text" class="mr-1">تجاري</span>
+                  </div>
+                </div>
+              </figure>
+              <div class="card-body p-6">
+                <h3 data-type="text" id="i22wcj" class="card-title text-lg font-bold text-base-content mb-2 i22wcj spark-custom-i22wcj">
+                  شركة التنمية الزراعية المحدودة
+                </h3>
+                <p data-type="text" id="ijauyb" class="text-base-content/70 text-sm leading-relaxed mb-4 ijauyb spark-custom-ijauyb">
+                  تصميم مخطط أمن والسلامة
+                </p>
+                <div data-type="container" class="flex items-center justify-between">
+                  <div data-type="container" class="flex items-center gap-2 text-xs text-base-content/60"></div>
+                  <div data-type="container" class="flex items-center gap-1">
+                    <span class="iconify text-primary" data-icon="heroicons:building-office" data-width="16"></span><span data-type="text" class="text-xs text-base-content/60">شركة</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Project Card 16 - تجاري -->
+            <div data-type="container" data-industry="hospitality" data-repeatable="true" class="card bg-base-100 shadow-md hover-shadow project-card" onclick="navigateTo(&#39;project_detail&#39;)">
+              <figure class="relative overflow-hidden">
+                <img data-type="image" src="https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/fdf1cae7-b0b9-4769-8775-b2dda5d624c5.jpeg" alt="مركز طبي تجاري - مشروع تجاري طبي" class="w-full h-64 object-cover transition-transform duration-300 hover:scale-105 illc75 spark-custom-illc75" id="illc75">
+                <div class="absolute top-4 right-4 flex gap-2">
+                  <div id="iqa8tj" class="badge badge-secondary badge-sm">
+                    <span class="iconify" data-icon="heroicons:building-office-2" data-width="12" id="izzqwz"></span><span data-type="text" id="i8vbek" class="mr-1">تجاري</span>
+                  </div>
+                </div>
+              </figure>
+              <div class="card-body p-6">
+                <h3 data-type="text" id="icwo9l" class="card-title text-lg font-bold text-base-content mb-2 icwo9l spark-custom-icwo9l">
+                  شركة النماء للمقاولات العامة
+                </h3>
+                <p data-type="text" id="i5efj2" class="text-base-content/70 text-sm leading-relaxed mb-4 i5efj2 spark-custom-i5efj2">
+                  تصميم مخطط أمن والسلامة
+                </p>
+                <div data-type="container" id="iauh53" class="flex items-center justify-between iauh53 spark-custom-iauh53">
+                  <div data-type="container" class="flex items-center gap-2 text-xs text-base-content/60"></div>
+                  <div data-type="container" class="flex items-center gap-1">
+                    <span class="iconify text-primary" data-icon="heroicons:building-office" data-width="16"></span><span data-type="text" class="text-xs text-base-content/60">شركة</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Project Card 17 - تجاري -->
+            <div data-type="container" data-industry="hospitality" data-repeatable="true" class="card bg-base-100 shadow-md hover-shadow project-card" onclick="navigateTo(&#39;project_detail&#39;)">
+              <figure class="relative overflow-hidden">
+                <img data-type="image" src="https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/1e3aad38-78f5-47f5-9109-5b52e045c9e5.webp" alt="مجمع رياضي تجاري - مشروع تجاري رياضي" class="w-full h-64 object-cover transition-transform duration-300 hover:scale-105 ij5yw8 spark-custom-ij5yw8" id="ij5yw8">
+                <div class="absolute top-4 right-4 flex gap-2">
+                  <div class="badge badge-secondary badge-sm">
+                    <span class="iconify" data-icon="heroicons:building-office-2" data-width="12"></span><span data-type="text" class="mr-1">تجاري</span>
+                  </div>
+                </div>
+              </figure>
+              <div class="card-body p-6">
+                <h3 data-type="text" id="i00gh5" class="card-title text-lg font-bold text-base-content mb-2 i00gh5 spark-custom-i00gh5">
+                  مخابز الدغيم الأوتوماتيكية
+                </h3>
+                <p data-type="text" id="i7u28l" class="text-base-content/70 text-sm leading-relaxed mb-4 i7u28l spark-custom-i7u28l">
+                  تصميم مخطط أمن والسلامة
+                </p>
+                <div data-type="container" class="flex items-center justify-between">
+                  <div data-type="container" class="flex items-center gap-2 text-xs text-base-content/60"></div>
+                  <div data-type="container" class="flex items-center gap-1">
+                    <span class="iconify text-primary" data-icon="heroicons:building-office" data-width="16"></span><span data-type="text" class="text-xs text-base-content/60">شركة</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Project Card 18 - صناعي -->
+            <div data-type="container" data-industry="energy" data-repeatable="true" class="card bg-base-100 shadow-md hover-shadow project-card" onclick="navigateTo(&#39;project_detail&#39;)">
+              <figure class="relative overflow-hidden">
+                <img data-type="image" src="https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/69841385-311c-4601-853d-6e632963ea00.webp" alt="محطة طاقة شمسية - مشروع صناعي في قطاع الطاقة" class="w-full h-64 object-cover transition-transform duration-300 hover:scale-105 ivh56u spark-custom-ivh56u" id="ivh56u">
+                <div class="absolute top-4 right-4 flex gap-2">
+                  <div class="badge badge-warning badge-sm">
+                    <span class="iconify" data-icon="heroicons:cog" data-width="12"></span><span data-type="text" class="mr-1">صناعي</span>
+                  </div>
+                </div>
+              </figure>
+              <div class="card-body p-6">
+                <h3 data-type="text" id="iplo5a" class="card-title text-lg font-bold text-base-content mb-2 iplo5a spark-custom-iplo5a">
+                  مصنع بلوك
+                </h3>
+                <p data-type="text" id="i7t5lg" class="text-base-content/70 text-sm leading-relaxed mb-4 i7t5lg spark-custom-i7t5lg">
+                  تصميم مخطط أمن والسلامة
+                </p>
+                <div data-type="container" class="flex items-center justify-between">
+                  <div data-type="container" class="flex items-center gap-2 text-xs text-base-content/60"></div>
+                  <div data-type="container" class="flex items-center gap-1">
+                    <span class="iconify text-warning" data-icon="heroicons:bolt" data-width="16"></span><span data-type="text" class="text-xs text-base-content/60">الطاقة</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Project Card 19 - صناعي -->
+            <div data-type="container" data-industry="energy" data-repeatable="true" class="card bg-base-100 shadow-md hover-shadow project-card" onclick="navigateTo(&#39;project_detail&#39;)">
+              <figure class="relative overflow-hidden">
+                <img data-type="image" src="https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/44db95a1-8b07-4410-b58f-3980894ff223.jpeg" alt="مصنع تصنيع - مشروع صناعي للتصنيع" class="w-full h-64 object-cover transition-transform duration-300 hover:scale-105 i5f0go spark-custom-i5f0go" id="i5f0go">
+                <div class="absolute top-4 right-4 flex gap-2">
+                  <div class="badge badge-warning badge-sm">
+                    <span class="iconify" data-icon="heroicons:cog" data-width="12"></span><span data-type="text" class="mr-1">صناعي</span>
+                  </div>
+                </div>
+              </figure>
+              <div class="card-body p-6">
+                <h3 data-type="text" id="ieae6l" class="card-title text-lg font-bold text-base-content mb-2 ieae6l spark-custom-ieae6l">
+                  مصنع سليمان عبدالرحمن النمله
+                </h3>
+                <p data-type="text" id="irwzfj" class="text-base-content/70 text-sm leading-relaxed mb-4 irwzfj spark-custom-irwzfj">
+                  تصميم مخطط أمن والسلامة
+                </p>
+                <div data-type="container" class="flex items-center justify-between">
+                  <div data-type="container" class="flex items-center gap-2 text-xs text-base-content/60"></div>
+                  <div data-type="container" class="flex items-center gap-1">
+                    <span class="iconify text-warning" data-icon="heroicons:cog" data-width="16"></span><span data-type="text" class="text-xs text-base-content/60">الطاقة</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Project Card 20 - حكومي -->
+            <div data-type="container" data-industry="infrastructure" data-repeatable="true" class="card bg-base-100 shadow-md hover-shadow project-card" onclick="navigateTo(&#39;project_detail&#39;)">
+              <figure class="relative overflow-hidden">
+                <img data-type="image" src="https://spark-builder.s3.us-east-1.amazonaws.com/user-image/2025/10/27/4b7dd474-bb92-4f8b-aa06-1a8e4d2eeb54.jpg" alt="محطة مترو حديثة - مشروع نقل عام في قطاع البنية التحتية" class="w-full h-64 object-cover transition-transform duration-300 hover:scale-105 iixeam spark-custom-iixeam" id="iixeam">
+                <div class="absolute top-4 right-4 flex gap-2">
+                  <div id="iimb6k" class="badge badge-info badge-sm iimb6k spark-custom-iimb6k">
+                    <span class="iconify" data-icon="heroicons:building-library" data-width="12"></span><span data-type="text" class="mr-1">حكومي</span>
+                  </div>
+                </div>
+              </figure>
+              <div class="card-body p-6">
+                <h3 data-type="text" id="iqpjtf" class="card-title text-lg font-bold text-base-content mb-2 iqpjtf spark-custom-iqpjtf">
+                  <div id="i1s6nh">
+                    <span id="il2zvl" class="il2zvl spark-custom-il2zvl">المركز الوطني للقطاع غير الربحي</span>
+                  </div>
+                </h3>
+                <p data-type="text" id="i8709k" class="text-base-content/70 text-sm leading-relaxed mb-4 i8709k spark-custom-i8709k">
+                  تصميم مخططات لأنظام الأمن والسلامة
+                </p>
+                <div data-type="container" id="int6qx" class="flex items-center justify-between iauh53 int6qx spark-custom-int6qx">
+                  <div data-type="container" class="flex items-center gap-2 text-xs text-base-content/60"></div>
+                  <div data-type="container" class="flex items-center gap-1">
+                    <span class="iconify text-primary" data-icon="heroicons:building-office" data-width="16"></span><span data-type="text" class="text-xs text-base-content/60">شركة</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Load More Button -->
+          <div data-type="container" id="iuitsg" class="text-center mt-12 iuitsg spark-custom-iuitsg"></div>
+        </div>
+      </section>
+      <!-- Related Projects -->
+    </main>
+    <!-- Footer --><div data-section-id="common_footer" data-section-type="common_footer" class="bg-base-200 text-base-content">
+  <!-- Main Footer Content -->
+  <footer class="footer footer-horizontal p-10 max-w-7xl mx-auto">
+    <!-- Office Info -->
+    <aside>
+      <div data-type="container" class="flex items-center gap-2 mb-4">
+        <span class="iconify text-primary" data-icon="heroicons:building-office-2-solid" data-width="32"></span>
+        <h3 data-type="text" class="text-xl font-bold text-primary">
+          مكتب التزامن للاستشارات الهندسية
+        </h3>
+      </div>
+      <div data-type="container" class="text-sm space-y-2">
+        <p data-type="text" class="flex items-center gap-2">
+          <span class="iconify" data-icon="heroicons:map-pin" data-width="16"></span>
+          المملكة العربية السعودية، الرياض
+        </p>
+        <p data-type="text" class="flex items-center gap-2">
+          <span class="iconify" data-icon="heroicons:clock" data-width="16"></span>
+          الأحد - الخميس: 8:00 ص - 5:00 م
+        </p>
+      </div>
+    </aside>
+    <!-- Quick Links -->
+    <nav>
+      <header data-type="text" class="footer-title text-primary">
+        روابط سريعة
+      </header>
+      <button data-type="button" class="link link-hover" onclick="navigateTo(&#39;about_us&#39;)">
+        <span data-type="text">عن المكتب</span></button><button data-type="button" class="link link-hover" onclick="navigateTo(&#39;services&#39;)">
+        <span data-type="text">خدماتنا</span></button><button data-type="button" class="link link-hover" onclick="navigateTo(&#39;projects&#39;)">
+        <span data-type="text">مشاريعنا</span></button><button data-type="button" class="link link-hover" onclick="navigateTo(&#39;contact_us&#39;)">
+        <span data-type="text">اتصل بنا</span>
+      </button>
+    </nav>
+    <!-- Services -->
+    <nav>
+      <header data-type="text" class="footer-title text-primary">
+        خدماتنا
+      </header>
+      <button data-type="button" class="link link-hover" onclick="navigateTo(&#39;services&#39;)">
+        <span data-type="text">الاستشارات الهندسية</span></button><button data-type="button" class="link link-hover" onclick="navigateTo(&#39;services&#39;)">
+        <span data-type="text">إدارة المشاريع</span></button><button data-type="button" class="link link-hover" onclick="navigateTo(&#39;services&#39;)">
+        <span data-type="text">التصاميم الهندسية</span></button><button data-type="button" class="link link-hover" onclick="navigateTo(&#39;services&#39;)">
+        <span data-type="text">الإشراف الهندسي</span>
+      </button>
+    </nav>
+    <!-- Newsletter &amp; Contact -->
+    <nav>
+      <header data-type="text" class="footer-title text-primary">
+        ابق على تواصل
+      </header>
+      <div data-type="container" class="form-control w-full max-w-xs">
+        <label class="label"><span data-type="text" class="label-text text-sm">اشترك في نشرتنا الإخبارية</span></label>
+        <div class="join">
+          <input data-type="input" type="email" placeholder="بريدك الإلكتروني" class="input input-bordered input-sm join-item flex-1"><button data-type="button" class="btn btn-primary btn-sm join-item">
+            <span class="iconify" data-icon="heroicons:paper-airplane" data-width="16"></span>
+          </button>
+        </div>
+      </div>
+      <div data-type="container" class="flex gap-3 mt-4">
+        <a data-type="button" href="#" class="btn btn-ghost btn-sm btn-circle"><span class="iconify" data-icon="heroicons:globe-alt" data-width="20"></span></a><a data-type="button" href="#" class="btn btn-ghost btn-sm btn-circle"><span class="iconify" data-icon="heroicons:phone" data-width="20"></span></a><a data-type="button" href="#" class="btn btn-ghost btn-sm btn-circle"><span class="iconify" data-icon="heroicons:envelope" data-width="20"></span></a>
+      </div>
+    </nav>
+  </footer>
+  <!-- Bottom Footer Bar -->
+  <footer class="footer footer-center p-4 bg-base-300 text-base-content border-t border-base-content/10">
+    <aside class="flex flex-col sm:flex-row items-center gap-4 sm:gap-8">
+      <p data-type="text" class="text-sm">
+        © 2025 مكتب التزامن للاستشارات الهندسية. جميع الحقوق محفوظة.
+      </p>
+      <div data-type="container" class="flex gap-4 text-sm">
+        <button data-type="button" class="link link-hover" onclick="navigateTo(&#39;privacy_policy&#39;)">
+          <span data-type="text">سياسة الخصوصية</span></button><button data-type="button" class="link link-hover" onclick="navigateTo(&#39;terms_of_service&#39;)">
+          <span data-type="text">شروط الاستخدام</span>
+        </button>
+      </div>
+    </aside>
+  </footer>
+</div>
+<script>
+/* JavaScript code for common usage, should be wrapped in a closure */
+(function() {
+// Navigation function for page transitions
+window.navigateTo = function(targetPageId) {
+const isInIframe = window.self !== window.top;
+const targetFileName = `${targetPageId}.html`;
+if (isInIframe) {
+window.parent.postMessage({
+type: &#39;iframeNavigation&#39;,
+targetPageId: targetPageId
+}, &#39;*&#39;);
+} else {
+window.location.href = targetFileName;
+}
+};
+
+// Header navigation state management
+window.HeaderNavigation = {
+setActiveNavItem: function(activePageId) {
+const navItems = document.querySelectorAll(&#39;[data-nav-item]&#39;);
+navItems.forEach(item => {
+const pageId = item.getAttribute(&#39;data-nav-item&#39;);
+if (pageId === activePageId) {
+item.classList.add(&#39;bg-primary/10&#39;, &#39;text-primary&#39;);
+} else {
+item.classList.remove(&#39;bg-primary/10&#39;, &#39;text-primary&#39;);
+}
+});
+},
+toggleMobileMenu: function() {
+const mobileMenu = document.getElementById(&#39;mobile-nav-menu&#39;);
+const hamburger = document.getElementById(&#39;hamburger-icon&#39;);
+const closeIcon = document.getElementById(&#39;close-icon&#39;);
+if (mobileMenu.classList.contains(&#39;hidden&#39;)) {
+mobileMenu.classList.remove(&#39;hidden&#39;);
+hamburger.classList.add(&#39;hidden&#39;);
+closeIcon.classList.remove(&#39;hidden&#39;);
+} else {
+mobileMenu.classList.add(&#39;hidden&#39;);
+hamburger.classList.remove(&#39;hidden&#39;);
+closeIcon.classList.add(&#39;hidden&#39;);
+}
+},
+showServicesMenu: function() {
+const servicesMenu = document.getElementById(&#39;services-mega-menu&#39;);
+if (servicesMenu) {
+servicesMenu.classList.remove(&#39;opacity-0&#39;, &#39;invisible&#39;);
+servicesMenu.classList.add(&#39;opacity-100&#39;, &#39;visible&#39;);
+}
+},
+hideServicesMenu: function() {
+const servicesMenu = document.getElementById(&#39;services-mega-menu&#39;);
+if (servicesMenu) {
+servicesMenu.classList.remove(&#39;opacity-100&#39;, &#39;visible&#39;);
+servicesMenu.classList.add(&#39;opacity-0&#39;, &#39;invisible&#39;);
+}
+}
+};
+
+// Breadcrumb management
+window.BreadcrumbNavigation = {
+updateBreadcrumb: function(breadcrumbData) {
+const breadcrumbContainer = document.querySelector(&#39;[data-section-id="common_breadcrumb"] .breadcrumbs ul&#39;);
+if (!breadcrumbContainer) return;
+breadcrumbContainer.innerHTML = &#39;&#39;;
+breadcrumbData.forEach((item, index) => {
+const li = document.createElement(&#39;li&#39;);
+li.className = &#39;breadcrumb-separator&#39;;
+if (index === breadcrumbData.length - 1) {
+// Last item (current page) - not clickable
+li.innerHTML = `<span data-type="text" class="text-base-content/70">${item.name}</span>`;
+} else {
+// Clickable items
+li.innerHTML = `<a data-type="text" href="#" onclick="navigateTo(&#39;${item.pageId}&#39;)" class="text-primary hover:text-primary/80">${item.name}</a>`;
+}
+breadcrumbContainer.appendChild(li);
+});
+}
+};
+
+// Initialize app globals
+window.APP_GLOBALS = window.APP_GLOBALS || {};
+})();
+</script><script>
+/* Projects page functionality */
+(function() {
+    // Initialize page
+    document.addEventListener(&#39;DOMContentLoaded&#39;, function() {
+        // Set active navigation
+        if (window.HeaderNavigation) {
+            HeaderNavigation.setActiveNavItem(&#39;projects&#39;);
+        }
+        
+        // Update breadcrumb
+        if (window.BreadcrumbNavigation) {
+            BreadcrumbNavigation.updateBreadcrumb([
+                { name: &#39;الرئيسية&#39;, pageId: &#39;home&#39; },
+                { name: &#39;مشاريعنا&#39;, pageId: &#39;projects&#39; }
+            ]);
+        }
+        
+        // Initialize project count
+        updateProjectCount();
+    });
+    
+    // Global filter state
+    let currentFilters = {
+        type: &#39;all&#39;,
+        industry: &#39;all&#39;,
+        sort: &#39;date-desc&#39;
+    };
+    
+    // Filter projects function
+    window.filterProjects = function(filterType, value) {
+        currentFilters[filterType] = value;
+        
+        // Update button text
+        if (filterType === &#39;type&#39;) {
+            const btn = document.getElementById(&#39;typeFilterBtn&#39;);
+            const typeNames = {
+                &#39;all&#39;: &#39;النوع&#39;,
+                &#39;residential&#39;: &#39;سكني&#39;,
+                &#39;commercial&#39;: &#39;تجاري&#39;,
+                &#39;educational&#39;: &#39;تعليمي&#39;,
+                &#39;industrial&#39;: &#39;صناعي&#39;
+            };
+            btn.querySelector(&#39;span[data-type="text"]&#39;).textContent = typeNames[value];
+        } else if (filterType === &#39;industry&#39;) {
+            const btn = document.getElementById(&#39;industryFilterBtn&#39;);
+            const industryNames = {
+                &#39;all&#39;: &#39;الصناعة&#39;,
+                &#39;hospitality&#39;: &#39;الضيافة&#39;,
+                &#39;healthcare&#39;: &#39;الرعاية الصحية&#39;,
+                &#39;infrastructure&#39;: &#39;البنية التحتية&#39;,
+                &#39;energy&#39;: &#39;الطاقة&#39;
+            };
+            btn.querySelector(&#39;span[data-type="text"]&#39;).textContent = industryNames[value];
+        }
+        
+        applyFilters();
+    };
+    
+    // Sort projects function
+    window.sortProjects = function(sortType) {
+        currentFilters.sort = sortType;
+        applyFilters();
+    };
+    
+    // Reset filters function
+    window.resetFilters = function() {
+        currentFilters = {
+            type: &#39;all&#39;,
+            industry: &#39;all&#39;,
+            sort: &#39;date-desc&#39;
+        };
+        
+        // Reset button texts
+        document.getElementById(&#39;typeFilterBtn&#39;).querySelector(&#39;span[data-type="text"]&#39;).textContent = &#39;النوع&#39;;
+        document.getElementById(&#39;industryFilterBtn&#39;).querySelector(&#39;span[data-type="text"]&#39;).textContent = &#39;الصناعة&#39;;
+        
+        applyFilters();
+    };
+    
+    // Apply filters to project grid
+    function applyFilters() {
+        const loadingState = document.getElementById(&#39;loadingState&#39;);
+        const projectsGrid = document.getElementById(&#39;projectsGrid&#39;);
+        const projectCards = projectsGrid.querySelectorAll(&#39;.project-card&#39;);
+        
+        // Show loading state
+        loadingState.classList.remove(&#39;hidden&#39;);
+        loadingState.classList.add(&#39;flex&#39;);
+        projectsGrid.style.opacity = &#39;0.5&#39;;
+        
+        setTimeout(() => {
+            let visibleCount = 0;
+            
+            projectCards.forEach(card => {
+                const cardType = card.getAttribute(&#39;data-type&#39;);
+                const cardIndustry = card.getAttribute(&#39;data-industry&#39;);
+                
+                let shouldShow = true;
+                
+                // Apply type filter
+                if (currentFilters.type !== &#39;all&#39; &amp;&amp; cardType !== currentFilters.type) {
+                    shouldShow = false;
+                }
+                
+                // Apply industry filter
+                if (currentFilters.industry !== &#39;all&#39; &amp;&amp; cardIndustry !== currentFilters.industry) {
+                    shouldShow = false;
+                }
+                
+                if (shouldShow) {
+                    card.style.display = &#39;block&#39;;
+                    card.classList.add(&#39;fade-in&#39;);
+                    visibleCount++;
+                } else {
+                    card.style.display = &#39;none&#39;;
+                    card.classList.remove(&#39;fade-in&#39;);
+                }
+            });
+            
+            // Update project count
+            updateProjectCount(visibleCount);
+            
+            // Hide loading state
+            loadingState.classList.add(&#39;hidden&#39;);
+            loadingState.classList.remove(&#39;flex&#39;);
+            projectsGrid.style.opacity = &#39;1&#39;;
+        }, 800);
+    }
+    
+    // Update project count
+    function updateProjectCount(count) {
+        const projectCount = document.getElementById(&#39;projectCount&#39;);
+        if (count !== undefined) {
+            projectCount.textContent = `${count} مشروع`;
+} else {
+            const visibleCards = document.querySelectorAll(&#39;.project-card:not([style*="display: none"])&#39;);
+            projectCount.textContent = `${visibleCards.length} مشروع`;
+        }
+    }
+    
+    // Load more projects function
+    window.loadMoreProjects = function() {
+        const btn = event.target.closest(&#39;button&#39;);
+        const originalText = btn.querySelector(&#39;span[data-type="text"]&#39;).textContent;
+        
+        // Show loading state
+        btn.disabled = true;
+        btn.querySelector(&#39;span[data-type="text"]&#39;).textContent = &#39;جاري التحميل...&#39;;
+        btn.querySelector(&#39;.iconify&#39;).setAttribute(&#39;data-icon&#39;, &#39;heroicons:arrow-path&#39;);
+        btn.querySelector(&#39;.iconify&#39;).style.animation = &#39;spin 1s linear infinite&#39;;
+        
+        // Simulate loading delay
+        setTimeout(() => {
+            // Reset button state
+            btn.disabled = false;
+            btn.querySelector(&#39;span[data-type="text"]&#39;).textContent = originalText;
+            btn.querySelector(&#39;.iconify&#39;).setAttribute(&#39;data-icon&#39;, &#39;heroicons:plus&#39;);
+            btn.querySelector(&#39;.iconify&#39;).style.animation = &#39;&#39;;
+            
+            // Show message that no more projects are available
+            alert(&#39;تم عرض جميع المشاريع المتاحة&#39;);
+        }, 1500);
+    };
+    
+    // Add CSS animation for spinning icon
+    const style = document.createElement(&#39;style&#39;);
+    style.textContent = `
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    `;
+    document.head.appendChild(style);
+})();
+</script>
+  
+
+</body></html>'></iframe>
+                    </div>
+                  </div>
+
+                </body>
+                </html>
+            
